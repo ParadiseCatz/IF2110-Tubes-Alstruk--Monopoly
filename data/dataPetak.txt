@@ -1,0 +1,277 @@
+===== Beijing =====
+Jenis_Petak:		Kota
+Nama_Petak:			Beijing
+Biaya_Sewa:			
+Biaya_Ambil_Alih:	120000
+Biaya_Upgrade:		
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0		
+
+===== Jakarta =====
+Jenis_Petak:		Kota
+Nama_Petak:			Jakarta
+Biaya_Sewa:			
+Biaya_Ambil_Alih:	100000
+Biaya_Upgrade:
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0
+
+===== Ancol =====
+Jenis_Petak:		Tempat_Wisata
+Nama_Petak:			Ancol
+Biaya_Sewa:
+Biaya_Ambil_Alih:	160000
+Biaya_Upgrade:
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0
+
+===== Taipei =====
+Jenis_Petak:		Kota
+Nama_Petak:			Taipei
+Biaya_Sewa:
+Biaya_Ambil_Alih:	90000
+Biaya_Upgrade:
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0
+
+===== New_Delhi =====
+Jenis_Petak:		Kota
+Nama_Petak:			New_Delhi
+Biaya_Sewa:
+Biaya_Ambil_Alih:	100000
+Biaya_Upgrade:
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0
+
+===== Seoul =====
+Jenis_Petak:		Kota
+Nama_Petak:			Seoul
+Biaya_Sewa:
+Biaya_Ambil_Alih:	150000
+Biaya_Upgrade:
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0
+
+===== Hawai =====
+Jenis_Petak:		Kota
+Nama_Petak:			Hawai
+Biaya_Sewa:
+Biaya_Ambil_Alih:	200000
+Biaya_Upgrade:
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0
+
+===== Tokyo =====
+Jenis_Petak:		Kota
+Nama_Petak:			Tokyo
+Biaya_Sewa:
+Biaya_Ambil_Alih:	200000
+Biaya_Upgrade:
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0
+
+===== Sydney =====
+Jenis_Petak:		Kota
+Nama_Petak:			Sydney
+Biaya_Sewa:
+Biaya_Ambil_Alih:	200000
+Biaya_Upgrade:
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0
+
+===== Singapura =====
+Jenis_Petak:		Kota
+Nama_Petak:			Singapura
+Biaya_Sewa:
+Biaya_Ambil_Alih:	100000
+Biaya_Upgrade:
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0
+
+===== Senggigi =====
+Jenis_Petak:		Tempat_Wisata
+Nama_Petak:			Senggigi
+Biaya_Sewa:
+Biaya_Ambil_Alih:	160000
+Biaya_Upgrade:
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0
+
+===== Sao_Paolo =====
+Jenis_Petak:		Kota
+Nama_Petak:			Sao_Paolo
+Biaya_Sewa:
+Biaya_Ambil_Alih:	200000
+Biaya_Upgrade:
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0
+
+===== Denmark =====
+Jenis_Petak:		Kota
+Nama_Petak:			Denmark
+Biaya_Sewa:
+Biaya_Ambil_Alih:	200000
+Biaya_Upgrade:
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0
+
+===== Bintan =====
+Jenis_Petak:		Kota
+Nama_Petak:			Bintan
+Biaya_Sewa:
+Biaya_Ambil_Alih:	150000
+Biaya_Upgrade:
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0
+
+===== Berlin =====
+Jenis_Petak:		Tempat_Wisata
+Nama_Petak:			Berlin
+Biaya_Sewa:
+Biaya_Ambil_Alih:	220000
+Biaya_Upgrade:
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0
+
+===== Geneva =====
+Jenis_Petak:		Kota
+Nama_Petak:			Geneva
+Biaya_Sewa:
+Biaya_Ambil_Alih:	150000
+Biaya_Upgrade:
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0
+
+===== Moscow =====
+Jenis_Petak:		Kota
+Nama_Petak:			Moscow
+Biaya_Sewa:
+Biaya_Ambil_Alih:	1500000
+Biaya_Upgrade:
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0
+
+===== Rome =====
+Jenis_Petak:		Kota
+Nama_Petak:			Rome
+Biaya_Sewa:
+Biaya_Ambil_Alih:	200000
+Biaya_Upgrade:
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0
+
+===== Kuta =====
+Jenis_Petak:		Tempat_Wisata
+Nama_Petak:			Kuta
+Biaya_Sewa:
+Biaya_Ambil_Alih:	200000
+Biaya_Upgrade:
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0
+
+===== London =====
+Jenis_Petak:		Kota
+Nama_Petak:			London
+Biaya_Sewa:
+Biaya_Ambil_Alih:	210000
+Biaya_Upgrade:
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0
+
+===== Paris =====
+Jenis_Petak:		Kota
+Nama_Petak:			Paris
+Biaya_Sewa:
+Biaya_Ambil_Alih:	190000
+Biaya_Upgrade:
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0
+
+===== New_York =====
+Jenis_Petak:		Kota
+Nama_Petak:			New_York
+Biaya_Sewa:
+Biaya_Ambil_Alih:	300000
+Biaya_Upgrade:
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0
+
+===== Bangkok =====
+Jenis_Petak:		Kota
+Nama_Petak:			Bangkok
+Biaya_Sewa:
+Biaya_Ambil_Alih:	200000
+Biaya_Upgrade:		
+Level:				1
+Multiplier_Sewa:	1
+Pemilik:			0
+Blok:
+Blackout:			0
+
+#
