@@ -22,3 +22,15 @@ void gamesystem_do_action(int pilihan)
 
 	}
 }
+
+int gamesystem_roll_dice(int diceCount)
+{
+	srand((unsigned int)time(NULL));
+	int cnt = 0;
+	int i;
+	for (i = 0; i < diceCount; ++i)
+	{
+		cnt += (rand()%6)+1;
+	}
+	return cnt;
+}
