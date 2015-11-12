@@ -9,21 +9,21 @@ void start_menu()
 	printf("1. New Game\n");
 	printf("2. Load Game:\n");
 	printf("Pilihan: ");
-	int x;
-	read_with_limit(1, 2, &x);
-	if (x == 1)
+	int pilihan;
+	read_with_limit(1, 2, &pilihan);
+	if (pilihan == 1)
 	{
-		printf("Num of Player?");
-		read_with_limit(1, PLAYER_MAX, &x);
-		NewGame(x);
-		game_system_start();
+		printf("Num of Player? ");
+		read_with_limit(1, PLAYER_MAX, &pilihan);
+		NewGame(pilihan);
+		gamesystem_start();
 	}
 	else
 	{
-		printf("Slot Number?");
-		read_with_limit(1, SAVE_SLOT_MAX, &x);
-		NewGame(x);
-		game_system_start();
+		printf("Slot Number? ");
+		read_with_limit(1, SAVE_SLOT_MAX, &pilihan);
+		LoadGame(pilihan);
+		gamesystem_start();
 	}
 }
 
