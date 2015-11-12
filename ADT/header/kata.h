@@ -1,11 +1,11 @@
 #ifndef KATA_H
 #define KATA_H
-#define NMAX 105
 #include <stdio.h>
+#include <string.h>
+#include "boolean.h"
 
-//definisi tipe kata
 typedef struct {
-	char TabKata[NMax];
+	char TabKata[105];
 	int	 Length;
 } Kata;
 
@@ -14,6 +14,8 @@ int Size(Kata K);
 void Copy(Kata in, Kata *out);
 
 boolean IsKataSama(Kata K1, Kata K2);
+
+void BacaKata(Kata *K);
 
 void PrintKata(Kata K);
 

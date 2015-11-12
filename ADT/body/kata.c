@@ -33,6 +33,15 @@ boolean IsKataSama(Kata K1, Kata K2)
 	else return false;
 }
 
+void BacaKata(Kata *K)
+{
+	Kata tmp;
+	scanf("%s",&tmp.TabKata);
+	tmp.Length = strlen(tmp.TabKata);
+	
+	*K = tmp;
+}
+
 void PrintKata(Kata K)
 {
 	// Kamus Lokal
