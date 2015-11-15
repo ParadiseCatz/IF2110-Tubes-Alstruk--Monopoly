@@ -21,7 +21,7 @@ typedef struct
     int pemilik;
     char blok;
     boolean blackout;
-    int harga_jual;
+    int harga_jual; //harga jual Sale
 } InfoPetak;
 
 typedef struct TElmtListPetak *Address;
@@ -40,6 +40,7 @@ typedef struct {
 #define First(L) (L).first
 #define Next(P) (P)->next
 #define Info(P) (P)->info
+#define ID_Petak(P) Info(P) -> id_petak
 #define Jenis_Petak(P) Info(P) -> jenis_petak
 #define Nama_Petak(P) Info(P) -> nama_petak
 #define Biaya_Sewa(P) Info(P) -> biaya_sewa
@@ -52,7 +53,7 @@ typedef struct {
 #define Blackout(P) Info(P) -> blackout
 #define Harga_Jual(P) Info(P) -> harga_jual
 
-void PrintPetak(Address P);
+void PrintPetak(AddressOfPetak P);
 // cetak info petak
 
 void PrintBoard(ListPetak L);
@@ -61,33 +62,71 @@ void PrintBoard(ListPetak L);
 void PrintMap();
 // cetak peta board
 
-int HargaSewa(ListPetak L, Kata namapetak);
-// output harga sewa total, termasuk perhitungan level
-
-int HargaJualKeBank(ListPetak L, Kata namapetak);
-// output harga jual ke bank
-
-int HargaBeliPaksa(ListPetak L, Kata namapetak);
-// ouput harga beli paksa
-
 Address SearchPetak(ListPetak L, Kata namapetak);
 // output address petak
-
-void SalePetak(AddressOfPetak *L);
-// menjual petak secara offer (pasang harga offer
-
-void JualKeBank(AddressOfPetak *L);
-// menjual petak ke bank (lepas kepemilikan, update uang pemilik)
 
 void LevelUp(AddressOfPetak *L);
 // meningkatkan level bangunan pada petak
 
+
+
+//TRANSAKSI DENGAN BANK
+
+int HargaJualKeBank(ListPetak L, Kata namapetak);
+// output harga jual ke bank
+
 void BeliPetak(AddressOfPetak *L, AddressOfPlayer *P);
-// membeli petak
+// membeli petak dari bank
+
+void JualKeBank(AddressOfPetak *L);
+// menjual petak ke bank (lepas kepemilikan, update uang pemilik)
+
+
+
+//SEWA
+
+int WorldCupMultiplier(AddressOfPetak P);
+// mengembalikan multiplier akibat worldcup
+
+int BlokMultiplier(AddressOfPetak P);
+// mengembalikan multiplier akibat blok
+
+int BlackoutMultiplier(AddressOfPetak P);
+//mengembalikan multiplier akibat blackout
+
+int HargaSewa(ListPetak L, Kata namapetak);
+// output harga sewa total, termasuk perhitungan level
 
 void UpdateMultiplier(AddressOfPetak *L);
 // mengupdate multiplier jika ada perubahan kondisi bangunan
 
+void BayarSewa(AddressOfPlayer *P);
+// eksekusi pembayaran sewa
+
+
+
+//BELI PAKSA
+
+int HargaBeliPaksa(ListPetak L, Kata namapetak);
+// ouput harga beli paksa
+
+void BeliPaksa(AddressOfPlayer *current);
+//Eksekusi beli paksa
+
+
+
+//SALE
+
+void SalePetak(AddressOfPetak *L);
+// menjual petak secara offer (pasang harga offer)
+
+void UnsalePetak(AddressOfPetak *L);
+// membatalkan sale petak
+
+void BeliSale(AddressOfPetak *L, AddressOfPlayer *P);
+// membeli petak yg di-sale
+
 void PrintSale(ListPetak L);
 // mencetak daftar petak yang di sale ke layar
+
 #endif
