@@ -100,3 +100,8 @@ double KataToDouble(Kata K)
 	if(sign) return -res;
 	else return res;
 }
+
+char KataToChar(Kata K)
+{
+	return K.TabKata[0];
+}
