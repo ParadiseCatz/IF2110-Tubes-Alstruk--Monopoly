@@ -105,7 +105,7 @@ void InitPlayers(int numOfPlayers)
 		CreateEmptyAOI(&X.idKartu);
 		printf("Masukan nama untuk player %d : ", i); BacaKata(&X.nama);
 		CreateEmptyAOK(&X.kota);
-		X.posisi = First(global_listOfPlayer);
+		X.posisi = FirstPetak(global_listOfPlayer);
 		X.penjara = false;
 		
 		P = AlokasiPlayer(X);
@@ -178,23 +178,19 @@ Petak_Yang_Dimiliki: 3 Jakarta New_Delhi Mesir
 
 void LoadGlobalVariables(char *directory)
 {
-	FILE *fp;
-	fp = fopen(directory, "w");
-	
-	InfoPlayer P = global_currentPlayer->info;
-	fprintf(fp, "Current_Player: %d\n", P.id);
-	
-	InfoPetak WC = global_currentWorldCup->info;
-	fprintf(fp, "Current_WorldCup: %d\n", WC.indeks);
-	
-	//fprintf(fp, "Jumlah_antrian_kartu: %d\n", Size(global_QueueOfKartu));
-	fprintf(fp, "Queue_kartu:\n");
-	// Print indeks dari Q.head sampai Q.tail
-	
-	fprintf(fp, "Stack_defeated_players:\n");
-	// For ... PrintPlayerToFile(fp, InfoPlayer);
-	
-	fclose(fp);
+	/*
+	Current_Player: 3
+	Current_WorldCup: 5
+	Queue_kartu: 5 1 2 3 4 5
+	Stack_defeated_players:
+	====== 1 ======
+	...
+	...
+	====== 2 ======
+	...
+	...
+	#
+	*/
 	// Kamus Lokal
 	int id_currentPlayer, id_currentWorldCup, jumlahKartu;
 	ArrayOfInt currentIDKartu;
