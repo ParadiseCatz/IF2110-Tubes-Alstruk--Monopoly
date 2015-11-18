@@ -17,7 +17,7 @@ typedef struct
     int biaya_ambil_alih;
     int biaya_upgrade;
     int level;
-    int multiplier_sewa;
+    double multiplier_sewa;
     int pemilik;
     char blok;
     boolean blackout;
@@ -37,9 +37,9 @@ typedef struct {
 	AddressOfPetak		first;
 } ListPetak;
 
-#define First(L) (L).first
-#define Next(P) (P)->next
-#define Info(P) (P)->info
+#define FirstPetak(L) (L).first
+#define NextPetak(P) (P)->next
+#define InfoPetak(P) (P)->info
 #define ID_Petak(P) Info(P) -> id_petak
 #define Jenis_Petak(P) Info(P) -> jenis_petak
 #define Nama_Petak(P) Info(P) -> nama_petak
@@ -56,17 +56,50 @@ typedef struct {
 void PrintPetak(AddressOfPetak P);
 // cetak info petak
 
-void PrintBoard(ListPetak L);
+void PrintBoard();
 // cetak kondisi board
 
 void PrintMap();
 // cetak peta board
 
-Address SearchPetak(ListPetak L, Kata namapetak);
+
+
+// PENGLOLAAN LIST PETAK
+
+void CreateListPetak(ListPetak *L);
+// Membuat list petak kosong
+
+void AddLastPetak(ListPetak *L, AddressOfPetak P);
+// Memasukkan P pada list petak (harus alokasi dulu
+
+AddressOfPetak AlokasiPetak(InfoPetak P);
+// menghasilkan address hasil alokasi P
+
+AddressOfPetak SearchPetak(ListPetak L, Kata namapetak);
 // output address petak
 
-void LevelUp(AddressOfPetak *L);
+AddressOfPetak SearchPetakByID(ListPetak L, int id);
+// output address petak
+
+
+
+// PREDIKAT
+
+boolean isKota(AddressOfPetak P);
+// mengembalikan true jika p merupakan petak kota
+
+boolean isTempatWisata(AddressOfPetak P);
+// mengembalikan true jika p merupakan petak tempat wisata
+
+
+
+// LEVEL UP BANGUNAN
+
+void LevelUp();
 // meningkatkan level bangunan pada petak
+
+void UpdateMultiplier();
+// mengupdate multiplier jika ada perubahan kondisi bangunan
 
 
 
@@ -75,7 +108,7 @@ void LevelUp(AddressOfPetak *L);
 int HargaJualKeBank(ListPetak L, Kata namapetak);
 // output harga jual ke bank
 
-void BeliPetak(AddressOfPetak *L, AddressOfPlayer *P);
+void BeliPetak();
 // membeli petak dari bank
 
 void JualKeBank(AddressOfPetak *L);
@@ -85,32 +118,29 @@ void JualKeBank(AddressOfPetak *L);
 
 //SEWA
 
-int WorldCupMultiplier(AddressOfPetak P);
+int WorldCupMultiplier();
 // mengembalikan multiplier akibat worldcup
 
-int BlokMultiplier(AddressOfPetak P);
+int BlokMultiplier();
 // mengembalikan multiplier akibat blok
 
-int BlackoutMultiplier(AddressOfPetak P);
+int BlackoutMultiplier();
 //mengembalikan multiplier akibat blackout
 
-int HargaSewa(ListPetak L, Kata namapetak);
+int HargaSewa();
 // output harga sewa total, termasuk perhitungan level
 
-void UpdateMultiplier(AddressOfPetak *L);
-// mengupdate multiplier jika ada perubahan kondisi bangunan
-
-void BayarSewa(AddressOfPlayer *P);
+void BayarSewa();
 // eksekusi pembayaran sewa
 
 
 
 //BELI PAKSA
 
-int HargaBeliPaksa(ListPetak L, Kata namapetak);
+int HargaBeliPaksa();
 // ouput harga beli paksa
 
-void BeliPaksa(AddressOfPlayer *current);
+void BeliPaksa();
 //Eksekusi beli paksa
 
 
@@ -128,5 +158,40 @@ void BeliSale(AddressOfPetak *L, AddressOfPlayer *P);
 
 void PrintSale(ListPetak L);
 // mencetak daftar petak yang di sale ke layar
+
+
+
+// TAX
+
+void PayTax();
+//Membayar uang tax
+
+
+
+//CHANCE
+
+void ExecuteChance();
+//menjalankan kartu chance
+
+
+
+//BONUS
+
+void GetBonus();
+// Memberikan bonus pada player yang mendarat di petak bonus
+
+
+
+//WORLDCUP
+
+void AppointWorldCup(Kata namapetak);
+// Menunjuk petak worldcup
+
+
+
+//WORLD TRAVEL
+
+void WorldTravel(Kata namapetak);
+//Berpindah ke petak tujuan worldtravel
 
 #endif
