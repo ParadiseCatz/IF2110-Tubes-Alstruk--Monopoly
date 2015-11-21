@@ -2,6 +2,8 @@
 #define PETAK_H
 #include "boolean.h"
 #include "kata.h"
+#include "../../globalvariable.h"
+#include "player.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -53,16 +55,13 @@ typedef struct {
 #define Blackout(P) Info(P) -> blackout
 #define Harga_Jual(P) Info(P) -> harga_jual
 
-void PrintPetak(AddressOfPetak P);
-// cetak info petak
+
 
 void PrintBoard();
 // cetak kondisi board
 
 void PrintMap();
 // cetak peta board
-
-
 
 // PENGLOLAAN LIST PETAK
 
@@ -81,8 +80,6 @@ AddressOfPetak SearchPetak(ListPetak L, Kata namapetak);
 AddressOfPetak SearchPetakByID(ListPetak L, int id);
 // output address petak
 
-
-
 // PREDIKAT
 
 boolean isKota(AddressOfPetak P);
@@ -91,30 +88,18 @@ boolean isKota(AddressOfPetak P);
 boolean isTempatWisata(AddressOfPetak P);
 // mengembalikan true jika p merupakan petak tempat wisata
 
-
-
 // LEVEL UP BANGUNAN
 
-void LevelUp();
-// meningkatkan level bangunan pada petak
-
-void UpdateMultiplier();
+void UpdateMultiplier(AddressOfPetak *L);
 // mengupdate multiplier jika ada perubahan kondisi bangunan
-
-
 
 //TRANSAKSI DENGAN BANK
 
-int HargaJualKeBank(ListPetak L, Kata namapetak);
+int HargaJualKeBank(Kata namapetak);
 // output harga jual ke bank
 
 void BeliPetak();
 // membeli petak dari bank
-
-void JualKeBank(AddressOfPetak *L);
-// menjual petak ke bank (lepas kepemilikan, update uang pemilik)
-
-
 
 //SEWA
 
@@ -130,11 +115,6 @@ int BlackoutMultiplier();
 int HargaSewa();
 // output harga sewa total, termasuk perhitungan level
 
-void BayarSewa();
-// eksekusi pembayaran sewa
-
-
-
 //BELI PAKSA
 
 int HargaBeliPaksa();
@@ -143,53 +123,81 @@ int HargaBeliPaksa();
 void BeliPaksa();
 //Eksekusi beli paksa
 
+/////////////////////////////////////////////////////NON-COMMAND INSTRUCTION/////////////////////////////////////////////////////
 
 
-//SALE
+//=====================================================================================sewa
 
-void SalePetak(AddressOfPetak *L);
-// menjual petak secara offer (pasang harga offer)
+void BayarSewa();
+// eksekusi pembayaran sewa
 
-void UnsalePetak(AddressOfPetak *L);
-// membatalkan sale petak
-
-void BeliSale(AddressOfPetak *L, AddressOfPlayer *P);
-// membeli petak yg di-sale
-
-void PrintSale(ListPetak L);
-// mencetak daftar petak yang di sale ke layar
-
-
-
-// TAX
+//======================================================================================tax
 
 void PayTax();
 //Membayar uang tax
 
-
-
-//CHANCE
-
-void ExecuteChance();
-//menjalankan kartu chance
-
-
-
-//BONUS
+//====================================================================================bonus
 
 void GetBonus();
 // Memberikan bonus pada player yang mendarat di petak bonus
 
+//====================================================================================start
 
+void ExecuteStart();
+//Mengeksekusi apa yang harus dilakukan jika berhenti/melewati petak start
 
-//WORLDCUP
+///////////////////////////////////////////////////////COMMAND INSTRUCTION///////////////////////////////////////////////////////
+
+//========================================================================info <nama petak>
+
+void PrintPetak(Kata namapetak);
+// cetak info petak
+
+//======================================================================================buy
+
+void Buy();
+//membeli petak yang ditempati
+
+//========================================================================sell <nama petak>
+
+void SalePetak(Kata namapetak);
+// menjual petak secara offer (pasang harga offer)
+
+//======================================================================unsell <nama petak>
+
+void UnsalePetak(Kata namapetak);
+// membatalkan sale petak
+
+//===================================================================sell bank <nama petak>
+
+void JualKeBank(Kata namapetak);
+// menjual petak ke bank (lepas kepemilikan, update uang pemilik)
+
+//=============================================================================show offered
+
+void PrintSale();
+// mencetak daftar petak yang di sale ke layar
+
+//==============================================================================buy offered
+
+void BeliSale(Kata namapetak);
+// membeli petak yg di-sale
+
+//==================================================================================upgrade
+
+void LevelUp();
+// meningkatkan level bangunan pada petak
+
+//====================================================================================board
+
+  //Bagiannya Resa
+
+//=========================================================================host <nama kota>
 
 void AppointWorldCup(Kata namapetak);
 // Menunjuk petak worldcup
 
-
-
-//WORLD TRAVEL
+//======================================================================travel <nama petak>
 
 void WorldTravel(Kata namapetak);
 //Berpindah ke petak tujuan worldtravel
