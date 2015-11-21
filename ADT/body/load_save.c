@@ -61,7 +61,7 @@ void InitUrutanBoard()
 		X.nama_petak = CKata;
 		P = AlokasiPetak(X);
 
-		AddLastLPetak(&global_listOfPetak, P);
+		AddLastLPetak(&global.listOfPetak, P);
 		ADVKATA();
 	}	
 }
@@ -124,7 +124,7 @@ void InitDataAwalBoard()
 	while(!EndKata)
 	{
 		AkuisisiPetak(&X);
-		P = SearchPetak(global_listOfPetak, X.nama_petak);
+		P = SearchPetak(global.listOfPetak, X.nama_petak);
 		InfoPetak(P) = X;
 	}	
 }
@@ -142,7 +142,7 @@ void InitPlayers(int numOfPlayers)
 	AddressOfPlayer P;
 	InfoPlayer X;
 	// Algoritma
-	CreateEmptyLPlayer(&global_listOfPlayer);
+	CreateEmptyLPlayer(&global.listOfPlayer);
 	for(i=1; i<=numOfPlayers; i++)
 	{
 		X.id = i;
@@ -150,11 +150,11 @@ void InitPlayers(int numOfPlayers)
 		CreateEmptyAOI(&X.idKartu);
 		printf("Masukan nama untuk player %d : ", i); BacaKata(&X.nama);
 		CreateEmptyAOK(&X.kota);
-		X.posisi = FirstPetak(global_listOfPlayer);
+		X.posisi = FirstPetak(global.listOfPlayer);
 		X.penjara = false;
 		
 		P = AlokasiPlayer(X);
-		AddPlayer(&global_listOfPlayer, P);
+		AddPlayer(&global.listOfPlayer, P);
 	}
 }
 
@@ -178,7 +178,7 @@ void AkuisisiPlayer(InfoPlayer *X)
 	ADVKATA(); ADVKATA();
 
 	int playerLocation = KataToInt(CKata);
-	AddressOfPetak playerPosition = SearchPetakByID(global_listOfPetak, playerLocation);
+	AddressOfPetak playerPosition = SearchPetakByID(global.listOfPetak, playerLocation);
 	Xtmp.posisi = playerPosition;
 	ADVKATA(); ADVKATA();
 
@@ -257,7 +257,7 @@ void LoadDataPetak(char *directory)
 	while(!EndKata)
 	{
 		AkuisisiPetak(&X);
-		P = SearchPetak(global_listOfPetak, X.nama_petak);
+		P = SearchPetak(global.listOfPetak, X.nama_petak);
 		InfoPetak(P) = X;
 	}	
 }
@@ -274,7 +274,7 @@ void LoadDataPlayers(char *directory)
 	{
 		AkuisisiPlayer(&X);
 		P = AlokasiPlayer(X);
-		AddLPlayer(&global_listOfPlayer, P);
+		AddLPlayer(&global.listOfPlayer, P);
 	}
 }
 
@@ -318,11 +318,11 @@ void SaveDataGlobalVariables(char *directory)
 	FILE *fp;
 	fp = fopen(directory, "w");
 	
-	InfoPlayer P = InfoPlayer(global_currentPlayer);
+	InfoPlayer P = global.currentPlayer;
 	fprintf(fp, "Current_Player: %d\n", P.id);
 	
-	InfoPetak WC = InfoPetak(global_currentWorldCup);
-	fprintf(fp, "Current_WorldCup: %d\n", WC.indeks);
+	InfoPetak WC = global.currentWorldCup;
+	fprintf(fp, "Current_WorldCup: %d\n", WC.id_petak);
 	
 	fprintf(fp, "Queue_kartu:\n");
 	// Print indeks dari Q.head sampai Q.tail
@@ -339,12 +339,12 @@ void SaveDataPlayer(char *directory)
 	FILE *fp;
 	fp = fopen(directory, "w");
 	
-	int numOfPlayers = NbElmtLPlayer(global_listOfPlayer);
+	int numOfPlayers = NbElmtLPlayer(global.listOfPlayer);
 	int i;
 	InfoPlayer X;
 	AddressOfPlayer P;
 
-	P = FirstLPlayer(global_listOfPlayer);
+	P = FirstLPlayer(global.listOfPlayer);
 	for(i=0; i<numOfPlayers; i++)
 	{
 		X = InfoPlayer(P);
@@ -361,12 +361,12 @@ void SaveDataPetak(char *directory)
 	FILE *fp;
 	fp = fopen(directory, "w");
 
-	int numOfPetak = NbElmtLPetak(global_listOfPetak);
+	int numOfPetak = NbElmtLPetak(global.listOfPetak);
 	int i;
 	InfoPetak X;
 	AddressOfPetak P;
 
-	P = FirstLPetak(global_listOfPetak);
+	P = FirstLPetak(global.listOfPetak);
 	do
 	{
 		X = InfoPetak(P);
@@ -377,7 +377,7 @@ void SaveDataPetak(char *directory)
 		// }
 					
 		P = NextPetak(P);
-	} while(P != FirstLPetak(global_listOfPetak));
+	} while(P != FirstLPetak(global.listOfPetak));
 	
 	fprintf(fp, "#\n");
 	fclose(fp);
