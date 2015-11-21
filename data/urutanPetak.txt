@@ -30,6 +30,5 @@ Chance
 New_York
 Tax
 Bangkok
-Start
 
 #
