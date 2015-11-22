@@ -130,4 +130,3 @@ void Del(Queue *Q, Infotype *X)
 	}
 }
 
-//int main(){return 0;}

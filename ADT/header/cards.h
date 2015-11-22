@@ -9,6 +9,7 @@
 #ifndef CARDS_H
 #define CARDS_H
 #include "boolean.h"
+#include "arrayofkata.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -31,6 +32,12 @@ typedef struct {
 	Address		tail;	
 	int			maxEl;
 } Queue;
+
+typedef struct {
+	int cardID;
+	Kata cardName;
+	Kata cardDescription;
+} InfoKartu;
 
 //selektor
 #define GetTail(Q) (Q).tail
@@ -84,5 +91,7 @@ void Del(Queue *Q, Infotype *X);
 	Jika HEAD baru menjadi MaxEl + 1, maka HEAD diset = 1;
 	Jika Queue menjadi kosong, HEAD = TAIL = Nil.
 */
+
+
 
 #endif
