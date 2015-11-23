@@ -27,7 +27,6 @@
 */
 
 #define Nil 0
-typedef int Infotype;
 typedef int Address;
 typedef struct {
 	InfoKartu 	card;

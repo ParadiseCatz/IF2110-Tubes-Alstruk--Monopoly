@@ -11,7 +11,7 @@
 #include "player.h"
 
 //pemeriksaan kondisi queue
-boolean IsEmpty(Queue Q)
+boolean IsEmpty(Deck Q)
 /*	Mengirim true jika Q kosong yaitu head dan tail sama dengan nil */
 {
 	if (GetHead(Q) == Nil && GetTail(Q) == Nil)
@@ -20,7 +20,7 @@ boolean IsEmpty(Queue Q)
 		return false;
 }
 
-boolean IsFull(Queue Q)
+boolean IsFull(Deck Q)
 /*	Mengirim true jika tabel penampung elemen Q sudah penuh yaitu mengandung maxEl elemen */
 {
 	if (NbElmt(Q) == GetMax(Q))
@@ -29,7 +29,7 @@ boolean IsFull(Queue Q)
 		return false;
 }
 
-int NbElmt(Queue Q)
+int NbElmt(Deck Q)
 /*	Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong. */
 {
 	if (IsEmpty(Q))
@@ -51,7 +51,7 @@ int NbElmt(Queue Q)
 
 
 //konstruktor
-void CreateEmpty(Queue *Q, int max)
+void CreateEmpty(Deck *Q, int max)
 /*	I.S. Max terdefinisi
 	F.S. Sebuah Q kosong terbentuk dan salah satu kondisi sbb :
 	Jika alokasi berhasil, tabel memori dialokasi berukuran Max
@@ -72,7 +72,7 @@ void CreateEmpty(Queue *Q, int max)
 
 
 //destruktor
-void Dealokasi(Queue *Q)
+void Dealokasi(Deck *Q)
 /*	Proses : Mengembalikan memori Q
 	I.S. Q pernah dialokasi
 	F.S. Q menjadi tidak terdefinisi lagi, maxEl(Q) juga diset 0
@@ -85,7 +85,7 @@ void Dealokasi(Queue *Q)
 
 
 //operator-operator dasar queue
-void Add(Queue *Q, Infotype x)
+void Add(Deck *Q, InfoKartu C)
 /*	Proses : Menambahkan X pada Q dengan aturan FIFO
 	I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh
 	F.S. X menjadi tail yang baru, tail "maju".
@@ -103,10 +103,10 @@ void Add(Queue *Q, Infotype x)
 		if (GetTail(*Q) > GetMax(*Q))
 			GetTail(*Q) = 1;
 	}
-	InfoTail(*Q) = x;
+	InfoTail(*Q) = C;
 }
 
-void Del(Queue *Q, Infotype *C)
+void Del(Queue *Q, InfoKartu *C)
 /*	Proses : Menghapus elemen pertama pada Q dengan aturan FIFO
 	I.S. Q tidak kosong
 	F.S. X = nilai elemen head pada I.S.,
@@ -175,13 +175,13 @@ int DoubledMove(InfoKartu C){
 }
 
 boolean BlackOut(InfoKartu C, AddressOfPetak P){
-	if (GetID() == 7){
+	if (GetID(C) == 7){
 		return BlackOut(P);
 	}
 }
 
 void ProtFromBlackOut(InfoKartu C, AddressOfPetak P){
-	if (GetID() == 8){
+	if (GetID(C) == 8){
 		return !BlackOut(P);
 	}
 }
