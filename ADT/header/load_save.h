@@ -7,15 +7,23 @@
 
 void InitUrutanBoard();
 
+void AkuisisiPetak(InfoPetak *X);
+
 void InitDataAwalBoard();
 
-void InitBoard();
+void InitBoardAwal();
 
 void InitPlayers(int numOfPlayers);
 
-void LoadDataPlayers();
-
 void NewGame(int numOfPlayers);
+
+void AkuisisiPlayer(InfoPlayer *X);
+
+void LoadGlobalVariables(char *directory);
+
+void LoadDataPetak(char *directory);
+
+void LoadDataPlayers(char *directory);
 
 void LoadGame(int slot);
 

@@ -2,10 +2,10 @@
 #include "ADT/header/petak.h"
 
 typedef struct {
-	ListOfPlayer listOfPlayer;
-	ListOfPetak listOfPetak;
+	ListPlayer listPlayer;
+	ListPetak listPetak;
 	InfoPlayer *currentPlayer;
-	InfpPetak *currentWorldCup;
+	InfoPetak *currentWorldCup;
 	QueueOfKartu queueOfKartu;
 	StackOfPlayer stackOfDefeated;
 } GlobalVariable;
