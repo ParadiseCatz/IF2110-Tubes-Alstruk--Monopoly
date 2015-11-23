@@ -4,8 +4,8 @@
 typedef struct {
 	ListOfPlayer listOfPlayer;
 	ListOfPetak listOfPetak;
-	Player *currentPlayer;
-	Petak *currentWorldCup;
+	InfoPlayer *currentPlayer;
+	InfpPetak *currentWorldCup;
 	QueueOfKartu queueOfKartu;
 	StackOfPlayer stackOfDefeated;
 } GlobalVariable;
