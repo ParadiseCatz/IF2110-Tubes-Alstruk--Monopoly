@@ -142,15 +142,19 @@ void FreeTax(InfoKartu C, Queue Q){
 	}
 }
 
-void FreePrison(InfoKartu C, Queue Q){
+void FreePrison(InfoKartu C, Deck Q, AddressOfPetak *P){
 	if (GetID(C) == 2) {
-
+		Dealokasi(*P);
+		GoToRandomPetak(C,&P);
 	}
 }
 
-void GetPrison(InfoKartu C){
-	if (GetID(C) == 3){
+int GetPrison(InfoKartu C){
+	AddressOfPetak P;
 
+	if (GetID(C) == 3){
+		P = alokasi(C);
+		return ID_Petak(P); // id petak penjara
 	}
 }
 
@@ -170,7 +174,7 @@ int DoubledMove(InfoKartu C){
 	if (GetID(C) == 6)
 }
 
-InfoPetak BlackOut(InfoKartu C, AddressOfPetak P){
+boolean BlackOut(InfoKartu C, AddressOfPetak P){
 	if (GetID() == 7){
 		return BlackOut(P);
 	}
