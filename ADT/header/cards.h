@@ -10,6 +10,9 @@
 #define CARDS_H
 #include "boolean.h"
 #include "arrayofkata.h"
+#include "kata.h"
+#include "../../globalvariable.h"
+#include "player.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -27,11 +30,11 @@
 typedef int Infotype;
 typedef int Address;
 typedef struct {
-	Infotype 	*T;
+	InfoKartu 	card;
 	Address		head;
 	Address		tail;	
-	int			maxEl;
-} Queue;
+	int			maxCard;
+} Deck;
 
 typedef struct {
 	int cardID;
@@ -39,12 +42,19 @@ typedef struct {
 	Kata cardDescription;
 } InfoKartu;
 
+typedef struct Deck *Hand;
+
 //selektor
 #define GetTail(Q) (Q).tail
-#define	GetMax(Q) (Q).maxEl
+#define	GetMax(Q) (Q).maxCard
 #define GetHead(Q) (Q).head
+#define GetCard(Q) (Q).card
 #define	InfoHead(Q) (Q).T[GetHead(Q)]
 #define	InfoTail(Q) (Q).T[GetTail(Q)]
+
+#define GetID(C) (C).cardID
+#define GetName(C) (C).cardName
+#define GetDesc(C) (C).cardDescription
 
 //pemeriksaan kondisi queue
 boolean IsEmpty(Queue Q);
@@ -76,14 +86,14 @@ void Dealokasi(Queue *Q);
 */
 
 //operator-operator dasar queue
-void Add(Queue *Q, Infotype x);
+void Add(Queue *Q, InfoKartu C);
 /*	Proses : Menambahkan X pada Q dengan aturan FIFO
 	I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh
 	F.S. X menjadi TAIL yang baru, TAIL "maju".
 	Jika TAIL baru = MaxEl + 1, maka TAIL diset = 1.
 */
 
-void Del(Queue *Q, Infotype *X);
+void Del(Queue *Q, InfoKartu *C);
 /*	Proses : Menghapus elemen pertama pada Q dengan aturan FIFO
 	I.S. Q tidak kosong
 	F.S. X = nilai elemen HEAD pada I.S.,
@@ -92,6 +102,24 @@ void Del(Queue *Q, Infotype *X);
 	Jika Queue menjadi kosong, HEAD = TAIL = Nil.
 */
 
+void FreeTax(InfoKartu C, Queue Q);
 
+void FreePrison(InfoKartu C, Queue Q);
+
+void GetPrison(InfoKartu C);
+
+void GoToRandomPetak(InfoKartu C);
+
+int Bday(InfoKartu C);
+
+int DoubledMove(InfoKartu C);
+
+void BlackOut(InfoKartu C);
+
+void ProtFromBlackOut(InfoKartu C);
+
+void Shuffle(Queue *Q, InfoKartu C);
+
+void Draw(Queue *Q);
 
 #endif

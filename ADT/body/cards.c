@@ -7,6 +7,8 @@
 */
 
 #include "cards.h"
+#include "petak.h"
+#include "player.h"
 
 //pemeriksaan kondisi queue
 boolean IsEmpty(Queue Q)
@@ -104,7 +106,7 @@ void Add(Queue *Q, Infotype x)
 	InfoTail(*Q) = x;
 }
 
-void Del(Queue *Q, Infotype *X)
+void Del(Queue *Q, Infotype *C)
 /*	Proses : Menghapus elemen pertama pada Q dengan aturan FIFO
 	I.S. Q tidak kosong
 	F.S. X = nilai elemen head pada I.S.,
@@ -113,7 +115,7 @@ void Del(Queue *Q, Infotype *X)
 	Jika Queue menjadi kosong, head = tail = Nil.
 */
 {
-	(*X) = InfoHead(*Q);
+	(*C) = InfoHead(*Q);
 	if (GetHead(*Q)+1 > GetMax(*Q))
 		GetHead(*Q) = 1;
 	else
@@ -130,3 +132,66 @@ void Del(Queue *Q, Infotype *X)
 	}
 }
 
+void FreeTax(InfoKartu C, Queue Q){
+/* I.S. : cardID = 1, not IsEmpty
+ * F.S. : freetax
+ * Proses :
+ */	
+	if (GetID(C) == 1) {
+
+	}
+}
+
+void FreePrison(InfoKartu C, Queue Q){
+	if (GetID(C) == 2) {
+
+	}
+}
+
+void GetPrison(InfoKartu C){
+	if (GetID(C) == 3){
+
+	}
+}
+
+void GoToRandomPetak(InfoKartu C, AddressOfPetak P){
+	if (GetID(C) == 4){
+		rand(ID_Petak(P));
+	}
+}
+
+int Bday(InfoKartu C, InfoPlayer P){
+	if (GetID(C) == 5){
+		return Infouang(P) += 2000;
+	}
+}
+
+int DoubledMove(InfoKartu C){
+	if (GetID(C) == 6)
+}
+
+InfoPetak BlackOut(InfoKartu C, AddressOfPetak P){
+	if (GetID() == 7){
+		return BlackOut(P);
+	}
+}
+
+void ProtFromBlackOut(InfoKartu C, AddressOfPetak P){
+	if (GetID() == 8){
+		return !BlackOut(P);
+	}
+}
+
+void Shuffle(InfoKartu C){
+	rand(GetID(C));
+}
+
+void Draw(Hand *H){
+	Dealokasi();
+	Alokasi();
+	GetCard(*H);
+}
+
+void ReadDesc(){
+
+}
