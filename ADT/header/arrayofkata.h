@@ -21,6 +21,8 @@ int SearchIdxAOK(ArrayOfKata A, Kata K);
 
 void PrintAOK(ArrayOfKata A);
 
+void BacaKataWithValidation(Kata *K, ArrayOfKata S);
+
 void AddAOK(ArrayOfKata *A, Kata K);
 
 void DeleteAOK(ArrayOfKata *A, Kata K);
