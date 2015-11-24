@@ -2,14 +2,15 @@
 #define PETAK_H
 #include "boolean.h"
 #include "kata.h"
-#include "../../globalvariable.h"
-#include "player.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 
 //Konstanta
-#define Nil NULL
-
+#ifndef Nil
+#define Nil 0
+#endif
+#include "player.h"
 typedef struct
 {
     Kata jenis_petak;
@@ -38,7 +39,6 @@ typedef struct TElmtListPetak {
 typedef struct {
 	AddressOfPetak		first;
 } ListPetak;
-
 #define FirstPetak(L) (L).first
 #define NextPetak(P) (P)->next
 #define InfoPetak(P) (P)->info

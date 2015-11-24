@@ -1,3 +1,7 @@
+#include "stdio.h"
+#include "ADT/header/reader.h"
+#include "constant.h"
+
 void welcome_screen()
 {
 	printf("Halo\n");

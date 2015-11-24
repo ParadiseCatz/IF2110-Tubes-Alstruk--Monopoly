@@ -12,7 +12,6 @@
 #include "arrayofkata.h"
 #include "arrayofint.h"
 #include "kata.h"
-#include "../../globalvariable.h"
 #include "player.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -27,7 +26,9 @@
 	Dari pernyataan ini berarti elemen yang digunakan berada pada indeks dari 1..MaxEl, dan yang harus dialokasi adalah sebanyak MaxEl+1
 */
 
+#ifndef Nil
 #define Nil 0
+#endif
 typedef int Address;
 typedef struct {
 	InfoKartu 	card;
@@ -44,6 +45,7 @@ typedef struct {
 
 typedef struct Deck *Hand;
 
+#include "../../globalvariable.h"
 //selektor
 #define GetTail(Q) (Q).tail
 #define	GetMax(Q) (Q).maxCard

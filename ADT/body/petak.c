@@ -3,8 +3,8 @@
 #include "../Header/petak.h"
 #include "../Header/boolean.h"
 #include "../Header/kata.h"
-#include "../../globalvariable.h"
 #include "../Header/player.h"
+#include "../../globalvariable.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -39,7 +39,7 @@ typedef struct TElmtListPetak {
 typedef struct {
 	AddressOfPetak		first;
 } ListPetak;
-
+#include "../../globalvariable.h"
 #define FirstPetak(L) (L).first
 #define NextPetak(P) (P)->next
 #define Info_Petak(P) (P)->info

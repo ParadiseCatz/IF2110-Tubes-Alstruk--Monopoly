@@ -1,4 +1,5 @@
-read_with_limit(int mins, int maks, int * in)
+#include "reader.h"
+void read_with_limit(int mins, int maks, int * in)
 {
 	scanf("%d", in);
 	while ( (*in) < mins || (*in) > maks)

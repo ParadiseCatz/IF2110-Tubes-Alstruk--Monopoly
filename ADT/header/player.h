@@ -13,10 +13,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "kata.h"
-#include "petak.h"
 //Konstanta
-#define Nil NULL
+#ifndef Nil
+#define Nil 0
+#endif
 
+#include "petak.h"
 typedef struct {
     int             id;
     int             uang;
