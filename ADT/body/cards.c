@@ -137,21 +137,21 @@ void FreeTax(InfoKartu C, Deck Q, AddressOfPetak *P){
  * F.S. : freetax
  * Proses :
  */	
+ 	int K;
+ 	ArrayOfInt *A;
+
 	if (GetID(C) == 1) {
-		if (ID_Petak(P) == 31){
-			if()
-		}
+		AddAOI(A,K);
 	}
 }
 
 void FreePrison(InfoKartu C, Deck Q, AddressOfPetak *P){
 	if (GetID(C) == 2) {
 		Dealokasi(*P);
-		GoToRandomPetak(C,&P);
 	}
 }
 
-int GetPrison(InfoKartu C){
+void GetPrison(InfoKartu C, InfoPlayer *X){
 	AddressOfPetak P;
 
 	if (GetID(C) == 3){
@@ -172,7 +172,7 @@ int Bday(InfoKartu C, InfoPlayer P){
 	}
 }
 
-int DoubledMove(InfoKartu C){
+void DoubledMove(InfoKartu C){
 	if (GetID(C) == 6)
 }
 

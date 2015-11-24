@@ -42,6 +42,10 @@ typedef struct {
 	Kata cardDescription;
 } InfoKartu;
 
+typedef struct {
+
+} 
+
 typedef struct Deck *Hand;
 
 //selektor
@@ -102,24 +106,29 @@ void Del(Queue *Q, InfoKartu *C);
 	Jika Queue menjadi kosong, HEAD = TAIL = Nil.
 */
 
-void FreeTax(InfoKartu C, Queue Q);
+void FreeTax(InfoKartu C, Deck Q, AddressOfPetak *P);
 
-void FreePrison(InfoKartu C, Queue Q);
+void FreePrison(InfoKartu C, Deck Q, AddressOfPetak *P);
 
-void GetPrison(InfoKartu C);
+void GetPrison(InfoKartu C, InfoPlayer *X);
 
-void GoToRandomPetak(InfoKartu C);
+void GoToRandomPetak(InfoKartu C, AddressOfPetak P);
 
-int Bday(InfoKartu C);
+int Bday(InfoKartu C, InfoPlayer P);
 
-int DoubledMove(InfoKartu C);
+void DoubledMove(InfoKartu C);
 
-void BlackOut(InfoKartu C);
+boolean BlackOut(InfoKartu C, AddressOfPetak P);
 
-void ProtFromBlackOut(InfoKartu C);
+void ProtFromBlackOut(InfoKartu C, AddressOfPetak P);
 
-void Shuffle(Queue *Q, InfoKartu C);
+void Shuffle(InfoKartu C);
 
-void Draw(Queue *Q);
+void Draw(Hand *H);
+
+void ReadDesc();
+
+boolean IsTax(AddressOfPetak P);
+
 
 #endif
