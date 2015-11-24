@@ -10,6 +10,7 @@
 #define CARDS_H
 #include "boolean.h"
 #include "arrayofkata.h"
+#include "arrayofint.h"
 #include "kata.h"
 #include "../../globalvariable.h"
 #include "player.h"

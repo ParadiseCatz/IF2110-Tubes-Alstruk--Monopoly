@@ -154,7 +154,7 @@ int GetPrison(InfoKartu C){
 
 	if (GetID(C) == 3){
 		P = alokasi(C);
-		return ID_Petak(P); // id petak penjara
+		return (ID_Petak(P) == 9); // id petak penjara
 	}
 }
 
@@ -197,5 +197,13 @@ void Draw(Hand *H){
 }
 
 void ReadDesc(){
+	switch(){
 
+	}
+}
+
+boolean IsTax(AddressOfPetak P){
+	if (ID_Petak(P) == 31){
+		return (Infouang(P) * 0.1);
+	}
 }
