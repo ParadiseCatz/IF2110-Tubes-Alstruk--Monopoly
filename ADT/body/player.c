@@ -157,9 +157,7 @@ void MasukPenjara (InfoPlayer *X, ListPetak L)
 /*Memasukkan pemain kedalam penjara karena mendapatkan kartu chance*/
 {
 	(*X).penjara=1;
-	Kata namapetak;
-	Address P=SearchPetak(L, namapetak);
-	(*X).posisi=P;
+	LompatKe(&*X,SearchPetakByID(L,9));
 }
 
 void KeluarPenjara (InfoPlayer *X)
@@ -208,7 +206,7 @@ void MajuNLangkah (InfoPlayer *X, ListPetak L, int N)
 {
 	int i;
 	AddressOfPetak P=(*X).posisi;
-	for (i=0;i<4;i++)
+	for (i=0;i<N;i++)
 	{
 		if (P==Nil)
 			P=First(L);
@@ -242,3 +240,14 @@ boolean IsMember (InfoPlayer X, Kata K)
 	return (isMemberAOK(X.kota,K));
 }
 
+int NbElmt (ListPlayer L)
+//Mengembalikan banyaknya pemain
+{
+	AddressOfPlayer P=First(L);
+	int cnt=0;
+	while (P!=Nil)
+	{
+		cnt++;
+	}
+	return cnt;
+}
