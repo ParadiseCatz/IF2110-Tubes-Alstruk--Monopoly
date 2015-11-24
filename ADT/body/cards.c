@@ -9,6 +9,7 @@
 #include "cards.h"
 #include "petak.h"
 #include "player.h"
+#include "../../globalvariable.h"
 
 //pemeriksaan kondisi queue
 boolean IsEmpty(Deck Q)
@@ -206,4 +207,34 @@ void ProtFromBlackOut(InfoKartu C, AddressOfPetak P){
 }
 
 void ReadDesc(){
+	switch(GetID(C)){
+		case 1 :
+			printf("Kartu ini membebaskan Anda dari pajak. Anda dapat memakai langsung kartu ini atau simpan untuk giliran yang akan datang!\n");
+			break;
+		case 2 :
+			printf("Selamat, Anda bebas dari penjara! Simpan atau langsung dipakai, Anda yang memilih!\n");
+			break;
+		case 3 :
+			printf("Uh-Oh, Anda masuk penjara :( Cepat lakukan sesuatu!\n");
+			break;
+		case 4 :
+			printf("Dengan menggunakan kartu ini, Anda dapat bebas memilih destinasi berikutnya! Silahkan simpan dahulu atau langsung aktifkan kartu ini.\n");
+			break;
+		case 5 :
+			printf("Selamat ulang tahun! Terimalah hadiah sebesar 100000 dollar dari setiap pemain! :)\n");
+			break;
+		case 6 :
+			printf("Maju dua kali lipat angka dadu!!\n");
+			break;
+		case 7 :
+			printf("Me-nullify satu petak.\n");
+			break;
+		case 8 :
+			printf("Me-negate proses Black Out. Silahkan simpan atau langsung pakai.\n");
+			
+		default:
+			printf("hanya ada 8 jenis kartu!\n");
+
+	}
+
 }

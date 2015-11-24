@@ -4,7 +4,6 @@ int main(){
 
 	InfoKartu Ctemp;
 	Deck Qtemp;
-	*Hand *Htemp;
 	int choice;
 	
 	printf("Masukkan pilihan : \n");
@@ -17,7 +16,6 @@ int main(){
 			break;
 		case '2' :
 			Dealokasi(Qtemp);
-
 			GetID(Qtemp);
 
 			switch(GetID(*Htemp)){
