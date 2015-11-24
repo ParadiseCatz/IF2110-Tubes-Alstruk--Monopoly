@@ -106,7 +106,7 @@ void Add(Deck *Q, InfoKartu C)
 	InfoTail(*Q) = C;
 }
 
-void Del(Queue *Q, InfoKartu *C)
+void Del(Deck *Q, InfoKartu *C)
 /*	Proses : Menghapus elemen pertama pada Q dengan aturan FIFO
 	I.S. Q tidak kosong
 	F.S. X = nilai elemen head pada I.S.,
@@ -132,13 +132,15 @@ void Del(Queue *Q, InfoKartu *C)
 	}
 }
 
-void FreeTax(InfoKartu C, Queue Q){
+void FreeTax(InfoKartu C, Deck Q, AddressOfPetak *P){
 /* I.S. : cardID = 1, not IsEmpty
  * F.S. : freetax
  * Proses :
  */	
 	if (GetID(C) == 1) {
-
+		if (ID_Petak(P) == 31){
+			if()
+		}
 	}
 }
 
