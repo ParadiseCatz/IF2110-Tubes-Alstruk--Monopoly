@@ -1,61 +1,7 @@
+
 #ifndef PETAK_H
 #define PETAK_H
-#include "boolean.h"
-#include "kata.h"
 #include "../../globalvariable.h"
-#include "player.h"
-#include <stdio.h>
-#include <stdlib.h>
-
-//Konstanta
-#define Nil NULL
-
-typedef struct
-{
-    Kata jenis_petak;
-    int id_petak;
-    Kata nama_petak;
-    int biaya_sewa;
-    int biaya_ambil_alih;
-    int biaya_upgrade;
-    int level;
-    double multiplier_sewa;
-    int pemilik;
-    char blok;
-    boolean blackout;
-    int harga_jual; //harga jual Sale
-} InfoPetak;
-
-typedef struct TElmtListPetak *Address;
-
-typedef Address AddressOfPetak;
-
-typedef struct TElmtListPetak {
-	InfoPetak 	info;
-	AddressOfPetak 	next;
-} ElmtPetak;
-
-typedef struct {
-	AddressOfPetak		first;
-} ListPetak;
-
-#define FirstPetak(L) (L).first
-#define NextPetak(P) (P)->next
-#define InfoPetak(P) (P)->info
-#define ID_Petak(P) Info(P) -> id_petak
-#define Jenis_Petak(P) Info(P) -> jenis_petak
-#define Nama_Petak(P) Info(P) -> nama_petak
-#define Biaya_Sewa(P) Info(P) -> biaya_sewa
-#define Biaya_Ambil_Alih(P) Info(P) -> biaya_ambil_alih
-#define Biaya_Upgrade(P) Info(P) -> biaya_upgrade
-#define Level(P) Info(P) -> level
-#define Multiplier_Sewa(P) Info(P) -> multiplier_sewa
-#define Pemilik(P) Info(P) -> pemilik
-#define Blok(P) Info(P) -> blok
-#define Blackout(P) Info(P) -> blackout
-#define Harga_Jual(P) Info(P) -> harga_jual
-
-
 
 void PrintBoard();
 // cetak kondisi board
