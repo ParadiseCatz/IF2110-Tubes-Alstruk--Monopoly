@@ -242,7 +242,7 @@ void LoadGlobalVariables(char *directory)
 	{
 		InfoPlayer X;
 		AkuisisiPlayer(&X);
-		// Masukin X ke Stack
+		// Masukin X ke StackOfDefeatedPlayer
 	}
 
 }
