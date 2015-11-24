@@ -303,6 +303,10 @@ void BeliPaksa()
     {
         printf("Petak ini bukan milik player, anda tidak bisa membeli paksa petak ini\n");
     }
+    else if (isTempatWisata(p))
+    {
+        printf("Petak yang bisa dibeli paksa hanya petak kota\n");
+    }
     else if (Level(p) == 5)
     {
         printf("Petak ini tidak bisa dibeli karena sudah memiliki landmark\n");
