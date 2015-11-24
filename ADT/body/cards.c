@@ -146,8 +146,11 @@ void FreeTax(InfoKartu C, Deck Q, AddressOfPetak *P){
 }
 
 void FreePrison(InfoKartu C, Deck Q, AddressOfPetak *P){
+	int K;
+	ArrayOfInt *A;
+
 	if (GetID(C) == 2) {
-		Dealokasi(*P);
+		AddAOI(&A,K);
 	}
 }
 
@@ -162,40 +165,45 @@ void GetPrison(InfoKartu C, InfoPlayer *X){
 
 void GoToRandomPetak(InfoKartu C, AddressOfPetak P){
 	if (GetID(C) == 4){
-		rand(ID_Petak(P));
+		SearchPetakByID(L,rand(id));
 	}
 }
 
-int Bday(InfoKartu C, InfoPlayer P){
+int Bday(InfoKartu C, InfoPlayer P InfoPlayer *X){
 	if (GetID(C) == 5){
-		return Infouang(P) += 2000;
+		for (){
+
+		}
 	}
 }
 
-void DoubledMove(InfoKartu C){
-	if (GetID(C) == 6)
+void DoubledMove(InfoKartu C, InfoPlayer *X){
+	int N, temp;
+	ListPetak L;
+
+	if (GetID(C) == 6){
+
+		temp = N * N;
+		MajuNLangkah(*X,L,temp);
+	}
 }
 
 boolean BlackOut(InfoKartu C, AddressOfPetak P){
+	ListPetak L;
+	int id;
+
 	if (GetID(C) == 7){
-		return BlackOut(C,P);
+		SearchPetakByID(L,id);
 	}
 }
 
 void ProtFromBlackOut(InfoKartu C, AddressOfPetak P){
+	int K;
+	ArrayOfInt *A;
+
 	if (GetID(C) == 8){
-		return !BlackOut(P);
+		AddAOI(&A,K);
 	}
-}
-
-void Shuffle(InfoKartu C){
-	rand(GetID(C));
-}
-
-void Draw(Hand *H){
-	Dealokasi();
-	Alokasi();
-	GetCard(*H);
 }
 
 void ReadDesc(){
