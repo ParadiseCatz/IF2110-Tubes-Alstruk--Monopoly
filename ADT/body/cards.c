@@ -171,7 +171,7 @@ void GoToRandomPetak(InfoKartu C, AddressOfPetak P){
 
 int Bday(InfoKartu C, InfoPlayer P InfoPlayer *X){
 	if (GetID(C) == 5){
-		for (){
+		for(){
 
 		}
 	}
