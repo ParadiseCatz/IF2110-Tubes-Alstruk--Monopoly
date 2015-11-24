@@ -1,47 +1,6 @@
-/* Nama/ NIM		:
- * Nama file		:
- * Topik		    :
- * Tanggal		    :
- * Deskripsi		:
-*/
-
 #ifndef PLAYER_H
 #define PLAYER_H
-#include "boolean.h"
-#include "arrayofint.h"
-#include "arrayofkata.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include "kata.h"
-#include "petak.h"
-//Konstanta
-#define Nil NULL
-
-typedef struct {
-    int             id;
-    int             uang;
-    ArrayOfInt      idKartu;
-    Kata        nama;
-    ArrayOfKata kota;
-    AddressOfPetak     posisi;
-    boolean     penjara;
-} InfoPlayer;
-typedef struct TElmtListPlayer *AddressOfPlayer;
-
-typedef struct TElmtListPlayer {
-	InfoPlayer 	info;
-	AddressOfPlayer 	next;
-} ElmtPlayer;
-
-typedef struct {
-	AddressOfPlayer		first;
-} ListPlayer;
-
-#define First(L) (L).first
-#define Next(P) (P)->next
-#define Info(P) (P)->info
-#define Infoid(P) (P)->info.id
-#define Infouang(P) (P)->info.uang
+#include "../../globalvariable.h"
 
 void CreateEmptyLPlayer (ListPlayer *L);
 //membuat ListOfPlayer
@@ -53,7 +12,7 @@ void PrintElmtPlayer (InfoPlayer X);
 //Mencetak informasi dari suatu pemain
 
 AddressOfPlayer Alokasi (InfoPlayer X);
-//Alokasi 
+//Alokasi
 
 void Dealokasi(AddressOfPlayer *P);
 //Dealokasi
@@ -65,15 +24,15 @@ void Add (ListPlayer *L, InfoPlayer X);
 void Del (ListPlayer *L, InfoPlayer *X, int id);
 /*Menghapus pemain dari ListPlayer ketika pemain sudah kalah dalam permainan
  */
- 
+
 AddressOfPlayer SearchPrec (ListPlayer L, int id);
-/*Mencari Alamat sebelum alamat pemain dari ListPlayer. Pencarian dilakukan 
+/*Mencari Alamat sebelum alamat pemain dari ListPlayer. Pencarian dilakukan
 	dengan menggunakan id player*/
 
 AddressOfPlayer SearchidPlayer (ListPlayer L, int id);
-/*Mencari Alamat pemain dari ListPlayer. Pencarian dilakukan 
+/*Mencari Alamat pemain dari ListPlayer. Pencarian dilakukan
 	dengan menggunakan id player*/
-	
+
 boolean IsPenjara (InfoPlayer X);
 /*Mengecek apakah pemain ada di penjara atau tidak*/
 
@@ -98,11 +57,11 @@ void LompatKe (InfoPlayer *X, AddressOfPetak Pt);
 void AddKota (InfoPlayer *X, Kata K);
 /*Menambahkan aset pemain. Kota dapat diperoleh dengan cara membeli dari bank
  atau membeli paksa dari pemain lain.*/
- 
+
 void DelKota (InfoPlayer *X, Kata K);
-/*Menghapus aset pemain karena menjual kota ke bank maupun kota dibeli paksa oleh 
+/*Menghapus aset pemain karena menjual kota ke bank maupun kota dibeli paksa oleh
  pemain lain.*/
- 
+
 boolean IsMember (InfoPlayer X, Kata K);
 /*Mengecek apakah sebuah kota tertentu telah dimiliki oleh pemain*/
 
