@@ -56,6 +56,20 @@ void PrintAOK(ArrayOfKata A)
 	printf("]\n");
 }
 
+void BacaKataWithValidation(Kata *K, ArrayOfKata S)
+{
+	Kata tmp;
+	do
+	{
+		scanf("%s",&tmp.TabKata);
+		tmp.Length = strlen(tmp.TabKata);
+		
+		if(!isMember(S,tmp)) printf("Masukan salah, ulangi!\n");
+		
+	} while(!isMember(S, tmp));
+	*K = tmp;
+}
+
 void AddAOK(ArrayOfKata *A, Kata K)
 {
 	(*A).Neff++;

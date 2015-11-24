@@ -45,7 +45,7 @@ typedef struct
     int id_petak;
     Kata nama_petak;
     int biaya_sewa;
-    int biaya_ambil_alih;
+    int harga_dasar;
     int biaya_upgrade;
     int level;
     double multiplier_sewa;
@@ -73,7 +73,7 @@ typedef struct {
 #define Jenis_Petak(P) Info(P).jenis_petak
 #define Nama_Petak(P) Info(P).nama_petak
 #define Biaya_Sewa(P) Info(P).biaya_sewa
-#define Biaya_Ambil_Alih(P) Info(P).biaya_ambil_alih
+#define Harga_Dasar(P) Info(P).harga_dasar
 #define Biaya_Upgrade(P) Info(P).biaya_upgrade
 #define Level(P) Info(P).level
 #define Multiplier_Sewa(P) Info(P).multiplier_sewa

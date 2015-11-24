@@ -1,9 +1,9 @@
 /* 
 *	NIM/Nama	: 13511001/Thea Olivia
-*	Nama file	: queue.h
-*	Topik		: ADT Queue
+*	Nama file	: Deck.h
+*	Topik		: ADT Deck
 *	Tanggal		: Selasa, 6 Oktober 2015
-*	Deskripsi 	: Header queue.c
+*	Deskripsi 	: Header Deck.c
 */
 
 #ifndef CARDS_H
@@ -18,9 +18,9 @@
 
 
 /*
-	Buatlah ADT Queue yang diimplementasikan dengan tabel kontigu dengan alokasi dinamik dalam bahasa C dengan representasi 
+	Buatlah ADT Deck yang diimplementasikan dengan tabel kontigu dengan alokasi dinamik dalam bahasa C dengan representasi 
 	alternatif III yaitu dengan HEAD dan TAIL yang “berputar”mengelilingi indeks tabel (lihat kembali diktat “Struktur Data”). 
-	Jika queue kosong, HEAD dan TAIL menunjuk indeks 0. 
+	Jika Deck kosong, HEAD dan TAIL menunjuk indeks 0. 
 
 	Elemen tabel efektif dimulai pada indeks ke-1,
 	Dari pernyataan ini berarti elemen yang digunakan berada pada indeks dari 1..MaxEl, dan yang harus dialokasi adalah sebanyak MaxEl+1
@@ -58,19 +58,19 @@ typedef struct Deck *Hand;
 #define GetName(C) (C).cardName
 #define GetDesc(C) (C).cardDescription
 
-//pemeriksaan kondisi queue
-boolean IsEmpty(Queue Q);
+//pemeriksaan kondisi Deck
+boolean IsEmpty(Deck Q);
 /*	Mengirim true jika Q kosong yaitu HEAD dan TAIL sama dengan nil */
 
-boolean IsFull(Queue Q);
+boolean IsFull(Deck Q);
 /*	Mengirim true jika tabel penampung elemen Q sudah penuh yaitu mengandung MaxEl elemen */
 
-int NbElmt(Queue Q);
-/*	Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong. */
+int NbElmt(Deck Q);
+/*	Mengirimkan banyaknya elemen Deck. Mengirimkan 0 jika Q kosong. */
 
 
 //konstruktor
-void CreateEmpty(Queue *Q, int max);
+void CreateEmpty(Deck *Q, int max);
 /*	I.S. Max terdefinisi
 	F.S. Sebuah Q kosong terbentuk dan salah satu kondisi sbb :
 	Jika alokasi berhasil, tabel memori dialokasi berukuran Max
@@ -79,7 +79,7 @@ void CreateEmpty(Queue *Q, int max);
 */
 
 //destruktor
-void Dealokasi(Queue *Q);
+void Dealokasi(Deck *Q);
 /*	Proses : Mengembalikan memori Q
 	I.S. Q pernah dialokasi
 	F.S. Q menjadi tidak terdefinisi lagi, MaxEl(Q) juga diset 0
@@ -87,41 +87,42 @@ void Dealokasi(Queue *Q);
 		Jangan lupa untuk membebaskan (free) memori yang telah dialokasikan untuk tabel
 */
 
-//operator-operator dasar queue
-void Add(Queue *Q, InfoKartu C);
+//operator-operator dasar Deck
+void Add(Deck *Q, InfoKartu C);
 /*	Proses : Menambahkan X pada Q dengan aturan FIFO
 	I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh
 	F.S. X menjadi TAIL yang baru, TAIL "maju".
 	Jika TAIL baru = MaxEl + 1, maka TAIL diset = 1.
 */
 
-void Del(Queue *Q, InfoKartu *C);
+void Del(Deck *Q, InfoKartu *C);
 /*	Proses : Menghapus elemen pertama pada Q dengan aturan FIFO
 	I.S. Q tidak kosong
 	F.S. X = nilai elemen HEAD pada I.S.,
-	Jika Queue masih isi : HEAD "maju".
+	Jika Deck masih isi : HEAD "maju".
 	Jika HEAD baru menjadi MaxEl + 1, maka HEAD diset = 1;
-	Jika Queue menjadi kosong, HEAD = TAIL = Nil.
+	Jika Deck menjadi kosong, HEAD = TAIL = Nil.
 */
 
-void FreeTax(InfoKartu C, Queue Q);
+void FreeTax(InfoKartu C, Deck Q, AddressOfPetak *P);
 
-void FreePrison(InfoKartu C, Queue Q);
+void FreePrison(InfoKartu C, Deck Q, AddressOfPetak *P);
 
-void GetPrison(InfoKartu C);
+void GetPrison(InfoKartu C, InfoPlayer *X);
 
-void GoToRandomPetak(InfoKartu C);
+void GoToRandomPetak(InfoKartu C, AddressOfPetak P);
 
-int Bday(InfoKartu C);
+int Bday(InfoKartu C, InfoPlayer P);
 
-int DoubledMove(InfoKartu C);
+void DoubledMove(InfoKartu C);
 
-void BlackOut(InfoKartu C);
+boolean BlackOut(InfoKartu C, AddressOfPetak P);
 
-void ProtFromBlackOut(InfoKartu C);
+void ProtFromBlackOut(InfoKartu C, AddressOfPetak P);
 
-void Shuffle(Queue *Q, InfoKartu C);
+void ReadDesc();
 
-void Draw(Queue *Q);
+void Shuffle();
+
 
 #endif

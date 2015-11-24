@@ -8,6 +8,13 @@ void PrintMap();
 // cetak peta board
 
 
+// HARGA PETAK (untuk hitungaset)
+
+int hargapetak(AddressOfPetak P)
+// Menghitung harga petah (bangunan dan harga dasar)
+{
+    return Harga_Dasar(P) + (Level(P) - 1)*(Level(P))*Biaya_Upgrade(P) ;
+}
 
 
 
@@ -155,7 +162,7 @@ int HargaJualKeBank(Kata namapetak)
     AddressOfPetak p;
 
     p = SearchPetak(global.listOfPetak, namapetak);
-    harga = (int) Level(p)*(Level(p)-1)/2*Biaya_Upgrade(p) + Biaya_Ambil_Alih(p);
+    harga = (int) Level(p)*(Level(p)-1)/2*Biaya_Upgrade(p) + Harga_Dasar(p);
     harga = (int) 9/10*harga;
 
     return harga;
@@ -178,13 +185,13 @@ void BeliPetak()
     }
     else
     {
-        if ((*global.currentPlayer).uang < Biaya_Ambil_Alih(p))
+        if ((*global.currentPlayer).uang < Harga_Dasar(p))
         {
             printf("Uang anda tidak mencukupi untuk membeli petak ini\n");
         }
         else
         {
-            (*global.currentPlayer).uang -= Biaya_Ambil_Alih(p);
+            (*global.currentPlayer).uang -= Harga_Dasar(p);
             Pemilik(p) = (*global.currentPlayer).id;
             AddKota(global.currentPlayer, Nama_Petak(p));
             printf("Pembelian berhasil, petak ");
@@ -273,7 +280,7 @@ int HargaBeliPaksa()
     AddressOfPetak p;
 
     p = (*global.currentPlayer).posisi;
-    harga = (int) Level(p)*(Level(p)-1)/2*Biaya_Upgrade(p) + Biaya_Ambil_Alih(p);
+    harga = (int) Level(p)*(Level(p)-1)/2*Biaya_Upgrade(p) + Harga_Dasar(p);
 
     return harga*2;
 }
@@ -452,7 +459,7 @@ void PrintPetak(Kata namapetak)
         if (Pemilik(p) == 0)
         {
             printf("tidak ada\n");
-            printf("Harga\t\t: %i\n", Biaya_Ambil_Alih(p));
+            printf("Harga\t\t: %i\n", Harga_Dasar(p));
         }
         else
         {
