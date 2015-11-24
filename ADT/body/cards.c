@@ -6,9 +6,9 @@
 *	Deskripsi 	: Implementasi ADT Queue
 */
 
-#include "cards.h"
-#include "petak.h"
-#include "player.h"
+#include "../header/cards.h"
+#include "../header/petak.h"
+#include "../header/player.h"
 
 //pemeriksaan kondisi queue
 boolean IsEmpty(Deck Q)

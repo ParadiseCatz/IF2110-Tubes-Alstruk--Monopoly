@@ -499,7 +499,7 @@ void SalePetak(Kata namapetak)
     else if(Pemilik(p) == (*global.currentPlayer).id)
     {
         printf("Masukkan harga jual yang diinginkan : ");
-        scanf("%i", price);
+        scanf("%i", &price);
         printf("/n");
         if (price >= 0)
         {

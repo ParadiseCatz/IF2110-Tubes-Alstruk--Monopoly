@@ -1,6 +1,11 @@
+#include "../header/gamesystem.h"
+#include "../../globalvariable.h"
+#include "../header/gamesystem.h"
+#include "../header/boolean.h"
+#include "../../constant.h"
 void gamesystem_start()
 {
-	bool finish = false;
+	boolean finish = false;
 	do {
 		gamesystem_show_menu();
 		int pilihan;
@@ -28,30 +33,39 @@ void gamesystem_do_action(int pilihan)
 	switch (pilihan)
 	{
 		case 1: MajuNLangkah(global.currentPlayer, global.listOfPetak, gamesystem_roll_dice(2));
+		break;
 		//Roll Dice
 
 		case 2: Buy();
+		break;
 		//Beli Petak
 
-		case 3: PrintElmtPlayer(*currentPlayer);
+		case 3: PrintElmtPlayer(*global.currentPlayer);
+		break;
 		//Info player
 
 		case 4: PrintBoard();
+		break;
 		//Info board
 
 		case 5: PrintPetak();
+		break;
 		//info petak
 
 		case 6: 
+		break;
 		//jual properti
 
 		case 7: LevelUp();
+		break;
 		//level up
 
 		case 8: 
+		break;
 		//show leaderboard
 
 		case 9: 
+		break;
 		//end turn
 	}
 }

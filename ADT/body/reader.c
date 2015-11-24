@@ -1,4 +1,5 @@
-#include "reader.h"
+#include "../header/reader.h"
+#include "stdio.h"
 void read_with_limit(int mins, int maks, int * in)
 {
 	scanf("%d", in);

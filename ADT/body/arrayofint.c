@@ -1,5 +1,6 @@
-#include "../header/arrayofint.h"
 
+#include "../header/arrayofint.h"
+#include "stdio.h"
 void CreateEmptyAOI(ArrayOfInt *A)
 {
 	(*A).Neff = 0;

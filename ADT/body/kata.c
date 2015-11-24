@@ -36,7 +36,7 @@ boolean IsKataSama(Kata K1, Kata K2)
 void BacaKata(Kata *K)
 {
 	Kata tmp;
-	scanf("%s",&tmp.TabKata);
+	scanf("%s",tmp.TabKata);
 	tmp.Length = strlen(tmp.TabKata);
 	
 	*K = tmp;

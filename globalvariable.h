@@ -1,9 +1,9 @@
 #ifndef GLOBALVARIABLE_H
 #define GLOBALVARIABLE_H
-#include "ADT/Header/boolean.h"
-#include "ADT/Header/kata.h"
-#include "ADT/Header/arrayofint.h"
-#include "ADT/Header/arrayofkata.h"
+#include "ADT/header/boolean.h"
+#include "ADT/header/kata.h"
+#include "ADT/header/arrayofint.h"
+#include "ADT/header/arrayofkata.h"
 #include <stdio.h>
 #include <stdlib.h>
 

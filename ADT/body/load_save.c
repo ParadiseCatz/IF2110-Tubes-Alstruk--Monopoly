@@ -319,11 +319,11 @@ void SaveDataGlobalVariables(char *directory)
 	FILE *fp;
 	fp = fopen(directory, "w");
 	
-	InfoPlayer P = global.currentPlayer;
-	fprintf(fp, "Current_Player: %d\n", P.id);
+	InfoPlayer *P = global.currentPlayer;
+	fprintf(fp, "Current_Player: %d\n", P -> id);
 	
-	InfoPetak WC = global.currentWorldCup;
-	fprintf(fp, "Current_WorldCup: %d\n", WC.id_petak);
+	InfoPetak *WC = global.currentWorldCup;
+	fprintf(fp, "Current_WorldCup: %d\n", WC -> id_petak);
 	
 	fprintf(fp, "Queue_kartu:\n");
 	// Print indeks dari Q.head sampai Q.tail
@@ -348,7 +348,7 @@ void SaveDataPlayer(char *directory)
 	P = FirstLPlayer(global.listOfPlayer);
 	for(i=0; i<numOfPlayers; i++)
 	{
-		X = InfoPlayer(P);
+		X = Info(P);
 		PrintPlayerToFile(fp, X);
 		P = NextPlayer(P);
 	}
