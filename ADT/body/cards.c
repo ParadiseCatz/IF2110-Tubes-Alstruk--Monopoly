@@ -178,7 +178,7 @@ void DoubledMove(InfoKartu C){
 
 boolean BlackOut(InfoKartu C, AddressOfPetak P){
 	if (GetID(C) == 7){
-		return BlackOut(P);
+		return BlackOut(C,P);
 	}
 }
 
@@ -201,11 +201,5 @@ void Draw(Hand *H){
 void ReadDesc(){
 	switch(){
 
-	}
-}
-
-boolean IsTax(AddressOfPetak P){
-	if (ID_Petak(P) == 31){
-		return (Infouang(P) * 0.1);
 	}
 }

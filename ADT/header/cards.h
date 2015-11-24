@@ -128,7 +128,6 @@ void Draw(Hand *H);
 
 void ReadDesc();
 
-boolean IsTax(AddressOfPetak P);
 
 
 #endif
