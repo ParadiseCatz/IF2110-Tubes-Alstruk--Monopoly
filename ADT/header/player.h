@@ -10,6 +10,7 @@
 #include "petak.h"
 #include "defeated.h"
 //Konstanta
+//
 #define Nil NULL
 
 typedef struct {
