@@ -1,6 +1,46 @@
 #ifndef PLAYER_H
 #define PLAYER_H
+<<<<<<< HEAD
+#include "boolean.h"
+#include "arrayofint.h"
+#include "arrayofkata.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "kata.h"
+#include "petak.h"
+#include "defeated.h"
+//Konstanta
+//
+#define Nil NULL
+
+typedef struct {
+    int             id;
+    int             uang;
+    ArrayOfInt      idKartu;
+    Kata        nama;
+    ArrayOfKata kota;
+    AddressOfPetak     posisi;
+    boolean     penjara;
+} InfoPlayer;
+typedef struct TElmtListPlayer *AddressOfPlayer;
+
+typedef struct TElmtListPlayer {
+	InfoPlayer 	info;
+	AddressOfPlayer 	next;
+} ElmtPlayer;
+
+typedef struct {
+	AddressOfPlayer		first;
+} ListPlayer;
+
+#define First(L) (L).first
+#define Next(P) (P)->next
+#define Info(P) (P)->info
+#define Infoid(P) (P)->info.id
+#define Infouang(P) (P)->info.uang
+=======
 #include "../../globalvariable.h"
+>>>>>>> 2bca4956c2aeaf0b149e4ba4db06f62be7634eda
 
 void CreateEmptyLPlayer (ListPlayer *L);
 //membuat ListOfPlayer
@@ -65,4 +105,6 @@ void DelKota (InfoPlayer *X, Kata K);
 boolean IsMember (InfoPlayer X, Kata K);
 /*Mengecek apakah sebuah kota tertentu telah dimiliki oleh pemain*/
 
+int NbElmt (ListPlayer L);
+//Mengembalikan banyak pemain dalam permainan
 #endif

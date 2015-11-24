@@ -9,6 +9,11 @@ void PrintBoard();
 void PrintMap();
 // cetak peta board
 
+// HARGA PETAK (untuk hitungaset)
+
+int hargapetak(AddressOfPetak P);
+// Menghitung harga petah (bangunan dan harga dasar)
+
 // PENGLOLAAN LIST PETAK
 
 void CreateListPetak(ListPetak *L);
