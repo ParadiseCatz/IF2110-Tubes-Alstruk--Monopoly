@@ -42,10 +42,6 @@ typedef struct {
 	Kata cardDescription;
 } InfoKartu;
 
-typedef struct {
-
-} 
-
 typedef struct Deck *Hand;
 
 //selektor
@@ -124,6 +120,7 @@ void ProtFromBlackOut(InfoKartu C, AddressOfPetak P);
 
 void ReadDesc();
 
+void Shuffle();
 
 
 #endif
