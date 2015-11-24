@@ -23,4 +23,6 @@ int KataToInt(Kata K);
 
 double KataToDouble(Kata K);
 
+char KataToChar(Kata K);
+
 #endif

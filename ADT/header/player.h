@@ -1,12 +1,6 @@
-/* Nama/ NIM		:
- * Nama file		:
- * Topik		    :
- * Tanggal		    :
- * Deskripsi		:
-*/
-
 #ifndef PLAYER_H
 #define PLAYER_H
+<<<<<<< HEAD
 #include "boolean.h"
 #include "arrayofint.h"
 #include "arrayofkata.h"
@@ -43,6 +37,9 @@ typedef struct {
 #define Info(P) (P)->info
 #define Infoid(P) (P)->info.id
 #define Infouang(P) (P)->info.uang
+=======
+#include "../../globalvariable.h"
+>>>>>>> 2bca4956c2aeaf0b149e4ba4db06f62be7634eda
 
 void CreateEmptyLPlayer (ListPlayer *L);
 //membuat ListOfPlayer
@@ -54,7 +51,7 @@ void PrintElmtPlayer (InfoPlayer X);
 //Mencetak informasi dari suatu pemain
 
 AddressOfPlayer Alokasi (InfoPlayer X);
-//Alokasi 
+//Alokasi
 
 void Dealokasi(AddressOfPlayer *P);
 //Dealokasi
@@ -66,15 +63,15 @@ void Add (ListPlayer *L, InfoPlayer X);
 void Del (ListPlayer *L, InfoPlayer *X, int id);
 /*Menghapus pemain dari ListPlayer ketika pemain sudah kalah dalam permainan
  */
- 
+
 AddressOfPlayer SearchPrec (ListPlayer L, int id);
-/*Mencari Alamat sebelum alamat pemain dari ListPlayer. Pencarian dilakukan 
+/*Mencari Alamat sebelum alamat pemain dari ListPlayer. Pencarian dilakukan
 	dengan menggunakan id player*/
 
 AddressOfPlayer SearchidPlayer (ListPlayer L, int id);
-/*Mencari Alamat pemain dari ListPlayer. Pencarian dilakukan 
+/*Mencari Alamat pemain dari ListPlayer. Pencarian dilakukan
 	dengan menggunakan id player*/
-	
+
 boolean IsPenjara (InfoPlayer X);
 /*Mengecek apakah pemain ada di penjara atau tidak*/
 
@@ -99,11 +96,11 @@ void LompatKe (InfoPlayer *X, AddressOfPetak Pt);
 void AddKota (InfoPlayer *X, Kata K);
 /*Menambahkan aset pemain. Kota dapat diperoleh dengan cara membeli dari bank
  atau membeli paksa dari pemain lain.*/
- 
+
 void DelKota (InfoPlayer *X, Kata K);
-/*Menghapus aset pemain karena menjual kota ke bank maupun kota dibeli paksa oleh 
+/*Menghapus aset pemain karena menjual kota ke bank maupun kota dibeli paksa oleh
  pemain lain.*/
- 
+
 boolean IsMember (InfoPlayer X, Kata K);
 /*Mengecek apakah sebuah kota tertentu telah dimiliki oleh pemain*/
 

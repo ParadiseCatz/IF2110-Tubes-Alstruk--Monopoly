@@ -1,9 +1,5 @@
-#include "../header/player.h"
-#include "../header/boolean.h"
-#include "../header/arrayofint.h"
-#include "../header/arrayofkata.h"
-#include "../header/kata.h"
 #include "../header/petak.h"
+#include "../header/player.h"
 
 void CreateEmptyLPlayer (ListPlayer *L)
 //membuat ListOfPlayer
@@ -30,7 +26,7 @@ void PrintElmtPlayer (InfoPlayer X)
 }
 
 AddressOfPlayer Alokasi (InfoPlayer X)
-//Alokasi 
+//Alokasi
 {
 	AddressOfPlayer P = (AddressOfPlayer)malloc(sizeof(ElmtPlayer));
 	if (P!=Nil)
@@ -52,7 +48,7 @@ void Add (ListPlayer *L, InfoPlayer X)
 	yaitu N>=1 dan N<=7
 */
 {
-	
+
 	AddressOfPlayer P=Alokasi(X);
 	if (IsLPlayerEmpty(*L))
 	{
@@ -62,7 +58,7 @@ void Add (ListPlayer *L, InfoPlayer X)
 	else
 	{
 		AddressOfPlayer last=First(*L);
-		while (last!=Nil) 
+		while (last!=Nil)
 		{
 			last=Next(last);
 		}
@@ -100,7 +96,7 @@ void Del (ListPlayer *L, InfoPlayer *X, int id)
 }
 
 AddressOfPlayer SearchPrec (ListPlayer L, int id)
-/*Mencari Alamat sebelum alamat pemain dari ListPlayer. Pencarian dilakukan 
+/*Mencari Alamat sebelum alamat pemain dari ListPlayer. Pencarian dilakukan
 	dengan menggunakan id player*/
 {
 	AddressOfPlayer Prec,P;
@@ -125,7 +121,7 @@ AddressOfPlayer SearchPrec (ListPlayer L, int id)
 }
 
 AddressOfPlayer SearchidPlayer (ListPlayer L, int id)
-/*Mencari Alamat pemain dari ListPlayer. Pencarian dilakukan 
+/*Mencari Alamat pemain dari ListPlayer. Pencarian dilakukan
 	dengan menggunakan id player*/
 {
 	AddressOfPlayer P;
@@ -157,7 +153,13 @@ void MasukPenjara (InfoPlayer *X, ListPetak L)
 /*Memasukkan pemain kedalam penjara karena mendapatkan kartu chance*/
 {
 	(*X).penjara=1;
+<<<<<<< HEAD
 	LompatKe(&*X,SearchPetakByID(L,9));
+=======
+	Kata namapetak;
+	AddressOfPetak P = SearchPetak(L, namapetak);
+	(*X).posisi=P;
+>>>>>>> 2bca4956c2aeaf0b149e4ba4db06f62be7634eda
 }
 
 void KeluarPenjara (InfoPlayer *X)
@@ -228,7 +230,7 @@ void AddKota (InfoPlayer *X, Kata K)
 }
 
 void DelKota (InfoPlayer *X, Kata K)
-/*Menghapus aset pemain karena menjual kota ke bank maupun kota dibeli paksa oleh 
+/*Menghapus aset pemain karena menjual kota ke bank maupun kota dibeli paksa oleh
  pemain lain.*/
 {
 	DeleteAOK(&(*X).kota,K);
