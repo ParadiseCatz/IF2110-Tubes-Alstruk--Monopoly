@@ -183,7 +183,7 @@ void DoubledMove(InfoKartu C, InfoPlayer *X){
 	ListPetak L;
 
 	if (GetID(C) == 6){
-		temp = N * N;
+		temp = N * 2;
 		MajuNLangkah(*X,L,temp);
 	}
 }
