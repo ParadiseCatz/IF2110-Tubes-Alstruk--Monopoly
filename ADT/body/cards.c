@@ -182,7 +182,6 @@ void DoubledMove(InfoKartu C, InfoPlayer *X){
 	ListPetak L;
 
 	if (GetID(C) == 6){
-
 		temp = N * N;
 		MajuNLangkah(*X,L,temp);
 	}
@@ -207,7 +206,4 @@ void ProtFromBlackOut(InfoKartu C, AddressOfPetak P){
 }
 
 void ReadDesc(){
-	switch(){
-
-	}
 }
