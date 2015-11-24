@@ -59,6 +59,7 @@ void InitUrutanBoard()
 		InfoPetak X;
 
 		X.nama_petak = CKata;
+		X.jenis_petak = CKata;
 		P = AlokasiPetak(X);
 
 		AddLastLPetak(&global.listOfPetak, P);
@@ -241,7 +242,7 @@ void LoadGlobalVariables(char *directory)
 	{
 		InfoPlayer X;
 		AkuisisiPlayer(&X);
-		// Masukin X ke Stack
+		// Masukin X ke StackOfDefeatedPlayer
 	}
 
 }
@@ -360,6 +361,14 @@ void SaveDataPetak(char *directory)
 {
 	FILE *fp;
 	fp = fopen(directory, "w");
+	
+	// KONSTANTA
+	Kata KOTA, TEMPAT_WISATA;
+	KOTA.TabKata[0] = 'K'; KOTA.TabKata[1] = 'o'; KOTA.TabKata[2] = 't'; KOTA.TabKata[3] = 'a'; KOTA.Length = 4;
+	TEMPAT_WISATA.TabKata[0] = 'T'; TEMPAT_WISATA.TabKata[1] = 'e'; TEMPAT_WISATA.TabKata[2] = 'm'; TEMPAT_WISATA.TabKata[3] = 'p'; 
+	TEMPAT_WISATA.TabKata[4] = 'a'; TEMPAT_WISATA.TabKata[5] = 't'; TEMPAT_WISATA.TabKata[6] = '_'; TEMPAT_WISATA.TabKata[7] = 'W';
+	TEMPAT_WISATA.TabKata[8] = 'i'; TEMPAT_WISATA.TabKata[9] = 's'; TEMPAT_WISATA.TabKata[10] = 'a'; TEMPAT_WISATA.TabKata[11] = 't'; 
+	TEMPAT_WISATA.TabKata[12] = 'a';  TEMPAT_WISATA.Length = 13;
 
 	int numOfPetak = NbElmtLPetak(global.listOfPetak);
 	int i;
@@ -371,10 +380,10 @@ void SaveDataPetak(char *directory)
 	{
 		X = InfoPetak(P);
 
-		// if (X adalah Kota / Tempat_Wisata)
-		// {
-				PrintPetakToFile(fp, X);
-		// }
+		if(IsKataSama(X.jenis_petak, KOTA) || IsKataSama(X.jenis_petak, TEMPAT_WISATA))
+		{
+			PrintPetakToFile(fp, X);
+		}
 					
 		P = NextPetak(P);
 	} while(P != FirstLPetak(global.listOfPetak));
