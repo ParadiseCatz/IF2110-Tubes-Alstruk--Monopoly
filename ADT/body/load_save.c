@@ -2,6 +2,15 @@
 #include "../../globalvariable.h"
 #include "../../constant.h"
 
+void InitDataKartu()
+{
+	STARTKATA("data/dataKartu.txt");
+	while(!EndKata)
+	{
+		// Simpan deskripsi ke global variable
+	}	
+}
+
 void PrintKataToFile(FILE *fp, Kata K)
 {
 	int i;

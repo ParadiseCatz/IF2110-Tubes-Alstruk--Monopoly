@@ -5,6 +5,8 @@
 #include "petak.h"
 #include <stdio.h>
 
+void InitDataKartu();
+
 void InitUrutanBoard();
 
 void AkuisisiPetak(InfoPetak *X);
