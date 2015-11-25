@@ -10,7 +10,7 @@
 #define CARDS_H
 #include "boolean.h"
 #include "arrayofkata.h"
-#include "arrayofint.h"
+#include "ArrayOfCards.h"
 #include "kata.h"
 #include "../../globalvariable.h"
 #include "player.h"
@@ -29,12 +29,6 @@
 
 #define Nil 0
 typedef int Address;
-typedef struct {
-	InfoKartu 	card;
-	Address		head;
-	Address		tail;	
-	int			maxCard;
-} Deck;
 
 typedef struct {
 	int cardID;
@@ -42,85 +36,50 @@ typedef struct {
 	Kata cardDescription;
 } InfoKartu;
 
-typedef struct Deck *Hand;
+typedef struct {
+	InfoKartu TabCards[8];
+	int Neff;
+} ArrayOfCards;
 
 //selektor
-#define GetTail(Q) (Q).tail
-#define	GetMax(Q) (Q).maxCard
-#define GetHead(Q) (Q).head
-#define GetCard(Q) (Q).card
-#define	InfoHead(Q) (Q).T[GetHead(Q)]
-#define	InfoTail(Q) (Q).T[GetTail(Q)]
-
 #define GetID(C) (C).cardID
 #define GetName(C) (C).cardName
 #define GetDesc(C) (C).cardDescription
 
+#define GetCards(T) (T).TabCards[8]
+
 //pemeriksaan kondisi Deck
-boolean IsEmpty(Deck Q);
-/*	Mengirim true jika Q kosong yaitu HEAD dan TAIL sama dengan nil */
+void CreateEmptyDeck(ArrayOfCards *T);
 
-boolean IsFull(Deck Q);
-/*	Mengirim true jika tabel penampung elemen Q sudah penuh yaitu mengandung MaxEl elemen */
+boolean isMemberDeck(ArrayOfCards T, int K);
 
-int NbElmt(Deck Q);
-/*	Mengirimkan banyaknya elemen Deck. Mengirimkan 0 jika Q kosong. */
+int SearchIdxAOI(ArrayOfCards T, int K);
 
+void PrintAOI(ArrayOfCards T);
 
-//konstruktor
-void CreateEmpty(Deck *Q, int max);
-/*	I.S. Max terdefinisi
-	F.S. Sebuah Q kosong terbentuk dan salah satu kondisi sbb :
-	Jika alokasi berhasil, tabel memori dialokasi berukuran Max
-	atau : jika alokasi gagal, Q kosong dg Maksimum elemen=0
-	Proses : Melakukan alokasi memori dan membuat sebuah Q kosong
-*/
+void AddAOI(ArrayOfCards *T, int K);
 
-//destruktor
-void Dealokasi(Deck *Q);
-/*	Proses : Mengembalikan memori Q
-	I.S. Q pernah dialokasi
-	F.S. Q menjadi tidak terdefinisi lagi, MaxEl(Q) juga diset 0
-		Head dan Tail diset menjadi Nil
-		Jangan lupa untuk membebaskan (free) memori yang telah dialokasikan untuk tabel
-*/
+void DeleteAOI(ArrayOfCards *T, int K);
 
-//operator-operator dasar Deck
-void Add(Deck *Q, InfoKartu C);
-/*	Proses : Menambahkan X pada Q dengan aturan FIFO
-	I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh
-	F.S. X menjadi TAIL yang baru, TAIL "maju".
-	Jika TAIL baru = MaxEl + 1, maka TAIL diset = 1.
-*/
+void FreeTax(InfoKartu C, AddressOfPetak *P, ArrayOfCards T);
 
-void Del(Deck *Q, InfoKartu *C);
-/*	Proses : Menghapus elemen pertama pada Q dengan aturan FIFO
-	I.S. Q tidak kosong
-	F.S. X = nilai elemen HEAD pada I.S.,
-	Jika Deck masih isi : HEAD "maju".
-	Jika HEAD baru menjadi MaxEl + 1, maka HEAD diset = 1;
-	Jika Deck menjadi kosong, HEAD = TAIL = Nil.
-*/
+void FreePrison(InfoKartu C, AddressOfPetak *P, ArrayOfCards T);
 
-void FreeTax(InfoKartu C, Deck Q, AddressOfPetak *P);
+void GetPrison(InfoKartu C, InfoPlayer *X, ArrayOfCards T);
 
-void FreePrison(InfoKartu C, Deck Q, AddressOfPetak *P);
+void GoToRandomPetak(InfoKartu C, AddressOfPetak P, ArrayOfCards T);
 
-void GetPrison(InfoKartu C, InfoPlayer *X);
-
-void GoToRandomPetak(InfoKartu C, AddressOfPetak P);
+void GoNLangkah(InfoKartu C, ArrayOfCards T);
 
 int Bday(InfoKartu C, InfoPlayer P);
 
-void DoubledMove(InfoKartu C);
+void DoubledMove(InfoKartu C, ArrayOfCards T, AddressOfPetak P);
 
 boolean BlackOut(InfoKartu C, AddressOfPetak P);
 
 void ProtFromBlackOut(InfoKartu C, AddressOfPetak P);
 
 void ReadDesc();
-
-void Shuffle();
 
 
 #endif

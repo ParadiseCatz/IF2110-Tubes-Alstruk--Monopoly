@@ -9,6 +9,8 @@
 #include "cards.h"
 #include "petak.h"
 #include "player.h"
+#include "arrayofint.h"
+#include "arrayofkata.h"
 #include "../../globalvariable.h"
 
 //pemeriksaan kondisi queue
@@ -159,8 +161,7 @@ void GetPrison(InfoKartu C, InfoPlayer *X){
 	AddressOfPetak P;
 
 	if (GetID(C) == 3){
-		P = alokasi(C);
-		return (ID_Petak(P) == 9); // id petak penjara
+		AddAOI(&A,K);
 	}
 }
 
@@ -218,7 +219,7 @@ void ReadDesc(){
 			printf("Uh-Oh, Anda masuk penjara :( Cepat lakukan sesuatu!\n");
 			break;
 		case 4 :
-			printf("Dengan menggunakan kartu ini, Anda dapat bebas memilih destinasi berikutnya! Silahkan simpan dahulu atau langsung aktifkan kartu ini.\n");
+			printf("Dengan menggunakan kartu ini, Anda dapat bebas memilih destinasi berikutnya!\n");
 			break;
 		case 5 :
 			printf("Selamat ulang tahun! Terimalah hadiah sebesar 100000 dollar dari setiap pemain! :)\n");
@@ -227,10 +228,10 @@ void ReadDesc(){
 			printf("Maju dua kali lipat angka dadu!!\n");
 			break;
 		case 7 :
-			printf("Me-nullify satu petak.\n");
+			printf("Mati lampu! Aduh gelapnya! Gelap-gelapan jadinya seperti siluman!!\n");
 			break;
 		case 8 :
-			printf("Me-negate proses Black Out. Silahkan simpan atau langsung pakai.\n");
+			printf("Aku takut mati lampu, mati pula cintamu. Teranglah, wahai cintaku! Musnahlah, wahai kegelapan!!!\n");
 			
 		default:
 			printf("hanya ada 8 jenis kartu!\n");
