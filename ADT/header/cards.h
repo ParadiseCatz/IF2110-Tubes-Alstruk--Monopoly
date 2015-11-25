@@ -8,12 +8,12 @@
 
 #ifndef CARDS_H
 #define CARDS_H
-#include "boolean.h"
-#include "arrayofkata.h"
-#include "ArrayOfCards.h"
-#include "kata.h"
+#include "ADT/header/boolean.h"
+#include "ADT/header/arrayofkata.h"
+#include "ADT/header/arrayofint.h"
+#include "ADT/header/kata.h"
 #include "../../globalvariable.h"
-#include "player.h"
+#include "ADT/header/player.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -37,7 +37,7 @@ typedef struct {
 } InfoKartu;
 
 typedef struct {
-	InfoKartu TabCards[8];
+	InfoKartu TabCards[MaxCards];
 	int Neff;
 } ArrayOfCards;
 
@@ -46,41 +46,32 @@ typedef struct {
 #define GetName(C) (C).cardName
 #define GetDesc(C) (C).cardDescription
 
-#define GetNeff(T) (T).Neff
+#define GetNeff(Card) (Card).Neff
 
-//pemeriksaan kondisi Deck
-void CreateEmptyHand(ArrayOfCards *T);
-/* menciptakan array kosong untuk kartu di tangan current player */
-int NbElmtHand(ArrayOfCards T);
-/* banyaknya kartu di tangan */
-boolean isMemberHand(ArrayOfCards T, int K);
-/* mengecek apakah kartu terdapat pada current player */
-int SearchIdxCard(ArrayOfCards T, int K);
-/* mencari kartu di tangan player */
-void AddHand(ArrayOfCards *T, int K);
-/* menambahkan kartu ke tangan current player */
-void DeleteHand(ArrayOfCards *T, int K);
-/* mengembalikan kartu ke system */
+#define gift 100000
+#define MaxCards 8
 
+void DrawCards(InfoKartu C, ArrayOfCards Card);
+
+void PrintCard (InfoKartu C);
+/* print id, judul dan deskripsi */
 
 // METHOD UNTUK JENIS CHANCE CARD
-void FreeTax(InfoKartu C, AddressOfPetak *P, ArrayOfCards T);
+void FreeTax(InfoKartu C, AddressOfPetak *P, ArrayOfCards Card, GlobalVariable G);
 
-void FreePrison(InfoKartu C, AddressOfPetak *P, ArrayOfCards T);
+void FreePrison(InfoKartu C, AddressOfPetak *P, ArrayOfCards Card, GlobalVariable G);
 
-void GetPrison(InfoKartu C, InfoPlayer *X, ArrayOfCards T);
+void GetPrison(InfoKartu C, InfoPlayer *X, ArrayOfCards Card, GlobalVariable G);
 
-void GoToRandomPetak(InfoKartu C, AddressOfPetak P, ArrayOfCards T);
+void GoToRandomPetak(InfoKartu C, AddressOfPetak P, ArrayOfCards Card, GlobalVariable G);
 
-void GoNLangkah(InfoKartu C, ArrayOfCards T);
+int Bday(InfoKartu C, GlobalVariable G, ArrayOfCards Card);
 
-int Bday(InfoKartu C, InfoPlayer P);
+void DoubledMove(InfoKartu C, ArrayOfCards T, AddressOfPetak P, GlobalVariable G);
 
-void DoubledMove(InfoKartu C, ArrayOfCards T, AddressOfPetak P);
+boolean BlackOut(InfoKartu C, AddressOfPetak P, GlobalVariable G);
 
-boolean BlackOut(InfoKartu C, AddressOfPetak P);
-
-void ProtFromBlackOut(InfoKartu C, AddressOfPetak P);
+void ProtFromBlackOut(InfoKartu C, AddressOfPetak P, GlobalVariable G);
 
 void ReadDesc();
 

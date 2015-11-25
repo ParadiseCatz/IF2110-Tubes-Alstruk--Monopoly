@@ -6,15 +6,15 @@
 *	Deskripsi 	: Implementasi ADT Queue
 */
 
-#include "cards.h"
-#include "petak.h"
-#include "player.h"
-#include "arrayofint.h"
-#include "arrayofkata.h"
+#include "ADT/header/cards.h"
+#include "ADT/header/petak.h"
+#include "ADT/header/player.h"
+#include "ADT/header/arrayofint.h"
+#include "ADT/header/arrayofkata.h"
 #include "../../globalvariable.h"
 
 //pemeriksaan kondisi queue
-void CreateEmptyHand(ArrayOfCards *T){
+/* void CreateEmptyHand(ArrayOfCards *T){
 	// menciptakan array kosong di tangan
 	GetNeff(*T) = 0;
 }
@@ -79,76 +79,74 @@ void DeleteHand(ArrayOfCards *T, int K){
 	}
 	GetNeff(*T)--;
 }
+*/
 
-void FreeTax(InfoKartu C, Deck Q, AddressOfPetak *P){
+void DrawCards(InfoKartu C, ArrayOfCards Card){
+	int i;
+
+	for(i=0; i<MaxCards; i++){
+		Card.TabCards[i] = rand() %100 + 1;
+	}
+
+}
+
+void PrintCard (InfoKartu C){
+	printf("%c\n"GetName(C));
+	ReadDesc();
+	printf("%c\n",GetDesc(C));
+}
+
+void FreeTax(InfoKartu C, AddressOfPetak *P, ArrayOfCards Card, GlobalVariable G){
 /* I.S. : cardID = 1, not IsEmpty
  * F.S. : freetax
  * Proses :
  */	
- 	int K;
- 	ArrayOfInt *A;
 
-	if (GetID(C) == 1) {
-		AddAOI(A,K);
-	}
+		AddAOI(G.(*currentPlayer).idKartu,GetID());
 }
 
-void FreePrison(InfoKartu C, Deck Q, AddressOfPetak *P){
-	int K;
-	ArrayOfInt *A;
-
-	if (GetID(C) == 2) {
-		AddAOI(&A,K);
-	}
+void FreePrison(InfoKartu C, AddressOfPetak *P, ArrayOfCards Card, GlobalVariable G){
+		IsPenjara(G.(*currentPlayer));
+		KeluarPenjara(G.(*currentPlayer));
 }
 
-void GetPrison(InfoKartu C, InfoPlayer *X){
-	AddressOfPetak P;
+void GetPrison(InfoKartu C, InfoPlayer *X, ArrayOfCards Card, GlobalVariable G){
 
-	if (GetID(C) == 3){
-		AddAOI(&A,K);
-	}
+		IsPenjara(G.(*currentPlayer));
+		MasukPenjara(G.(*currentPlayer).penjara);
 }
 
-void GoToRandomPetak(InfoKartu C, AddressOfPetak P){
-	if (GetID(C) == 4){
-		SearchPetakByID(L,rand(id));
-	}
+void GoToRandomPetak(InfoKartu C, AddressOfPetak P, ArrayOfCards Card, GlobalVariable G){
+
+		if (N <= 15){
+			MajuNLangkah(G.(*currentPlayer), G.listOfPetak, N);
+		}
 }
 
-int Bday(InfoKartu C, InfoPlayer P InfoPlayer *X){
-	if (GetID(C) == 5){
-			Next(Infouang(*X)) -= 100000;
-			Infouang(*X) += 300000; 
-	}
+int Bday(InfoKartu C, GlobalVariable G, ArrayOfCards Card){
+	int i;
+
+		for (i=0; i<NbElmt(G.listOfPlayer); i++){
+			G.(*currentPlayer).uang += gift * i;
+			G.listOfPlayer.Next(P).info.uang = G.listOfPlayer.Next(P).info.uang - gift;
 }
 
 void DoubledMove(InfoKartu C, InfoPlayer *X){
 	int N, temp;
-	ListPetak L;
 
-	if (GetID(C) == 6){
 		temp = N * 2;
-		MajuNLangkah(*X,L,temp);
-	}
+		MajuNLangkah(G.(*currentPlayer),G.listOfPetak,temp);
+
 }
 
-boolean BlackOut(InfoKartu C, AddressOfPetak P){
-	ListPetak L;
-	int id;
+void BlackOut(InfoKartu C, AddressOfPetak P, GlobalVariable G){
 
-	if (GetID(C) == 7){
-		SearchPetakByID(L,id);
-	}
+		G.(*currentWorldCup).Blackout(P);
 }
 
-void ProtFromBlackOut(InfoKartu C, AddressOfPetak P){
-	int K;
-	ArrayOfInt *A;
+void ProtFromBlackOut(int K, GlobalVariable G){
 
-	if (GetID(C) == 8){
-		AddAOI(&A,K);
-	}
+		AddAOI(G.(*currentPlayer),K);
 }
 
 void ReadDesc(){
@@ -163,7 +161,7 @@ void ReadDesc(){
 			printf("Uh-Oh, Anda masuk penjara :( Cepat lakukan sesuatu!\n");
 			break;
 		case 4 :
-			printf("Dengan menggunakan kartu ini, Anda dapat bebas memilih destinasi berikutnya!\n");
+			printf("Dengan menggunakan kartu ini, Anda akan mengunjungi tempat yang tak pernah Anda bayangkan sebelumnya!\n");
 			break;
 		case 5 :
 			printf("Selamat ulang tahun! Terimalah hadiah sebesar 100000 dollar dari setiap pemain! :)\n");

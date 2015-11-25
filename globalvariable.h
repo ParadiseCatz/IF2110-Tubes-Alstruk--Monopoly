@@ -1,9 +1,13 @@
 #ifndef GLOBALVARIABLE_H
 #define GLOBALVARIABLE_H
-#include "ADT/Header/boolean.h"
-#include "ADT/Header/kata.h"
-#include "ADT/Header/arrayofint.h"
-#include "ADT/Header/arrayofkata.h"
+#include "ADT/header/boolean.h"
+#include "ADT/header/kata.h"
+#include "ADT/header/defeated.h"
+#include "ADT/header/cards.h"
+#include "ADT/header/player.h"
+#include "ADT/header/petak.h"
+#include "ADT/header/arrayofint.h"
+#include "ADT/header/arrayofkata.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -55,8 +59,6 @@ typedef struct
     int harga_jual; //harga jual Sale
 } InfoPetak;
 
-
-
 typedef struct TElmtListPetak {
 	InfoPetak 	info;
 	AddressOfPetak 	next;
@@ -87,7 +89,7 @@ typedef struct {
 	ListPetak listOfPetak;
 	InfoPlayer *currentPlayer;
 	InfoPetak *currentWorldCup;
-	QueueOfKartu queueOfKartu;
+	ArrayOfCards arrayOfCards;
 	StackOfPlayer stackOfDefeated;
 } GlobalVariable;
 
