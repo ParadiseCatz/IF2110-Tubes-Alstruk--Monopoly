@@ -118,9 +118,8 @@ void GoToRandomPetak(InfoKartu C, AddressOfPetak P){
 
 int Bday(InfoKartu C, InfoPlayer P InfoPlayer *X){
 	if (GetID(C) == 5){
-		for(){
-
-		}
+			Next(Infouang(*X)) -= 100000;
+			Infouang(*X) += 300000; 
 	}
 }
 
