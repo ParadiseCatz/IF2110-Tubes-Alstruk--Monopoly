@@ -41,13 +41,6 @@ typedef struct {
 	int Neff;
 } ArrayOfCards;
 
-//selektor
-#define GetID(C) (C).cardID
-#define GetName(C) (C).cardName
-#define GetDesc(C) (C).cardDescription
-
-#define GetNeff(Card) (Card).Neff
-
 #define gift 100000
 #define MaxCards 8
 
