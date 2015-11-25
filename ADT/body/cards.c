@@ -126,8 +126,8 @@ void DrawCards(){
 
 void PrintCard (InfoKartu C){
 	printf("Card ID : %d\n", C.cardID);
-	printf("Nama Kartu: "); PrintKata(C.cardName); printf("\n");
-	printf("Deskripsi Kartu: "); PrintKata(C.cardDescription); printf("\n");
+	printf("Nama Kartu: \n"); PrintKata(C.cardName); printf("\n");
+	printf("Deskripsi Kartu: \n"); PrintKata(C.cardDescription); printf("\n");
 }
 
 void FreeTax(){
@@ -169,16 +169,16 @@ void Bday(){
 
 void DoubledMove(){
 	
-	AddAOI(global.(*currentPlayer),6);
+	AddAOI(global.(*currentPlayer).idKartu,6);
 }
 
 void BlackOut(){
 
-	AddAOI(global.(*currentPlayer),7);
+	AddAOI(global.(*currentPlayer).idKartu,7);
 }
 
 void ProtFromBlackOut(){
 
-	AddAOI(global.currentPlayer),8);
+	AddAOI(global.currentPlayer).idKartu,8);
 }
 
