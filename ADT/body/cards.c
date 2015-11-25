@@ -88,7 +88,39 @@ void DrawCards(){
 
 	if(i == 0)
 	{
-
+		FreeTax();
+	} 
+	else if (i == 1)
+	{
+		FreePrison();
+	}
+	else if (i == 2)
+	{
+		GetPrison();
+	}
+	else if (i == 3)
+	{
+		MajuRandLangkah();
+	}
+	else if (i == 4)
+	{
+		Bday();
+	}
+	else if (i == 5)
+	{
+		DoubledMove();
+	}
+	else if (i == 6)
+	{
+		BlackOut();
+	}
+	else if (i == 7)
+	{
+		ProtFromBlackOut();
+	}
+	else 
+	{
+		printf("Tunggu sebentar!!\n");
 	}
 }
 
