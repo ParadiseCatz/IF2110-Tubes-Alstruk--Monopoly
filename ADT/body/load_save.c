@@ -2,6 +2,15 @@
 #include "../../globalvariable.h"
 #include "../../constant.h"
 
+void InitDataKartu()
+{
+	STARTKATA("data/dataKartu.txt");
+	while(!EndKata)
+	{
+		// Simpan deskripsi ke global variable
+	}	
+}
+
 void PrintKataToFile(FILE *fp, Kata K)
 {
 	int i;
@@ -242,7 +251,7 @@ void LoadGlobalVariables(char *directory)
 	{
 		InfoPlayer X;
 		AkuisisiPlayer(&X);
-		// Masukin X ke StackOfDefeatedPlayer
+		Push(&global.stackOfDefeated, X);
 	}
 
 }
@@ -326,12 +335,17 @@ void SaveDataGlobalVariables(char *directory)
 	fprintf(fp, "Current_WorldCup: %d\n", WC.id_petak);
 	
 	fprintf(fp, "Queue_kartu:\n");
-	// Print indeks dari Q.head sampai Q.tail
+	fprintf(fp, "%d\n", NbElmt(global.queueOfKartu));
 	
 	fprintf(fp, "Stack_defeated_players:\n");
-	// For ... PrintPlayerToFile(fp, InfoPlayer);
+	while(Top(global.stackOfDefeated) != Nil)
+	{
+		InfoPlayer X;
+		Pop(&global.stackOfDefeated, &X);
+		PrintPlayerToFile(fp, X);
+	}
 	
-	fprintf(fp, "#\n");
+	fprintf(fp, "\n#\n");
 	fclose(fp);
 }
 
@@ -353,7 +367,7 @@ void SaveDataPlayer(char *directory)
 		P = NextPlayer(P);
 	}
 	
-	fprintf(fp, "#\n");
+	fprintf(fp, "\n#\n");
 	fclose(fp);
 }
 
@@ -388,7 +402,7 @@ void SaveDataPetak(char *directory)
 		P = NextPetak(P);
 	} while(P != FirstLPetak(global.listOfPetak));
 	
-	fprintf(fp, "#\n");
+	fprintf(fp, "\n#\n");
 	fclose(fp);
 }
 

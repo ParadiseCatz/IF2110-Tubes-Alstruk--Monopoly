@@ -6,235 +6,179 @@
 *	Deskripsi 	: Implementasi ADT Queue
 */
 
-#include "cards.h"
-#include "petak.h"
-#include "player.h"
+#include "ADT/header/cards.h"
+#include "ADT/header/petak.h"
+#include "ADT/header/player.h"
+#include "ADT/header/arrayofint.h"
+#include "ADT/header/arrayofkata.h"
 #include "../../globalvariable.h"
 
 //pemeriksaan kondisi queue
-boolean IsEmpty(Deck Q)
-/*	Mengirim true jika Q kosong yaitu head dan tail sama dengan nil */
-{
-	if (GetHead(Q) == Nil && GetTail(Q) == Nil)
+/* void CreateEmptyHand(ArrayOfCards *T){
+	// menciptakan array kosong di tangan
+	GetNeff(*T) = 0;
+}
+
+int NbElmtHand(ArrayOfCards T){
+	return GetNeff(T);
+}
+
+boolean isMemberHand(ArrayOfCards T, int K){
+	// kamus lokal
+	int i;
+	boolean Found;
+	// algoritma
+	i = 1;
+	Found = false;
+	while(i<=NbElmtHand(T) && !Found)
+	{
+		if(T.TabCards[i] == K) 
+			Found = true;
+		else
+			i++;
+	}
+	if(Found)
 		return true;
 	else
 		return false;
 }
 
-boolean IsFull(Deck Q)
-/*	Mengirim true jika tabel penampung elemen Q sudah penuh yaitu mengandung maxEl elemen */
-{
-	if (NbElmt(Q) == GetMax(Q))
-		return true;
-	else
-		return false;
-}
-
-int NbElmt(Deck Q)
-/*	Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong. */
-{
-	if (IsEmpty(Q))
+int SearchIdxCard(ArrayOfCards T, int K){
+	// kamus lokal
+	int i;
+	boolean Found;
+	// algoritma
+	i = 1;
+	Found=false;
+	while(i<=NbElmtHand(T) && !Found)
 	{
-		return 0;
-	}
-	else
-	{
-		if(GetTail(Q) >= GetHead(Q))
-		{
-			return (GetTail(Q) - GetHead(Q) + 1);
-		}
+		if(T.TabCards[i] == K) 
+			Found = true;
 		else
-		{
-			return (GetMax(Q) - (GetHead(Q) - GetTail(Q)) + 1);
-		} 
+			i++;
 	}
-}
-
-
-//konstruktor
-void CreateEmpty(Deck *Q, int max)
-/*	I.S. Max terdefinisi
-	F.S. Sebuah Q kosong terbentuk dan salah satu kondisi sbb :
-	Jika alokasi berhasil, tabel memori dialokasi berukuran Max
-	atau : jika alokasi gagal, Q kosong dg Maksimum elemen=0
-	Proses : Melakukan alokasi memori dan membuat sebuah Q kosong
-*/
-{
-	(*Q).T = (Infotype*) malloc (max * sizeof (Infotype));
-	GetMax(*Q) = max - 1;
-	if ((*Q).T == NULL)
-	{
-		(*Q).T = (Infotype*) malloc (1 * sizeof (Infotype));
-		GetMax(*Q) = 1;
-	}
-	GetHead(*Q) = Nil;
-	GetTail(*Q) = Nil;
-}
-
-
-//destruktor
-void Dealokasi(Deck *Q)
-/*	Proses : Mengembalikan memori Q
-	I.S. Q pernah dialokasi
-	F.S. Q menjadi tidak terdefinisi lagi, maxEl(Q) juga diset 0
-		head dan tail diset menjadi Nil
-		Jangan lupa untuk membebaskan (free) memori yang telah dialokasikan untuk tabel
-*/
-{
-	free((*Q).T);
-}
-
-
-//operator-operator dasar queue
-void Add(Deck *Q, InfoKartu C)
-/*	Proses : Menambahkan X pada Q dengan aturan FIFO
-	I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh
-	F.S. X menjadi tail yang baru, tail "maju".
-	Jika tail baru = maxEl + 1, maka tail diset = 1.
-*/
-{
-	if (IsEmpty(*Q))
-	{
-		GetHead(*Q) = 1;
-		GetTail(*Q) = 1;
-	}
+	if(Found)
+		return i;
 	else
-	{
-		GetTail(*Q) += 1;
-		if (GetTail(*Q) > GetMax(*Q))
-			GetTail(*Q) = 1;
-	}
-	InfoTail(*Q) = C;
+		return -1;
 }
 
-void Del(Deck *Q, InfoKartu *C)
-/*	Proses : Menghapus elemen pertama pada Q dengan aturan FIFO
-	I.S. Q tidak kosong
-	F.S. X = nilai elemen head pada I.S.,
-	Jika Queue masih isi : head "maju".
-	Jika head baru menjadi maxEl + 1, maka head diset = 1;
-	Jika Queue menjadi kosong, head = tail = Nil.
+void AddHand(ArrayOfCards *T, int K){
+
+	GetNeff(*T)++;
+	(*T).TabCards[NbElmtHand(*T)] = K;
+}
+
+void DeleteHand(ArrayOfCards *T, int K){
+	// kamus lokal
+	int i;
+	// algoritma
+	i = SearchIdxCard(*T,K);
+	for(;i<NbElmtHand(*T); i++){
+		(*T).TabCards[i] = (*T).TabCards[i+1];
+	}
+	GetNeff(*T)--;
+}
 */
-{
-	(*C) = InfoHead(*Q);
-	if (GetHead(*Q)+1 > GetMax(*Q))
-		GetHead(*Q) = 1;
-	else
+
+void DrawCards(){
+	int i;
+
+	i = rand() % 8;
+
+	if(i == 0)
 	{
-		if (GetHead(*Q) == GetTail(*Q))
-		{
-			GetTail(*Q) = Nil;
-			GetHead(*Q) = Nil;
-		}
-		else
-		{
-			GetHead(*Q) += 1;
-		}
+		FreeTax();
+	} 
+	else if (i == 1)
+	{
+		FreePrison();
+	}
+	else if (i == 2)
+	{
+		GetPrison();
+	}
+	else if (i == 3)
+	{
+		MajuRandLangkah();
+	}
+	else if (i == 4)
+	{
+		Bday();
+	}
+	else if (i == 5)
+	{
+		DoubledMove();
+	}
+	else if (i == 6)
+	{
+		BlackOut();
+	}
+	else if (i == 7)
+	{
+		ProtFromBlackOut();
+	}
+	else 
+	{
+		printf("Tunggu sebentar!!\n");
 	}
 }
 
-void FreeTax(InfoKartu C, Deck Q, AddressOfPetak *P){
+void PrintCard (InfoKartu C){
+	printf("Card ID : %d\n", C.cardID);
+	printf("Nama Kartu: \n"); PrintKata(C.cardName); printf("\n");
+	printf("Deskripsi Kartu: \n"); PrintKata(C.cardDescription); printf("\n");
+}
+
+void FreeTax(){
 /* I.S. : cardID = 1, not IsEmpty
  * F.S. : freetax
  * Proses :
  */	
- 	int K;
- 	ArrayOfInt *A;
+	AddAOI(global.(*currentPlayer).idKartu,1);
+}
 
-	if (GetID(C) == 1) {
-		AddAOI(A,K);
+void FreePrison(){
+	AddAOI(global.(*currentPlayer).idKartu,2);
+}
+
+void GetPrison(){
+
+	MasukPenjara(global.(*currentPlayer).penjara);
+}
+
+void MajuRandLangkah(){
+
+	N = rand() % 15; 
+	N++;
+		MajuNLangkah(&global.(*currentPlayer), global.listOfPetak, N);
+}
+
+void Bday(){
+	int i;
+	AddressOfPlayer P;
+
+		global.(*currentPlayer).uang += gift * NbElmt(global.listOfPlayer);
+		P = First(global.listOfPlayer);
+
+		while (P != Nil){
+			P.uang = P.uang - gift; 
+			P = Next(P);
 	}
 }
 
-void FreePrison(InfoKartu C, Deck Q, AddressOfPetak *P){
-	int K;
-	ArrayOfInt *A;
-
-	if (GetID(C) == 2) {
-		AddAOI(&A,K);
-	}
+void DoubledMove(){
+	
+	AddAOI(global.(*currentPlayer).idKartu,6);
 }
 
-void GetPrison(InfoKartu C, InfoPlayer *X){
-	AddressOfPetak P;
+void BlackOut(){
 
-	if (GetID(C) == 3){
-		P = alokasi(C);
-		return (ID_Petak(P) == 9); // id petak penjara
-	}
+	AddAOI(global.(*currentPlayer).idKartu,7);
 }
 
-void GoToRandomPetak(InfoKartu C, AddressOfPetak P){
-	if (GetID(C) == 4){
-		SearchPetakByID(L,rand(id));
-	}
+void ProtFromBlackOut(){
+
+	AddAOI(global.currentPlayer).idKartu,8);
 }
 
-int Bday(InfoKartu C, InfoPlayer P InfoPlayer *X){
-	if (GetID(C) == 5){
-		for(){
-
-		}
-	}
-}
-
-void DoubledMove(InfoKartu C, InfoPlayer *X){
-	int N, temp;
-	ListPetak L;
-
-	if (GetID(C) == 6){
-		temp = N * N;
-		MajuNLangkah(*X,L,temp);
-	}
-}
-
-boolean BlackOut(InfoKartu C, AddressOfPetak P){
-	ListPetak L;
-	int id;
-
-	if (GetID(C) == 7){
-		SearchPetakByID(L,id);
-	}
-}
-
-void ProtFromBlackOut(InfoKartu C, AddressOfPetak P){
-	int K;
-	ArrayOfInt *A;
-
-	if (GetID(C) == 8){
-		AddAOI(&A,K);
-	}
-}
-
-void ReadDesc(){
-	switch(GetID(C)){
-		case 1 :
-			printf("Kartu ini membebaskan Anda dari pajak. Anda dapat memakai langsung kartu ini atau simpan untuk giliran yang akan datang!\n");
-			break;
-		case 2 :
-			printf("Selamat, Anda bebas dari penjara! Simpan atau langsung dipakai, Anda yang memilih!\n");
-			break;
-		case 3 :
-			printf("Uh-Oh, Anda masuk penjara :( Cepat lakukan sesuatu!\n");
-			break;
-		case 4 :
-			printf("Dengan menggunakan kartu ini, Anda dapat bebas memilih destinasi berikutnya! Silahkan simpan dahulu atau langsung aktifkan kartu ini.\n");
-			break;
-		case 5 :
-			printf("Selamat ulang tahun! Terimalah hadiah sebesar 100000 dollar dari setiap pemain! :)\n");
-			break;
-		case 6 :
-			printf("Maju dua kali lipat angka dadu!!\n");
-			break;
-		case 7 :
-			printf("Me-nullify satu petak.\n");
-			break;
-		case 8 :
-			printf("Me-negate proses Black Out. Silahkan simpan atau langsung pakai.\n");
-			
-		default:
-			printf("hanya ada 8 jenis kartu!\n");
-
-	}
-
-}

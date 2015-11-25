@@ -153,13 +153,10 @@ void MasukPenjara (InfoPlayer *X, ListPetak L)
 /*Memasukkan pemain kedalam penjara karena mendapatkan kartu chance*/
 {
 	(*X).penjara=1;
-<<<<<<< HEAD
 	LompatKe(&*X,SearchPetakByID(L,9));
-=======
 	Kata namapetak;
 	AddressOfPetak P = SearchPetak(L, namapetak);
 	(*X).posisi=P;
->>>>>>> 2bca4956c2aeaf0b149e4ba4db06f62be7634eda
 }
 
 void KeluarPenjara (InfoPlayer *X)

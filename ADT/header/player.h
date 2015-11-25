@@ -17,10 +17,10 @@ typedef struct {
     int             id;
     int             uang;
     ArrayOfInt      idKartu;
-    Kata        nama;
-    ArrayOfKata kota;
-    AddressOfPetak     posisi;
-    boolean     penjara;
+    Kata        	nama;
+    ArrayOfKata 	kota;
+    AddressOfPetak  posisi;
+    boolean     	penjara;
 } InfoPlayer;
 typedef struct TElmtListPlayer *AddressOfPlayer;
 
