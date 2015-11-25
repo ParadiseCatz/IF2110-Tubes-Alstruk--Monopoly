@@ -49,9 +49,9 @@ void PrintKata(Kata K)
 	// Algoritma
 	for(i=0; i<K.Length; i++)
 	{
-		printf("%c", K.TabKata[i]);
+		if(K.TabKata[i] == '_') printf(" ");
+		else printf("%c", K.TabKata[i]);
 	}
-	printf("\n");
 }
 
 int KataToInt(Kata K)
