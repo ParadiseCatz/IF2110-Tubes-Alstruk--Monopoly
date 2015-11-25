@@ -46,21 +46,24 @@ typedef struct {
 #define GetName(C) (C).cardName
 #define GetDesc(C) (C).cardDescription
 
-#define GetCards(T) (T).TabCards[8]
+#define GetNeff(T) (T).Neff
 
 //pemeriksaan kondisi Deck
-void CreateEmptyDeck(ArrayOfCards *T);
+void CreateEmptyHand(ArrayOfCards *T);
+/* menciptakan array kosong untuk kartu di tangan current player */
+int NbElmtHand(ArrayOfCards T);
+/* banyaknya kartu di tangan */
+boolean isMemberHand(ArrayOfCards T, int K);
+/* mengecek apakah kartu terdapat pada current player */
+int SearchIdxCard(ArrayOfCards T, int K);
+/* mencari kartu di tangan player */
+void AddHand(ArrayOfCards *T, int K);
+/* menambahkan kartu ke tangan current player */
+void DeleteHand(ArrayOfCards *T, int K);
+/* mengembalikan kartu ke system */
 
-boolean isMemberDeck(ArrayOfCards T, int K);
 
-int SearchIdxAOI(ArrayOfCards T, int K);
-
-void PrintAOI(ArrayOfCards T);
-
-void AddAOI(ArrayOfCards *T, int K);
-
-void DeleteAOI(ArrayOfCards *T, int K);
-
+// METHOD UNTUK JENIS CHANCE CARD
 void FreeTax(InfoKartu C, AddressOfPetak *P, ArrayOfCards T);
 
 void FreePrison(InfoKartu C, AddressOfPetak *P, ArrayOfCards T);

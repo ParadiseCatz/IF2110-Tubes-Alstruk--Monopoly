@@ -14,125 +14,70 @@
 #include "../../globalvariable.h"
 
 //pemeriksaan kondisi queue
-boolean IsEmpty(Deck Q)
-/*	Mengirim true jika Q kosong yaitu head dan tail sama dengan nil */
-{
-	if (GetHead(Q) == Nil && GetTail(Q) == Nil)
+void CreateEmptyHand(ArrayOfCards *T){
+	// menciptakan array kosong di tangan
+	GetNeff(*T) = 0;
+}
+
+int NbElmtHand(ArrayOfCards T){
+	return GetNeff(T);
+}
+
+boolean isMemberHand(ArrayOfCards T, int K){
+	// kamus lokal
+	int i;
+	boolean Found;
+	// algoritma
+	i = 1;
+	Found = false;
+	while(i<=NbElmtHand(T) && !Found)
+	{
+		if(T.TabCards[i] == K) 
+			Found = true;
+		else
+			i++;
+	}
+	if(Found)
 		return true;
 	else
 		return false;
 }
 
-boolean IsFull(Deck Q)
-/*	Mengirim true jika tabel penampung elemen Q sudah penuh yaitu mengandung maxEl elemen */
-{
-	if (NbElmt(Q) == GetMax(Q))
-		return true;
-	else
-		return false;
-}
-
-int NbElmt(Deck Q)
-/*	Mengirimkan banyaknya elemen queue. Mengirimkan 0 jika Q kosong. */
-{
-	if (IsEmpty(Q))
+int SearchIdxCard(ArrayOfCards T, int K){
+	// kamus lokal
+	int i;
+	boolean Found;
+	// algoritma
+	i = 1;
+	Found=false;
+	while(i<=NbElmtHand(T) && !Found)
 	{
-		return 0;
-	}
-	else
-	{
-		if(GetTail(Q) >= GetHead(Q))
-		{
-			return (GetTail(Q) - GetHead(Q) + 1);
-		}
+		if(T.TabCards[i] == K) 
+			Found = true;
 		else
-		{
-			return (GetMax(Q) - (GetHead(Q) - GetTail(Q)) + 1);
-		} 
+			i++;
 	}
-}
-
-
-//konstruktor
-void CreateEmpty(Deck *Q, int max)
-/*	I.S. Max terdefinisi
-	F.S. Sebuah Q kosong terbentuk dan salah satu kondisi sbb :
-	Jika alokasi berhasil, tabel memori dialokasi berukuran Max
-	atau : jika alokasi gagal, Q kosong dg Maksimum elemen=0
-	Proses : Melakukan alokasi memori dan membuat sebuah Q kosong
-*/
-{
-	(*Q).T = (Infotype*) malloc (max * sizeof (Infotype));
-	GetMax(*Q) = max - 1;
-	if ((*Q).T == NULL)
-	{
-		(*Q).T = (Infotype*) malloc (1 * sizeof (Infotype));
-		GetMax(*Q) = 1;
-	}
-	GetHead(*Q) = Nil;
-	GetTail(*Q) = Nil;
-}
-
-
-//destruktor
-void Dealokasi(Deck *Q)
-/*	Proses : Mengembalikan memori Q
-	I.S. Q pernah dialokasi
-	F.S. Q menjadi tidak terdefinisi lagi, maxEl(Q) juga diset 0
-		head dan tail diset menjadi Nil
-		Jangan lupa untuk membebaskan (free) memori yang telah dialokasikan untuk tabel
-*/
-{
-	free((*Q).T);
-}
-
-
-//operator-operator dasar queue
-void Add(Deck *Q, InfoKartu C)
-/*	Proses : Menambahkan X pada Q dengan aturan FIFO
-	I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh
-	F.S. X menjadi tail yang baru, tail "maju".
-	Jika tail baru = maxEl + 1, maka tail diset = 1.
-*/
-{
-	if (IsEmpty(*Q))
-	{
-		GetHead(*Q) = 1;
-		GetTail(*Q) = 1;
-	}
+	if(Found)
+		return i;
 	else
-	{
-		GetTail(*Q) += 1;
-		if (GetTail(*Q) > GetMax(*Q))
-			GetTail(*Q) = 1;
-	}
-	InfoTail(*Q) = C;
+		return -1;
 }
 
-void Del(Deck *Q, InfoKartu *C)
-/*	Proses : Menghapus elemen pertama pada Q dengan aturan FIFO
-	I.S. Q tidak kosong
-	F.S. X = nilai elemen head pada I.S.,
-	Jika Queue masih isi : head "maju".
-	Jika head baru menjadi maxEl + 1, maka head diset = 1;
-	Jika Queue menjadi kosong, head = tail = Nil.
-*/
-{
-	(*C) = InfoHead(*Q);
-	if (GetHead(*Q)+1 > GetMax(*Q))
-		GetHead(*Q) = 1;
-	else
-	{
-		if (GetHead(*Q) == GetTail(*Q))
-		{
-			GetTail(*Q) = Nil;
-			GetHead(*Q) = Nil;
-		}
-		else
-		{
-			GetHead(*Q) += 1;
-		}
+void AddHand(ArrayOfCards *T, int K){
+
+	GetNeff(*T)++;
+	(*T).TabCards[NbElmtHand(*T)] = K;
+}
+
+void DeleteHand(ArrayOfCards *T, int K){
+	// kamus lokal
+	int i;
+	// algoritma
+	i = SearchIdxCard(*T,K);
+	for(;i<NbElmtHand(*T); i++){
+		(*T).TabCards[i] = (*T).TabCards[i+1];
 	}
+	GetNeff(*T)--;
 }
 
 void FreeTax(InfoKartu C, Deck Q, AddressOfPetak *P){
