@@ -1,9 +1,9 @@
 #ifndef GLOBALVARIABLE_H
 #define GLOBALVARIABLE_H
-#include "ADT/Header/boolean.h"
-#include "ADT/Header/kata.h"
-#include "ADT/Header/arrayofint.h"
-#include "ADT/Header/arrayofkata.h"
+#include "ADT/header/boolean.h"
+#include "ADT/header/kata.h"
+#include "ADT/header/arrayofint.h"
+#include "ADT/header/arrayofkata.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -81,6 +81,10 @@ typedef struct {
 #define Blok(P) Info(P).blok
 #define Blackout(P) Info(P).blackout
 #define Harga_Jual(P) Info(P).harga_jual
+
+typedef struct {
+    AddressOfPlayer     top;
+} StackOfPlayer;
 
 typedef struct {
 	ListPlayer listOfPlayer;
