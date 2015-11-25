@@ -43,28 +43,51 @@ void Dealokasi(AddressOfPlayer *P)
 	free(*P);
 }
 
-void Add (ListPlayer *L, InfoPlayer X)
-/*Menambahkan pemain ke ListPlayer ketika awal permainan. Jumlah pemain yang diperbolehkan
-	yaitu N>=1 dan N<=7
+void InsVLast (ListPlayer *L, InfoPlayer X)
+/*	I.S. L mungkin kosong
+	F.S. X ditambahkan sebagai elemen terakhir L
+	Proses : Melakukan alokasi sebuah elemen dan menambahkan elemen list di akhir :
+	elemen terakhir yang baru bernilai X jika alokasi berhasil.
+	Jika alokasi gagal: I.S.= F.S.
 */
 {
+    AddressOfPlayer P=Alokasi(X);
+    InsertLast(&*L,P);
+}
 
-	AddressOfPlayer P=Alokasi(X);
-	if (IsLPlayerEmpty(*L))
-	{
-		First(*L)=P;
-		Next(First(*L))=Nil;
-	}
-	else
-	{
-		AddressOfPlayer last=First(*L);
-		while (last!=Nil)
-		{
-			last=Next(last);
-		}
-		Next(last)=P;
-		Next(Next(last))=Nil;
-	}
+void InsertFirst (ListPlayer *L, AddressOfPlayer P)
+/*	I.S. Sembarang, P sudah dialokasi
+	F.S. Menambahkan elemen ber-Address P sebagai elemen pertama
+*/
+{
+    Next(P) = First(*L) ;
+    First(*L) = P;
+}
+void InsertAfter (ListPlayer *L, AddressOfPlayer P, AddressOfPlayer Prec)
+/*	I.S. Prec pastilah elemen list dan bukan elemen terakhir,
+	P sudah dialokasi
+	F.S. Insert P sebagai elemen sesudah elemen beralamat Prec
+*/
+{
+    Next(P)=Next(Prec);
+    Next(Prec)=P;
+}
+void InsertLast (ListPlayer *L, AddressOfPlayer P)
+/*	I.S. Sembarang, P sudah dialokasi
+	F.S. P ditambahkan sebagai elemen terakhir yang baru
+*/
+{
+    if (IsLPlayerEmpty(*L)){
+        InsertFirst(&*L,P);
+    }
+    else
+    {
+        AddressOfPlayer Last=First(*L);
+        while (Next(Last)!=Nil){
+            Last=Next(Last);
+        }
+        InsertAfter(&*L,P,Last);
+    }
 }
 
 void Del (ListPlayer *L, InfoPlayer *X, int id)
@@ -124,14 +147,13 @@ AddressOfPlayer SearchidPlayer (ListPlayer L, int id)
 /*Mencari Alamat pemain dari ListPlayer. Pencarian dilakukan
 	dengan menggunakan id player*/
 {
-	AddressOfPlayer P;
-	P=First(L);
 	if (IsLPlayerEmpty(L))
 	{
 		return Nil;
 	}
 	else
 	{
+		AddressOfPlayer P=First(L);
 		while (P!=Nil && Infoid(P)!=id)
 		{
 			P=Next(P);
@@ -146,13 +168,16 @@ AddressOfPlayer SearchidPlayer (ListPlayer L, int id)
 boolean IsPenjara (InfoPlayer X)
 /*Mengecek apakah pemain ada di penjara atau tidak*/
 {
-	return X.penjara==1;
+	if (X.penjara==true)
+		return true;
+	else
+		return false;
 }
 
 void MasukPenjara (InfoPlayer *X, ListPetak L)
 /*Memasukkan pemain kedalam penjara karena mendapatkan kartu chance*/
 {
-	(*X).penjara=1;
+	(*X).penjara=true;
 	LompatKe(&*X,SearchPetakByID(L,9));
 	Kata namapetak;
 	AddressOfPetak P = SearchPetak(L, namapetak);
@@ -196,7 +221,14 @@ boolean isGetKartuPenjara (int X)
 int HitungHartaPlayer (InfoPlayer X)
 /*Menghitung semua aset milik pemain (uang+kota)*/
 {
-	return X.uang;
+	int i,sum=X.uang;
+	AddressOfPetak P;
+	for (i=0;i<NbElmtAOK(X.kota);i++)
+	{
+		P=SearchPetak(global.listOfPetak,X.kota.T[i]);
+		sum+=hargapetak(P);
+	}
+	return sum;
 }
 
 void MajuNLangkah (InfoPlayer *X, ListPetak L, int N)
@@ -209,7 +241,8 @@ void MajuNLangkah (InfoPlayer *X, ListPetak L, int N)
 	{
 		if (P==Nil)
 			P=First(L);
-		P=Next(P);
+		else
+			P=Next(P);
 	}
 	(*X).posisi=P;
 }
