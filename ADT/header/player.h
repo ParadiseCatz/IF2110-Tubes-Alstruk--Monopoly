@@ -1,6 +1,5 @@
 #ifndef PLAYER_H
 #define PLAYER_H
-<<<<<<< HEAD
 #include "boolean.h"
 #include "arrayofint.h"
 #include "arrayofkata.h"
@@ -9,38 +8,7 @@
 #include "kata.h"
 #include "petak.h"
 #include "defeated.h"
-//Konstanta
-//
-#define Nil NULL
-
-typedef struct {
-    int             id;
-    int             uang;
-    ArrayOfInt      idKartu;
-    Kata        	nama;
-    ArrayOfKata 	kota;
-    AddressOfPetak  posisi;
-    boolean     	penjara;
-} InfoPlayer;
-typedef struct TElmtListPlayer *AddressOfPlayer;
-
-typedef struct TElmtListPlayer {
-	InfoPlayer 	info;
-	AddressOfPlayer 	next;
-} ElmtPlayer;
-
-typedef struct {
-	AddressOfPlayer		first;
-} ListPlayer;
-
-#define First(L) (L).first
-#define Next(P) (P)->next
-#define Info(P) (P)->info
-#define Infoid(P) (P)->info.id
-#define Infouang(P) (P)->info.uang
-=======
 #include "../../globalvariable.h"
->>>>>>> 2bca4956c2aeaf0b149e4ba4db06f62be7634eda
 
 void CreateEmptyLPlayer (ListPlayer *L);
 //membuat ListOfPlayer
@@ -57,10 +25,15 @@ AddressOfPlayer Alokasi (InfoPlayer X);
 void Dealokasi(AddressOfPlayer *P);
 //Dealokasi
 
-void Add (ListPlayer *L, InfoPlayer X);
+void InsVLast (ListPlayer *L, InfoPlayer X);
 /*Menambahkan pemain ke ListPlayer ketika awal permainan. Jumlah pemain yang diperbolehkan
 	yaitu N>=1 dan N<=7
 */
+
+void InsertFirst (ListPlayer *L, AddressOfPlayer P);
+void InsertAfter (ListPlayer *L, AddressOfPlayer P, AddressOfPlayer Prec);
+void InsertLast (ListPlayer *L, AddressOfPlayer P);
+
 void Del (ListPlayer *L, InfoPlayer *X, int id);
 /*Menghapus pemain dari ListPlayer ketika pemain sudah kalah dalam permainan
  */
@@ -107,4 +80,5 @@ boolean IsMember (InfoPlayer X, Kata K);
 
 int NbElmt (ListPlayer L);
 //Mengembalikan banyak pemain dalam permainan
+
 #endif
