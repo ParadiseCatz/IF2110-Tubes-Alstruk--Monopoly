@@ -81,103 +81,72 @@ void DeleteHand(ArrayOfCards *T, int K){
 }
 */
 
-void DrawCards(InfoKartu C, ArrayOfCards Card){
+void DrawCards(){
 	int i;
 
-	for(i=0; i<MaxCards; i++){
-		Card.TabCards[i] = rand() %100 + 1;
-	}
+	i = rand() % 8;
 
+	if(i == 0)
+	{
+
+	}
 }
 
 void PrintCard (InfoKartu C){
-	printf("%c\n"GetName(C));
-	ReadDesc();
-	printf("%c\n",GetDesc(C));
+	printf("Card ID : %d\n", C.cardID);
+	printf("Nama Kartu: "); PrintKata(C.cardName); printf("\n");
+	printf("Deskripsi Kartu: "); PrintKata(C.cardDescription); printf("\n");
 }
 
-void FreeTax(InfoKartu C, AddressOfPetak *P, ArrayOfCards Card, GlobalVariable G){
+void FreeTax(){
 /* I.S. : cardID = 1, not IsEmpty
  * F.S. : freetax
  * Proses :
  */	
-
-		AddAOI(G.(*currentPlayer).idKartu,GetID());
+	AddAOI(global.(*currentPlayer).idKartu,1);
 }
 
-void FreePrison(InfoKartu C, AddressOfPetak *P, ArrayOfCards Card, GlobalVariable G){
-		IsPenjara(G.(*currentPlayer));
-		KeluarPenjara(G.(*currentPlayer));
+void FreePrison(){
+	AddAOI(global.(*currentPlayer).idKartu,2);
 }
 
-void GetPrison(InfoKartu C, InfoPlayer *X, ArrayOfCards Card, GlobalVariable G){
+void GetPrison(){
 
-		IsPenjara(G.(*currentPlayer));
-		MasukPenjara(G.(*currentPlayer).penjara);
+	MasukPenjara(global.(*currentPlayer).penjara);
 }
 
-void GoToRandomPetak(InfoKartu C, AddressOfPetak P, ArrayOfCards Card, GlobalVariable G){
+void MajuRandLangkah(){
 
-		if (N <= 15){
-			MajuNLangkah(G.(*currentPlayer), G.listOfPetak, N);
-		}
+	N = rand() % 15; 
+	N++;
+		MajuNLangkah(&global.(*currentPlayer), global.listOfPetak, N);
 }
 
-int Bday(InfoKartu C, GlobalVariable G, ArrayOfCards Card){
+void Bday(){
 	int i;
+	AddressOfPlayer P;
 
-		for (i=0; i<NbElmt(G.listOfPlayer); i++){
-			G.(*currentPlayer).uang += gift * i;
-			G.listOfPlayer.Next(P).info.uang = G.listOfPlayer.Next(P).info.uang - gift;
-}
+		global.(*currentPlayer).uang += gift * NbElmt(global.listOfPlayer);
+		P = First(global.listOfPlayer);
 
-void DoubledMove(InfoKartu C, InfoPlayer *X){
-	int N, temp;
-
-		temp = N * 2;
-		MajuNLangkah(G.(*currentPlayer),G.listOfPetak,temp);
-
-}
-
-void BlackOut(InfoKartu C, AddressOfPetak P, GlobalVariable G){
-
-		G.(*currentWorldCup).Blackout(P);
-}
-
-void ProtFromBlackOut(int K, GlobalVariable G){
-
-		AddAOI(G.(*currentPlayer),K);
-}
-
-void ReadDesc(){
-	switch(GetID(C)){
-		case 1 :
-			printf("Kartu ini membebaskan Anda dari pajak. Anda dapat memakai langsung kartu ini atau simpan untuk giliran yang akan datang!\n");
-			break;
-		case 2 :
-			printf("Selamat, Anda bebas dari penjara! Simpan atau langsung dipakai, Anda yang memilih!\n");
-			break;
-		case 3 :
-			printf("Uh-Oh, Anda masuk penjara :( Cepat lakukan sesuatu!\n");
-			break;
-		case 4 :
-			printf("Dengan menggunakan kartu ini, Anda akan mengunjungi tempat yang tak pernah Anda bayangkan sebelumnya!\n");
-			break;
-		case 5 :
-			printf("Selamat ulang tahun! Terimalah hadiah sebesar 100000 dollar dari setiap pemain! :)\n");
-			break;
-		case 6 :
-			printf("Maju dua kali lipat angka dadu!!\n");
-			break;
-		case 7 :
-			printf("Mati lampu! Aduh gelapnya! Gelap-gelapan jadinya seperti siluman!!\n");
-			break;
-		case 8 :
-			printf("Aku takut mati lampu, mati pula cintamu. Teranglah, wahai cintaku! Musnahlah, wahai kegelapan!!!\n");
-			
-		default:
-			printf("hanya ada 8 jenis kartu!\n");
-
+		while (P != Nil){
+			P.uang = P.uang - gift; 
+			P = Next(P);
 	}
-
 }
+
+void DoubledMove(){
+	
+	AddAOI(global.(*currentPlayer),6);
+}
+
+void BlackOut(){
+
+	AddAOI(global.(*currentPlayer),7);
+}
+
+void ProtFromBlackOut(){
+
+	AddAOI(global.currentPlayer),8);
+}
+

@@ -51,29 +51,28 @@ typedef struct {
 #define gift 100000
 #define MaxCards 8
 
-void DrawCards(InfoKartu C, ArrayOfCards Card);
+void DrawCards();
 
 void PrintCard (InfoKartu C);
 /* print id, judul dan deskripsi */
 
+
 // METHOD UNTUK JENIS CHANCE CARD
-void FreeTax(InfoKartu C, AddressOfPetak *P, ArrayOfCards Card, GlobalVariable G);
+void FreeTax();
 
-void FreePrison(InfoKartu C, AddressOfPetak *P, ArrayOfCards Card, GlobalVariable G);
+void FreePrison();
 
-void GetPrison(InfoKartu C, InfoPlayer *X, ArrayOfCards Card, GlobalVariable G);
+void GetPrison();
 
-void GoToRandomPetak(InfoKartu C, AddressOfPetak P, ArrayOfCards Card, GlobalVariable G);
+void MajuRandLangkah();
 
-int Bday(InfoKartu C, GlobalVariable G, ArrayOfCards Card);
+void Bday();
 
-void DoubledMove(InfoKartu C, ArrayOfCards T, AddressOfPetak P, GlobalVariable G);
+void DoubledMove();
 
-boolean BlackOut(InfoKartu C, AddressOfPetak P, GlobalVariable G);
+void BlackOut();
 
-void ProtFromBlackOut(InfoKartu C, AddressOfPetak P, GlobalVariable G);
-
-void ReadDesc();
+void ProtFromBlackOut();
 
 
 #endif
