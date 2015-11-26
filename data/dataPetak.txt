@@ -212,7 +212,7 @@ Nama_Petak: Moscow
 Harga_Dasar: 150000
 Harga_Jual: -1
 Biaya_Sewa: 15000
-Biaya_Upgrade:
+Biaya_Upgrade: 150000
 Level: 1
 Multiplier_Sewa: 1
 Pemilik: 0
