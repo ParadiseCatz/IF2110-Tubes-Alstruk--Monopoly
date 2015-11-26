@@ -142,10 +142,10 @@ boolean isTempatWisata(AddressOfPetak P)
     tempat_wisata.TabKata[6] = '_';
     tempat_wisata.TabKata[7] = 'W';
     tempat_wisata.TabKata[8] = 'i';
-    tempat_wisata.TabKata[10] = 's';
-    tempat_wisata.TabKata[11] = 'a';
-    tempat_wisata.TabKata[12] = 't';
-    tempat_wisata.TabKata[13] = 'a';
+    tempat_wisata.TabKata[9] = 's';
+    tempat_wisata.TabKata[10] = 'a';
+    tempat_wisata.TabKata[11] = 't';
+    tempat_wisata.TabKata[12] = 'a';
     tempat_wisata.Length = 13;
 
     return IsKataSama(Jenis_Petak(P), tempat_wisata);
