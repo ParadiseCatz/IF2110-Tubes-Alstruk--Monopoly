@@ -8,20 +8,11 @@
 
 #ifndef CARDS_H
 #define CARDS_H
-<<<<<<< HEAD
-#include "boolean.h"
-#include "arrayofkata.h"
-#include "arrayofint.h"
-#include "kata.h"
-#include "player.h"
-=======
-#include "ADT/header/boolean.h"
-#include "ADT/header/arrayofkata.h"
-#include "ADT/header/arrayofint.h"
-#include "ADT/header/kata.h"
-#include "../../globalvariable.h"
-#include "ADT/header/player.h"
->>>>>>> b773ab17e5fa962d0fbc7f01a56a7a541ba04e9e
+#include "../header/boolean.h"
+#include "../header/arrayofkata.h"
+#include "../header/arrayofint.h"
+#include "../header/kata.h"
+#include "../header/player.h"
 #include <stdlib.h>
 #include <stdio.h>
 
