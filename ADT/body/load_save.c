@@ -178,7 +178,7 @@ void InitPlayers(int numOfPlayers)
 
 void NewGame(int numOfPlayers)
 {
-	InitBoardAwal();
+	InitBoardAwal(); InitDataKartu();
 	InitPlayers(numOfPlayers);
 }
 
