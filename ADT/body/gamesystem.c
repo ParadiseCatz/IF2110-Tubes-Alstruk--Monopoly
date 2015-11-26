@@ -3,6 +3,8 @@
 #include "../header/gamesystem.h"
 #include "../header/boolean.h"
 #include "../../constant.h"
+#include "../header/petak.h"
+
 void gamesystem_start()
 {
 	boolean finish = false;
@@ -48,7 +50,7 @@ void gamesystem_do_action(int pilihan)
 		break;
 		//Info board
 
-		case 5: PrintPetak();
+		case 5: 
 		break;
 		//info petak
 

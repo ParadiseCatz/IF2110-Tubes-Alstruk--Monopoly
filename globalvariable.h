@@ -4,12 +4,11 @@
 #include "ADT/header/kata.h"
 #include "ADT/header/arrayofint.h"
 #include "ADT/header/arrayofkata.h"
+#include "constant.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 //Konstanta
-#define Nil NULL
-
 typedef struct TElmtListPetak *AddressOfPetak;
 
 typedef struct TElmtListPlayer *AddressOfPlayer;
@@ -55,8 +54,6 @@ typedef struct
     int harga_jual; //harga jual Sale
 } InfoPetak;
 
-
-
 typedef struct TElmtListPetak {
 	InfoPetak 	info;
 	AddressOfPetak 	next;
@@ -82,6 +79,19 @@ typedef struct {
 #define Blackout(P) Info(P).blackout
 #define Harga_Jual(P) Info(P).harga_jual
 
+typedef int Address;
+
+typedef struct {
+    int cardID;
+    Kata cardName;
+    Kata cardDescription;
+} InfoKartu;
+
+typedef struct {
+    InfoKartu TabCards[MAX_CARDS];
+    int Neff;
+} ArrayOfCards;
+
 typedef struct {
     AddressOfPlayer     top;
 } StackOfPlayer;
@@ -91,7 +101,7 @@ typedef struct {
 	ListPetak listOfPetak;
 	InfoPlayer *currentPlayer;
 	InfoPetak *currentWorldCup;
-	Deck queueOfKartu;
+	ArrayOfCards arrayOfCards;
 	StackOfPlayer stackOfDefeated;
 } GlobalVariable;
 

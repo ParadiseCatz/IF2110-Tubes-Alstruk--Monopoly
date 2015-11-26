@@ -153,4 +153,6 @@ void AppointWorldCup(Kata namapetak);
 void WorldTravel(Kata namapetak);
 //Berpindah ke petak tujuan worldtravel
 
+int NbElmtPetak (ListPetak L);
+
 #endif

@@ -135,50 +135,50 @@ void FreeTax(){
  * F.S. : freetax
  * Proses :
  */	
-	AddAOI(global.(*currentPlayer).idKartu,1);
+	AddAOI(&global.currentPlayer -> idKartu,1);
 }
 
 void FreePrison(){
-	AddAOI(global.(*currentPlayer).idKartu,2);
+	AddAOI(&global.currentPlayer -> idKartu,2);
 }
 
 void GetPrison(){
 
-	MasukPenjara(global.(*currentPlayer).penjara);
+	MasukPenjara(global.currentPlayer, global.listOfPetak);
 }
 
 void MajuRandLangkah(){
 
-	N = rand() % 15; 
+	int N = rand() % 15; 
 	N++;
-		MajuNLangkah(&global.(*currentPlayer), global.listOfPetak, N);
+	MajuNLangkah(global.currentPlayer, global.listOfPetak, N);
 }
 
 void Bday(){
 	int i;
 	AddressOfPlayer P;
 
-		global.(*currentPlayer).uang += gift * NbElmt(global.listOfPlayer);
+		global.currentPlayer ->uang += GIFT * NbElmtPlayer(global.listOfPlayer);
 		P = First(global.listOfPlayer);
 
 		while (P != Nil){
-			P.uang = P.uang - gift; 
+			Info(P).uang = Info(P).uang - GIFT; 
 			P = Next(P);
 	}
 }
 
 void DoubledMove(){
 	
-	AddAOI(global.(*currentPlayer).idKartu,6);
+	AddAOI(&global.currentPlayer ->idKartu,6);
 }
 
 void BlackOut(){
 
-	AddAOI(global.(*currentPlayer).idKartu,7);
+	AddAOI(&global.currentPlayer ->idKartu,7);
 }
 
 void ProtFromBlackOut(){
 
-	AddAOI(global.currentPlayer).idKartu,8);
+	AddAOI(&global.currentPlayer ->idKartu,8);
 }
 

@@ -71,7 +71,7 @@ void InitUrutanBoard()
 		X.jenis_petak = CKata;
 		P = AlokasiPetak(X);
 
-		AddLastLPetak(&global.listOfPetak, P);
+		AddLastPetak(&global.listOfPetak, P);
 		ADVKATA();
 	}	
 }
@@ -142,7 +142,7 @@ void InitDataAwalBoard()
 void InitBoardAwal()
 {
 	InitUrutanBoard();
-	InitDataPetakAwal();
+	// InitDataPetakAwal();
 }
 
 void InitPlayers(int numOfPlayers)
@@ -160,11 +160,11 @@ void InitPlayers(int numOfPlayers)
 		CreateEmptyAOI(&X.idKartu);
 		printf("Masukan nama untuk player %d : ", i); BacaKata(&X.nama);
 		CreateEmptyAOK(&X.kota);
-		X.posisi = FirstPetak(global.listOfPlayer);
+		X.posisi = FirstPetak(global.listOfPetak);
 		X.penjara = false;
 		
-		P = AlokasiPlayer(X);
-		AddPlayer(&global.listOfPlayer, P);
+		P = Alokasi(X);
+		InsertLast(&global.listOfPlayer, P);
 	}
 }
 
@@ -283,8 +283,8 @@ void LoadDataPlayers(char *directory)
 	while(!EndKata)
 	{
 		AkuisisiPlayer(&X);
-		P = AlokasiPlayer(X);
-		AddLPlayer(&global.listOfPlayer, P);
+		P = Alokasi(X);
+		InsertLast(&global.listOfPlayer, P);
 	}
 }
 
@@ -335,7 +335,7 @@ void SaveDataGlobalVariables(char *directory)
 	fprintf(fp, "Current_WorldCup: %d\n", WC -> id_petak);
 	
 	fprintf(fp, "Queue_kartu:\n");
-	fprintf(fp, "%d\n", NbElmt(global.queueOfKartu));
+	fprintf(fp, "%d\n", MAX_CARDS);
 	
 	fprintf(fp, "Stack_defeated_players:\n");
 	while(Top(global.stackOfDefeated) != Nil)
@@ -354,17 +354,17 @@ void SaveDataPlayer(char *directory)
 	FILE *fp;
 	fp = fopen(directory, "w");
 	
-	int numOfPlayers = NbElmtLPlayer(global.listOfPlayer);
+	int numOfPlayers = NbElmtPlayer(global.listOfPlayer);
 	int i;
 	InfoPlayer X;
 	AddressOfPlayer P;
 
-	P = FirstLPlayer(global.listOfPlayer);
+	P = First(global.listOfPlayer);
 	for(i=0; i<numOfPlayers; i++)
 	{
 		X = Info(P);
 		PrintPlayerToFile(fp, X);
-		P = NextPlayer(P);
+		P = Next(P);
 	}
 	
 	fprintf(fp, "\n#\n");
@@ -384,12 +384,12 @@ void SaveDataPetak(char *directory)
 	TEMPAT_WISATA.TabKata[8] = 'i'; TEMPAT_WISATA.TabKata[9] = 's'; TEMPAT_WISATA.TabKata[10] = 'a'; TEMPAT_WISATA.TabKata[11] = 't'; 
 	TEMPAT_WISATA.TabKata[12] = 'a';  TEMPAT_WISATA.Length = 13;
 
-	int numOfPetak = NbElmtLPetak(global.listOfPetak);
+	int numOfPetak = NbElmtPetak(global.listOfPetak);
 	int i;
 	InfoPetak X;
 	AddressOfPetak P;
 
-	P = FirstLPetak(global.listOfPetak);
+	P = FirstPetak(global.listOfPetak);
 	do
 	{
 		X = InfoPetak(P);
@@ -400,7 +400,7 @@ void SaveDataPetak(char *directory)
 		}
 					
 		P = NextPetak(P);
-	} while(P != FirstLPetak(global.listOfPetak));
+	} while(P != FirstPetak(global.listOfPetak));
 	
 	fprintf(fp, "\n#\n");
 	fclose(fp);

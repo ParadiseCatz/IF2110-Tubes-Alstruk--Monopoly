@@ -78,7 +78,7 @@ void DelKota (InfoPlayer *X, Kata K);
 boolean IsMember (InfoPlayer X, Kata K);
 /*Mengecek apakah sebuah kota tertentu telah dimiliki oleh pemain*/
 
-int NbElmt (ListPlayer L);
+int NbElmtPlayer (ListPlayer L);
 //Mengembalikan banyak pemain dalam permainan
 
 #endif

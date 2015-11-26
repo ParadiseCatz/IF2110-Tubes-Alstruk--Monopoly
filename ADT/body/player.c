@@ -272,7 +272,7 @@ boolean IsMember (InfoPlayer X, Kata K)
 	return (isMemberAOK(X.kota,K));
 }
 
-int NbElmt (ListPlayer L)
+int NbElmtPlayer (ListPlayer L)
 //Mengembalikan banyaknya pemain
 {
 	AddressOfPlayer P=First(L);

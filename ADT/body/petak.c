@@ -1,10 +1,16 @@
 #include "../header/petak.h"
 #include "../header/player.h"
 
-void PrintBoard();
+void PrintBoard()
+{
+    
+}
 // cetak kondisi board
 
-void PrintMap();
+void PrintMap()
+{
+
+}
 // cetak peta board
 
 
@@ -827,4 +833,16 @@ void WorldTravel(Kata namapetak)
             printf("\n");
         }
     }
+}
+
+int NbElmtPetak (ListPetak L)
+//Mengembalikan banyaknya pemain
+{
+    AddressOfPetak P=First(L);
+    int cnt=0;
+    while (P!=Nil)
+    {
+        cnt++;
+    }
+    return cnt;
 }
