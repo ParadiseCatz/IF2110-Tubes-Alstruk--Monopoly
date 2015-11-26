@@ -5,10 +5,18 @@
 void InitDataKartu()
 {
 	STARTKATA("data/dataKartu.txt");
+	int id = 0;
 	while(!EndKata)
 	{
-		// Simpan deskripsi ke global variable
-	}	
+		InfoKartu X;
+		X.cardID = id;
+		X.cardName = CKata; ADVKATA();
+		X.cardDescription = CKata; ADVKATA();
+		
+		global.arrayOfCards.TabCards[id] = X;
+		
+		id++;
+	}
 }
 
 void PrintKataToFile(FILE *fp, Kata K)
@@ -231,9 +239,11 @@ void LoadGlobalVariables(char *directory)
 	ADVKATA();
 
 	id_currentPlayer = KataToInt(CKata);
+	global.currentPlayer = SearchidPlayer(global.listOfPlayer, id_currentPlayer);
 	ADVKATA(); ADVKATA();
 
 	id_currentWorldCup = KataToInt(CKata);
+	global.currentWorldCup = SearchPetakByID(global.listOfPetak, id_currentWorldCup);
 	ADVKATA(); ADVKATA();
 
 	jumlahKartu = KataToInt(CKata);
@@ -315,7 +325,6 @@ void SaveDataGlobalVariables(char *directory)
 	/*
 	Current_Player: 3
 	Current_WorldCup: 5
-	Queue_kartu: 5 1 2 3 4 5
 	Stack_defeated_players:
 	====== 1 ======
 	...
@@ -333,9 +342,6 @@ void SaveDataGlobalVariables(char *directory)
 	
 	InfoPetak *WC = global.currentWorldCup;
 	fprintf(fp, "Current_WorldCup: %d\n", WC -> id_petak);
-	
-	fprintf(fp, "Queue_kartu:\n");
-	fprintf(fp, "%d\n", MAX_CARDS);
 	
 	fprintf(fp, "Stack_defeated_players:\n");
 	while(Top(global.stackOfDefeated) != Nil)
