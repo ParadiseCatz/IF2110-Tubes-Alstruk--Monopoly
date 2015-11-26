@@ -56,7 +56,6 @@ void ADVKATA()
 	if(CC==mark)
 	{
 		EndKata = true;
-		END();
 	}
 	else
 	{

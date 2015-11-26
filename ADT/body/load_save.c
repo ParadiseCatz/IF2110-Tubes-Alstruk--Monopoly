@@ -70,15 +70,14 @@ void PrintPlayerToFile(FILE *fp, InfoPlayer X)
 void InitUrutanBoard()
 {
 	STARTKATA("data/urutanPetak.txt");
+	CreateListPetak(&(global.listOfPetak));
 	while(!EndKata)
 	{
 		AddressOfPetak P;
 		InfoPetak X;
-
 		X.nama_petak = CKata;
-		X.jenis_petak = CKata;
+		X.jenis_petak = CKata; 
 		P = AlokasiPetak(X);
-
 		AddLastPetak(&global.listOfPetak, P);
 		ADVKATA();
 	}	
@@ -87,10 +86,9 @@ void InitUrutanBoard()
 void AkuisisiPetak(InfoPetak *X)
 {
 	InfoPetak Xtmp;
-
 	ADVKATA();
 
-	Xtmp.nama_petak = CKata; 
+	Xtmp.nama_petak = CKata;
 	ADVKATA(); ADVKATA(); ADVKATA();
 
 	Xtmp.jenis_petak = CKata;
@@ -144,13 +142,13 @@ void InitDataAwalBoard()
 		AkuisisiPetak(&X);
 		P = SearchPetak(global.listOfPetak, X.nama_petak);
 		InfoPetak(P) = X;
-	}	
+	}
 }
 
 void InitBoardAwal()
 {
 	InitUrutanBoard();
-	// InitDataPetakAwal();
+	InitDataAwalBoard();
 }
 
 void InitPlayers(int numOfPlayers)
