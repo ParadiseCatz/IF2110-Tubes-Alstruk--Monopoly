@@ -8,11 +8,20 @@
 
 #ifndef CARDS_H
 #define CARDS_H
+<<<<<<< HEAD
 #include "boolean.h"
 #include "arrayofkata.h"
 #include "arrayofint.h"
 #include "kata.h"
 #include "player.h"
+=======
+#include "ADT/header/boolean.h"
+#include "ADT/header/arrayofkata.h"
+#include "ADT/header/arrayofint.h"
+#include "ADT/header/kata.h"
+#include "../../globalvariable.h"
+#include "ADT/header/player.h"
+>>>>>>> b773ab17e5fa962d0fbc7f01a56a7a541ba04e9e
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -30,12 +39,6 @@
 #define Nil 0
 #endif
 typedef int Address;
-typedef struct {
-	InfoKartu 	card;
-	Address		head;
-	Address		tail;	
-	int			maxCard;
-} Deck;
 
 typedef struct {
 	int cardID;
@@ -86,43 +89,36 @@ void Dealokasi(Deck *Q);
 		Head dan Tail diset menjadi Nil
 		Jangan lupa untuk membebaskan (free) memori yang telah dialokasikan untuk tabel
 */
+typedef struct {
+	InfoKartu TabCards[MaxCards];
+	int Neff;
+} ArrayOfCards;
 
-//operator-operator dasar Deck
-void Add(Deck *Q, InfoKartu C);
-/*	Proses : Menambahkan X pada Q dengan aturan FIFO
-	I.S. Q mungkin kosong, tabel penampung elemen Q TIDAK penuh
-	F.S. X menjadi TAIL yang baru, TAIL "maju".
-	Jika TAIL baru = MaxEl + 1, maka TAIL diset = 1.
-*/
+#define gift 100000
+#define MaxCards 8
 
-void Del(Deck *Q, InfoKartu *C);
-/*	Proses : Menghapus elemen pertama pada Q dengan aturan FIFO
-	I.S. Q tidak kosong
-	F.S. X = nilai elemen HEAD pada I.S.,
-	Jika Deck masih isi : HEAD "maju".
-	Jika HEAD baru menjadi MaxEl + 1, maka HEAD diset = 1;
-	Jika Deck menjadi kosong, HEAD = TAIL = Nil.
-*/
+void DrawCards();
 
-void FreeTax(InfoKartu C, Deck Q, AddressOfPetak *P);
+void PrintCard (InfoKartu C);
+/* print id, judul dan deskripsi */
 
-void FreePrison(InfoKartu C, Deck Q, AddressOfPetak *P);
 
-void GetPrison(InfoKartu C, InfoPlayer *X);
+// METHOD UNTUK JENIS CHANCE CARD
+void FreeTax();
 
-void GoToRandomPetak(InfoKartu C, AddressOfPetak P);
+void FreePrison();
 
-int Bday(InfoKartu C, InfoPlayer P);
+void GetPrison();
 
-void DoubledMove(InfoKartu C);
+void MajuRandLangkah();
 
-boolean BlackOut(InfoKartu C, AddressOfPetak P);
+void Bday();
 
-void ProtFromBlackOut(InfoKartu C, AddressOfPetak P);
+void DoubledMove();
 
-void ReadDesc();
+void BlackOut();
 
-void Shuffle();
+void ProtFromBlackOut();
 
 
 #endif

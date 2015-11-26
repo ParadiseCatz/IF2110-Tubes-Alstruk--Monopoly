@@ -83,6 +83,10 @@ typedef struct {
 #define Harga_Jual(P) Info(P).harga_jual
 
 typedef struct {
+    AddressOfPlayer     top;
+} StackOfPlayer;
+
+typedef struct {
 	ListPlayer listOfPlayer;
 	ListPetak listOfPetak;
 	InfoPlayer *currentPlayer;

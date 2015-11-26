@@ -1,5 +1,13 @@
 #ifndef PLAYER_H
 #define PLAYER_H
+#include "boolean.h"
+#include "arrayofint.h"
+#include "arrayofkata.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "kata.h"
+#include "petak.h"
+#include "defeated.h"
 #include "../../globalvariable.h"
 
 void CreateEmptyLPlayer (ListPlayer *L);
@@ -17,10 +25,15 @@ AddressOfPlayer Alokasi (InfoPlayer X);
 void Dealokasi(AddressOfPlayer *P);
 //Dealokasi
 
-void Add (ListPlayer *L, InfoPlayer X);
+void InsVLast (ListPlayer *L, InfoPlayer X);
 /*Menambahkan pemain ke ListPlayer ketika awal permainan. Jumlah pemain yang diperbolehkan
 	yaitu N>=1 dan N<=7
 */
+
+void InsertFirst (ListPlayer *L, AddressOfPlayer P);
+void InsertAfter (ListPlayer *L, AddressOfPlayer P, AddressOfPlayer Prec);
+void InsertLast (ListPlayer *L, AddressOfPlayer P);
+
 void Del (ListPlayer *L, InfoPlayer *X, int id);
 /*Menghapus pemain dari ListPlayer ketika pemain sudah kalah dalam permainan
  */
@@ -64,5 +77,8 @@ void DelKota (InfoPlayer *X, Kata K);
 
 boolean IsMember (InfoPlayer X, Kata K);
 /*Mengecek apakah sebuah kota tertentu telah dimiliki oleh pemain*/
+
+int NbElmt (ListPlayer L);
+//Mengembalikan banyak pemain dalam permainan
 
 #endif
