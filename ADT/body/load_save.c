@@ -239,22 +239,12 @@ void LoadGlobalVariables(char *directory)
 	ADVKATA();
 
 	id_currentPlayer = KataToInt(CKata);
-	global.currentPlayer = SearchidPlayer(global.listOfPlayer, id_currentPlayer);
+	global.currentPlayer = (InfoPlayer*) SearchidPlayer(global.listOfPlayer, id_currentPlayer);
 	ADVKATA(); ADVKATA();
 
 	id_currentWorldCup = KataToInt(CKata);
-	global.currentWorldCup = SearchPetakByID(global.listOfPetak, id_currentWorldCup);
-	ADVKATA(); ADVKATA();
-
-	jumlahKartu = KataToInt(CKata);
-	ADVKATA(); ADVKATA();
-
-	for(i=0; i<jumlahKartu; i++)
-	{
-		int tmpIDKartu = KataToInt(CKata);
-		AddAOI(&currentIDKartu, tmpIDKartu);
-		ADVKATA();
-	}
+	global.currentWorldCup = (InfoPetak*) SearchPetakByID(global.listOfPetak, id_currentWorldCup);
+	ADVKATA();
 
 	ADVKATA();
 	while(!EndKata)
