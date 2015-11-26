@@ -6,5 +6,17 @@
 int main()
 {
 	NewGame(3);
+	AddressOfPetak P;
+	P = FirstPetak(global.listOfPetak); 
+	do
+	{
+		InfoPetak X;
+		X = InfoPetak(P);
+		Kata namaPetak = X.nama_petak;
+		PrintPetak(namaPetak); puts("/=========================/");
+
+		P = NextPetak(P);
+
+	}while(P!=FirstPetak(global.listOfPetak));
 	return 0;
 }
