@@ -1,18 +1,285 @@
 #include "../header/petak.h"
 #include "../header/player.h"
 
-void PrintBoard()
+void PrintOwner(AddressOfPetak P)
 {
-    
+	int id;
+	char own;
+	
+	switch (Info(P).pemilik)
+		{
+			case 1 :
+				own = 'A';
+				break;
+			case 2 :
+				own	= 'B';
+				break;
+			case 3 :
+				own = 'C';
+				break;
+			case 4 :
+				own = 'D';
+				break;
+			default:
+				own = ' ';
+		}
+		id = Info(P).level;
+		printf("   %c%d    |",own,id);
 }
-// cetak kondisi board
 
-void PrintMap()
+void PrintPosition(AddressOfPetak P,TabInt T)
 {
-
+	int n, i;
+	
+	for (i=0;i<=T.eff;i++)
+	{
+		if (Info(P).id_petak == T.T[i])
+		{
+			switch (i)
+			{
+				case 0:
+					printf("A ");
+					break;
+				case 1:
+					printf("B ");
+					break;
+				case 2:
+					printf("C ");
+					break;
+				case 3:
+					printf("D ");
+					break;
+			}
+		}
+		else
+			printf("  ");
+	}
+	if (T.eff < 4)
+	{
+		n = 4 - T.eff;
+		for(i=1;i<=n;i++)
+		{
+			printf("  ");
+		}
+	}
+	printf("| ");
 }
+
+void PrintMid(AddressOfPetak PAcc, AddressOfPetak PPos, TabInt T)
+{
+	PrintOwner(PAcc);
+	printf("                                                                     |");
+	PrintOwner(PPos);
+	printf("\n|");
+	PrintPosition(PAcc,T);
+	printf("                                                                    | ");
+	PrintPosition(PPos,T);
+	printf("\n");
+}
+
+void PrintBoard(ListPetak L, ListPlayer P)
 // cetak peta board
-
+{
+	AddressOfPetak PPos, PAcc;
+	AddressOfPlayer PPlay;
+	int A,B,C,D;
+	int i, eff;
+	TabInt T;
+	
+	printf(" __________________________________________________________________________________________\n");
+	printf("|  Start  | Beijing |  Bonus  | Jakarta |  Ancol  | Taipei  |New Delhi|  Seoul  |Deserted |\n");
+	printf("|         |  120K   |         |  100K   |  160K   |   90K   |  100K   |  150K   |Island   |\n");
+	PAcc = Next(First(L));
+	while (Info(PAcc).id_petak != 9)
+	{
+		PrintOwner(PAcc);
+		PAcc = Next(PAcc);
+	}
+	printf("         |\n|");
+	PPlay = First(P);
+	i = 0; T.eff = 0;
+	while (PPlay != Nil)
+	{
+		PPos = Info(PPlay).posisi;
+		T.T[i] = Info(PPos).id_petak;
+		PPlay = Next(PPlay);
+		T.eff = T.eff + 1;
+		i = i + 1;
+	}
+	PPos = First(L);
+	while (Info(PPos).id_petak != 10)
+	{
+		PrintPosition(PPos,T);
+		PPos = Next(PPos);
+	}
+	printf("\n");
+	
+	printf("|_________________________________________________________________________________________|\n");
+	printf("| Bangkok |                                                                     | Hawaii  |\n");
+	printf("|  200 K  |                                                                     |  200K   |\n|");
+	PAcc = PPos;
+	while (Info(PAcc).id_petak != 32)
+		PAcc = Next(PAcc);
+	PrintMid(PAcc,PPos,T);
+	PPos = Next(PPos);
+	
+	printf("|__________                                                                     __________|\n");
+	printf("|   Tax   |                                                                     | Tokyo   |\n");
+	printf("|         |                                                                     |  200K   |\n|");
+	PAcc = PPos;
+	while (Info(PAcc).id_petak != 31)
+		PAcc = Next(PAcc);
+	printf("|         |                                                                     |");
+	PrintOwner(PPos);
+	printf("\n| ");
+	PrintPosition(PAcc,T);
+	printf("                                                                    | ");
+	PrintPosition(PPos,T);
+	printf("\n");
+	PPos = Next(PPos);
+	
+	printf("|__________                                                                     __________|\n");
+	printf("|New York |                                                                     |  Sydney  |\n");
+	printf("|  300 K  |                                                                     |   200K   |\n|");
+	PAcc = PPos;
+	while (Info(PAcc).id_petak != 30)
+		PAcc = Next(PAcc);
+	PrintMid(PAcc,PPos,T);
+	PPos = Next(PPos);
+	
+	printf("|__________                                                                     ___________|\n");
+	printf("| Chance  |                                                                     |  Chance  |\n");
+	printf("|         |                                                                     |          |\n|");
+	PAcc = PPos;
+	while (Info(PAcc).id_petak != 29)
+		PAcc = Next(PAcc);
+	printf("|         |                                                                     |          |\n| ");
+	PrintPosition(PAcc,T);
+	printf("                                                                    | ");
+	PrintPosition(PPos,T);
+	printf("\n");
+	PPos = Next(PPos);
+		
+	printf("|__________                                                                     ___________|\n");
+	printf("|  Paris  |                                                                     |Singapura |\n");
+	printf("|  190 K  |                                                                     |   100K   |\n|");
+	PAcc = PPos;
+	while (Info(PAcc).id_petak != 28)
+		PAcc = Next(PAcc);
+	PrintMid(PAcc,PPos,T);
+	PPos = Next(PPos);
+	
+	printf("|__________                                                                     ___________|\n");
+	printf("| London  |                                                                     | Senggigi |\n");
+	printf("|  210 K  |                                                                     |   160K   |\n|");
+	PAcc = PPos;
+	while (Info(PAcc).id_petak != 27)
+		PAcc = Next(PAcc);
+	PrintMid(PAcc,PPos,T);
+	PPos = Next(PPos);
+	
+	printf("|__________                                                                     ___________|\n");
+	printf("|  Kuta   |                                                                     |Sao Paolo |\n");
+	printf("|  200 K  |                                                                     |   200K   |\n|");
+	PAcc = PPos;
+	while (Info(PAcc).id_petak != 26)
+		PAcc = Next(PAcc);
+	PrintMid(PAcc,PPos,T);
+	PPos = Next(PPos);
+	
+	printf("|__________________________________________________________________________________________|\n");
+	printf("| World   |  Rome   | Moscow  | Geneva  | Chance  | Berlin  | Bintan  | Denmark | World    |\n");
+	printf("| Travel  |  200K   |  150K   |  150K   |         |  220K   |  150K   |  200K   | Cup      |\n");
+	PAcc = PPos;
+	while (Info(PAcc).id_petak != 24)
+	{
+		PAcc = Next(PAcc);
+	}
+	PrintOwner(PAcc);
+	PAcc = PPos;
+	while (Info(PAcc).id_petak != 23)
+	{
+		PAcc = Next(PAcc);
+	}
+	PrintOwner(PAcc);
+	PAcc = PPos;
+	while (Info(PAcc).id_petak != 22)
+	{
+		PAcc = Next(PAcc);
+	}
+	PrintOwner(PAcc);
+	printf("         |");
+	PAcc = PPos;
+	while (Info(PAcc).id_petak != 20)
+	{
+		PAcc = Next(PAcc);
+	}
+	PrintOwner(PAcc);
+	PAcc = PPos;
+	while (Info(PAcc).id_petak != 19)
+	{
+		PAcc = Next(PAcc);
+	}
+	PrintOwner(PAcc);
+	PAcc = PPos;
+	while (Info(PAcc).id_petak != 18)
+	{
+		PAcc = Next(PAcc);
+	}
+	PrintOwner(PAcc);
+	printf("         |\n|");
+	PAcc = PPos;
+	while (Info(PPos).id_petak != 25)
+	{
+		PPos = Next(PPos);
+	}
+	PrintPosition(PPos,T);
+	PAcc = PPos;
+	while (Info(PPos).id_petak != 24)
+	{
+		PPos = Next(PPos);
+	}
+	PrintPosition(PPos,T);
+	PAcc = PPos;
+	while (Info(PPos).id_petak != 23)
+	{
+		PPos = Next(PPos);
+	}
+	PrintPosition(PPos,T);
+	PAcc = PPos;
+	while (Info(PPos).id_petak != 22)
+	{
+		PPos = Next(PPos);
+	}
+	PrintPosition(PPos,T);
+	printf("        | ");
+	PAcc = PPos;
+	while (Info(PPos).id_petak != 20)
+	{
+		PPos = Next(PPos);
+	}
+	PrintPosition(PPos,T);
+	PAcc = PPos;
+	while (Info(PPos).id_petak != 19)
+	{
+		PPos = Next(PPos);
+	}
+	PrintPosition(PPos,T);
+	PAcc = PPos;
+	while (Info(PPos).id_petak != 18)
+	{
+		PPos = Next(PPos);
+	}
+	PrintPosition(PPos,T);
+	PAcc = PPos;
+	while (Info(PPos).id_petak != 17)
+	{
+		PPos = Next(PPos);
+	}
+	PrintPosition(PPos,T);
+	printf("\n");
+	printf("|__________________________________________________________________________________________|\n");
+}
 
 // HARGA PETAK (untuk hitungaset)
 
