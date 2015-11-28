@@ -485,7 +485,7 @@ void PrintPetak(Kata namapetak)
             P = SearchidPlayer(global.listOfPlayer, Pemilik(p));
             PrintKata((*P).info.nama);
             printf("\n");
-            printf("Harga Beli Paksa\t: %i\n", HargaBeliPaksa(p));
+            printf("Harga Beli Paksa\t: %i\n", 2*hargapetak(p));
         }
     }
 }
