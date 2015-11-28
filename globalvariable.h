@@ -99,8 +99,8 @@ typedef struct {
 typedef struct {
 	ListPlayer listOfPlayer;
 	ListPetak listOfPetak;
-	InfoPlayer *currentPlayer;
-	InfoPetak *currentWorldCup;
+	AddressOfPlayer currentPlayer;
+	AddressOfPetak currentWorldCup;
 	ArrayOfCards arrayOfCards;
 	StackOfPlayer stackOfDefeated;
 } GlobalVariable;
