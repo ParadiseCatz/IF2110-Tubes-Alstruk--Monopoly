@@ -3,10 +3,21 @@
 #define PETAK_H
 #include "../../globalvariable.h"
 
-void PrintBoard();
-// cetak kondisi board
+typedef struct {
+	int T[4];
+	int eff;
+} TabInt;
 
-void PrintMap();
+void PrintOwner(AddressOfPetak P);
+// cetak pemilik petak
+
+void PrintPosition(AddressOfPetak P,TabInt T);
+// cetak posisi player pada board
+
+void PrintMid(AddressOfPetak PAcc, AddressOfPetak PPos, TabInt T);
+// cetak peta pada bagian tengah board (petak 32 & 10, 31 & 11, dst.)
+
+void PrintBoard(ListPetak L, ListPlayer P);
 // cetak peta board
 
 // HARGA PETAK (untuk hitungaset)
