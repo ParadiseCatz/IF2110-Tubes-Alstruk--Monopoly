@@ -1,9 +1,10 @@
 #include "../header/petak.h"
 #include "../header/player.h"
+#include "../header/arrayofint.h"
 
 void PrintBoard()
 {
-    
+
 }
 // cetak kondisi board
 
@@ -179,7 +180,7 @@ void BeliPetak()
 {
     AddressOfPetak p;
 
-    p = (*global.currentPlayer).posisi;
+    p = Info(global.currentPlayer).posisi;
 
     if (!isKota(p) && !isTempatWisata(p))
     {
@@ -191,15 +192,15 @@ void BeliPetak()
     }
     else
     {
-        if ((*global.currentPlayer).uang < Harga_Dasar(p))
+        if (Infouang(global.currentPlayer) < Harga_Dasar(p))
         {
             printf("Uang anda tidak mencukupi untuk membeli petak ini\n");
         }
         else
         {
-            (*global.currentPlayer).uang -= Harga_Dasar(p);
-            Pemilik(p) = (*global.currentPlayer).id;
-            AddKota(global.currentPlayer, Nama_Petak(p));
+            Infouang(global.currentPlayer) -= Harga_Dasar(p);
+            Pemilik(p) = Infoid(global.currentPlayer);
+            AddKota(&Info(global.currentPlayer), Nama_Petak(p));
             printf("Pembelian berhasil, petak ");
             PrintKata(Nama_Petak(p));
             printf(" sekarang menjadi milik anda\n");
@@ -214,8 +215,8 @@ int WorldCupMultiplier()
 {
     AddressOfPetak p;
 
-    p = (*global.currentPlayer).posisi;
-    if (global.currentWorldCup == &(*p).info)
+    p = Info(global.currentPlayer).posisi;
+    if (global.currentWorldCup == p)
     {
         return 2;
     }
@@ -231,8 +232,8 @@ int BlokMultiplier()
     boolean blokbonus;
     AddressOfPetak p, P;
 
-    P = (*global.currentPlayer).posisi;
-    p = (*global.currentPlayer).posisi;
+    P = Info(global.currentPlayer).posisi;
+    p = Info(global.currentPlayer).posisi;
     blokbonus = true;
     do
     {
@@ -255,7 +256,7 @@ int BlokMultiplier()
 int BlackoutMultiplier()
 //mengembalikan multiplier akibat blackout
 {
-    if(Blackout((*global.currentPlayer).posisi))
+    if(Blackout(Info(global.currentPlayer).posisi))
     {
         return 0;
     }
@@ -271,7 +272,7 @@ int HargaSewa()
     AddressOfPetak p;
     int sewa;
 
-    p = (*global.currentPlayer).posisi;
+    p = Info(global.currentPlayer).posisi;
     sewa = (int) Biaya_Sewa(p) * Multiplier_Sewa(p) * WorldCupMultiplier(p) * BlokMultiplier(p) * BlackoutMultiplier(p);
 
     return sewa;
@@ -285,7 +286,7 @@ int HargaBeliPaksa()
     int harga;
     AddressOfPetak p;
 
-    p = (*global.currentPlayer).posisi;
+    p = Info(global.currentPlayer).posisi;
     harga = (int) Level(p)*(Level(p)-1)/2*Biaya_Upgrade(p) + Harga_Dasar(p);
 
     return harga*2;
@@ -297,10 +298,10 @@ void BeliPaksa()
     AddressOfPetak p;
     AddressOfPlayer P;
 
-    p = (*global.currentPlayer).posisi;
+    p = Info(global.currentPlayer).posisi;
     P = SearchidPlayer(global.listOfPlayer, Pemilik(p));
 
-    if (Pemilik(p) == (*global.currentPlayer).id)
+    if (Pemilik(p) == Infoid(global.currentPlayer))
     {
         printf("Petak ini adalah milik anda sendiri\n");
     }
@@ -316,22 +317,20 @@ void BeliPaksa()
     {
         printf("Petak ini tidak bisa dibeli karena sudah memiliki landmark\n");
     }
-    else if ((*global.currentPlayer).uang < HargaBeliPaksa())
+    else if (Infouang(global.currentPlayer) < HargaBeliPaksa())
     {
         printf("Uang anda tidak mencukupi untuk membeli petak ini\n");
     }
     else
     {
-        (*global.currentPlayer).uang -= HargaBeliPaksa();
+        Infouang(global.currentPlayer) -= HargaBeliPaksa();
         Infouang(P) += HargaBeliPaksa();
 
         DelKota(&((*P).info), Nama_Petak(p));
-        AddKota(global.currentPlayer, Nama_Petak(p));
+        AddKota(&Info(global.currentPlayer), Nama_Petak(p));
 
-        Pemilik(p) = (*global.currentPlayer).id;
+        Pemilik(p) = Infoid(global.currentPlayer);
         Harga_Jual(p) = -1;
-        Level(p) = 1;
-        UpdateMultiplier(&p);
 
         printf("Pembelian berhasil, petak ");
         PrintKata(Nama_Petak(p));
@@ -350,9 +349,9 @@ void BayarSewa()
     int sewa;
     AddressOfPlayer owner;
 
-    owner = SearchidPlayer(global.listOfPlayer, Pemilik((*global.currentPlayer).posisi));
+    owner = SearchidPlayer(global.listOfPlayer, Pemilik(Info(global.currentPlayer).posisi));
 
-    if (&(*owner).info == global.currentPlayer)
+    if (owner == global.currentPlayer)
     {
         printf("Anda berhenti di petak milik anda sendiri\n");
         printf("Tidak ada biaya sewa yang perlu anda bayar dipetak ini\n");
@@ -364,7 +363,7 @@ void BayarSewa()
     }
     else
     {
-        (*global.currentPlayer).uang -= HargaSewa();
+        Infouang(global.currentPlayer) -= HargaSewa();
         Infouang(owner) += HargaSewa();
 
         printf("Anda membayar sewa kepada ");
@@ -380,9 +379,19 @@ void PayTax()
 {
     int tax;
 
-    tax = (int) HitungHartaPlayer((*global.currentPlayer))/10;
-    (*global.currentPlayer).uang -= tax;
-    printf("Anda membayar tax sebesar %i\n", tax);
+    if (isMemberAOI(Info(global.currentPlayer).idKartu, 1))
+    {
+        DeleteAOI(&Info(global.currentPlayer).idKartu, 1);
+        printf("Anda memiliki kartu bebas pajak\n");
+        printf("Anda tidak perlu membayar pajak\n");
+        printf("Anda telah menggunakan satu kartu bebas pajak anda\n");
+    }
+    else
+    {
+        tax = (int) HitungHartaPlayer(Info(global.currentPlayer))/10;
+        Infouang(global.currentPlayer) -= tax;
+        printf("Anda membayar tax sebesar %i\n", tax);
+    }
 }
 
 //===================================================================================chance
@@ -406,7 +415,7 @@ void GetBonus()
 
     srand(9);
     random = rand();
-    (*global.currentPlayer).uang += bonus[random];
+    Infouang(global.currentPlayer) += bonus[random];
     printf("Anda mendapat bonus sebesar %i\n", bonus[random]);
 }
 
@@ -419,13 +428,13 @@ void ExecuteStart()
     AddressOfPetak p;
 
     valstart = 200000;
-    (*global.currentPlayer).uang += valstart;
+    Infouang(global.currentPlayer) += valstart;
     printf("Anda melewati start\n");
     printf("Anda mendapatkan uang sebesar %i", valstart);
     p = FirstPetak(global.listOfPetak);
     do
     {
-        if (Pemilik(p) == (*global.currentPlayer).id && Blackout(p))
+        if (Pemilik(p) == Infoid(global.currentPlayer) && Blackout(p))
         {
             Blackout(p) = false;
             printf("Petak ");
@@ -484,11 +493,11 @@ void PrintPetak(Kata namapetak)
 
 void Buy()
 {
-    if ((*global.currentPlayer).penjara)
+    if (Info(global.currentPlayer).penjara)
     {
         printf("Anda tidak bisa menggunakan command ini saat sedang dipenjara\n");
     }
-    else if (Pemilik((*global.currentPlayer).posisi) == 0)
+    else if (Pemilik(Info(global.currentPlayer).posisi) == 0)
     {
         BeliPetak();
     }
@@ -503,7 +512,6 @@ void Buy()
 void SalePetak(Kata namapetak)
 // menjual petak secara offer (pasang harga offer)
 {
-    int price;
     AddressOfPetak p;
 
     p = SearchPetak(global.listOfPetak, namapetak);
@@ -513,21 +521,10 @@ void SalePetak(Kata namapetak)
         PrintKata(namapetak);
         printf(" pada board\n");
     }
-    else if(Pemilik(p) == (*global.currentPlayer).id)
+    else if(Pemilik(p) == Infoid(global.currentPlayer))
     {
-        printf("Masukkan harga jual yang diinginkan : ");
-        scanf("%i", &price);
-        printf("/n");
-        if (price >= 0)
-        {
-            Harga_Jual(p) = price;
-            printf("Petak berhasil dimasukkan ke dalam daftar offered\n");
-        }
-        else
-        {
-            printf("Petak gagal dimasukkan ke dalam daftar offered\n");
-            printf("Harga jual offered tidak boleh negatif\n");
-        }
+        Harga_Jual(p) = hargapetak(p);
+        printf("Petak berhasil dimasukkan ke dalam daftar offered dengan harga %i\n", hargapetak(p));
     }
     else
     {
@@ -550,7 +547,7 @@ void UnsalePetak(Kata namapetak)
         PrintKata(namapetak);
         printf(" pada board\n");
     }
-    else if(Pemilik(p) == (*global.currentPlayer).id)
+    else if(Pemilik(p) == Infoid(global.currentPlayer))
     {
         if (Harga_Jual(p) != -1)
         {
@@ -583,15 +580,15 @@ void JualKeBank(Kata namapetak)
         PrintKata(namapetak);
         printf(" pada board\n");
     }
-    else if (Pemilik(p) != (*global.currentPlayer).id)
+    else if (Pemilik(p) != Infoid(global.currentPlayer))
     {
         printf("Petak bukan milik anda, anda hanya bisa menjual petak milik sendiri\n");
     }
     else
     {
         Pemilik(p) = 0;
-        DelKota(global.currentPlayer, Nama_Petak(p));
-        (*global.currentPlayer).uang += HargaJualKeBank(Nama_Petak(p));
+        DelKota(&Info(global.currentPlayer), Nama_Petak(p));
+        Infouang(global.currentPlayer) += HargaJualKeBank(Nama_Petak(p));
         Level(p) = 1;
         Harga_Jual(p) = -1;
         UpdateMultiplier(&p);
@@ -637,7 +634,7 @@ void BeliSale(Kata namapetak)
     p = SearchPetak(global.listOfPetak, namapetak);
 
 
-    if ((*global.currentPlayer).penjara)
+    if (Info(global.currentPlayer).penjara)
     {
         printf("Anda tidak bisa menggunakan command ini saat sedang dipenjara\n");
     }
@@ -651,11 +648,11 @@ void BeliSale(Kata namapetak)
     {
         printf("Petak yang anda inginkan tidak termasuk dalam daftar offered");
     }
-    else if (Pemilik(p) == (*global.currentPlayer).id)
+    else if (Pemilik(p) == Infoid(global.currentPlayer))
     {
         printf("Petak ini adalah milik anda sendiri\n");
     }
-    else if ((*global.currentPlayer).uang < Harga_Jual(p))
+    else if (Infouang(global.currentPlayer) < Harga_Jual(p))
     {
         printf("Uang anda tidak mencukupi untuk membeli petak ini\n");
     }
@@ -663,13 +660,13 @@ void BeliSale(Kata namapetak)
     {
         P = SearchidPlayer(global.listOfPlayer, Pemilik(p));
 
-        (*global.currentPlayer).uang -= Harga_Jual(p);
+        Infouang(global.currentPlayer) -= Harga_Jual(p);
         Infouang(P) += Harga_Jual(p);
 
         DelKota(&((*P).info), Nama_Petak(p));
-        AddKota(global.currentPlayer, Nama_Petak(p));
+        AddKota(&Info(global.currentPlayer), Nama_Petak(p));
 
-        Pemilik(p) = (*global.currentPlayer).id;
+        Pemilik(p) = Infoid(global.currentPlayer);
         Harga_Jual(p) = -1;
 
         printf("Pembelian berhasil, petak");
@@ -686,13 +683,13 @@ void LevelUp()
     int harga;
     AddressOfPetak p;
 
-    p = (*global.currentPlayer).posisi;
+    p = Info(global.currentPlayer).posisi;
 
-    if ((*global.currentPlayer).penjara)
+    if (Info(global.currentPlayer).penjara)
     {
         printf("Anda tidak bisa menggunakan command ini saat sedang dipenjara\n");
     }
-    else if (Pemilik(p) != (*global.currentPlayer).id)
+    else if (Pemilik(p) != Infoid(global.currentPlayer))
     {
         printf("Petak bukan milik anda, anda hanya bisa meningkatkan level bangunan petak milik sendiri\n");
     }
@@ -705,14 +702,14 @@ void LevelUp()
         harga = Biaya_Upgrade(p)*Level(p);
 
 
-        if ((*global.currentPlayer).uang < harga)
+        if (Infouang(global.currentPlayer) < harga)
         {
             printf("Uang anda tidak mencukupi untuk ungrade bangunan\n");
         }
         else
         {
             Level(p)++;
-            (*global.currentPlayer).uang -= harga;
+            Infouang(global.currentPlayer) -= harga;
             UpdateMultiplier(&p);
 
             printf("Upgrade bangunan berhasil, bangunan pada petak ");
@@ -745,11 +742,11 @@ void AppointWorldCup(Kata namapetak)
     world_cup.TabKata[8] = 'p';
     world_cup.Length = 9;
 
-    if ((*global.currentPlayer).penjara)
+    if (Info(global.currentPlayer).penjara)
     {
         printf("Anda tidak bisa menggunakan command ini saat sedang dipenjara\n");
     }
-    else if (!IsKataSama(Jenis_Petak((*global.currentPlayer).posisi),world_cup))
+    else if (!IsKataSama(Jenis_Petak(Info(global.currentPlayer).posisi),world_cup))
     {
         printf("Anda sedang tidak berada di petak World Cup");
     }
@@ -763,7 +760,7 @@ void AppointWorldCup(Kata namapetak)
             PrintKata(namapetak);
             printf(" pada board\n");
         }
-        else if (Pemilik(SearchPetak(global.listOfPetak, namapetak)) != (*global.currentPlayer).id)
+        else if (Pemilik(SearchPetak(global.listOfPetak, namapetak)) != Infoid(global.currentPlayer))
         {
             printf("Anda hanya bisa menunjuk petak milik anda untuk menjadi petak World Cup\n");
         }
@@ -773,7 +770,7 @@ void AppointWorldCup(Kata namapetak)
         }
         else
         {
-            global.currentWorldCup = &(*SearchPetak(global.listOfPetak, namapetak)).info;
+            global.currentWorldCup = SearchPetak(global.listOfPetak, namapetak);
             printf("Petak ");
             PrintKata(namapetak);
             printf(" saat ini telah menjadi petak World Cup\n");
@@ -803,11 +800,11 @@ void WorldTravel(Kata namapetak)
     world_travel.TabKata[11] = 'l';
     world_travel.Length = 12;
 
-    if ((*global.currentPlayer).penjara)
+    if (Info(global.currentPlayer).penjara)
     {
         printf("Anda tidak bisa menggunakan command ini saat sedang dipenjara\n");
     }
-    else if (!IsKataSama(Jenis_Petak((*global.currentPlayer).posisi), world_travel))
+    else if (!IsKataSama(Jenis_Petak(Info(global.currentPlayer).posisi), world_travel))
     {
         printf("Anda sedang tidak berada di petak World Travel");
     }
@@ -827,7 +824,7 @@ void WorldTravel(Kata namapetak)
         }
         else
         {
-            (*global.currentPlayer).posisi = SearchPetak(global.listOfPetak, namapetak);
+            Info(global.currentPlayer).posisi = SearchPetak(global.listOfPetak, namapetak);
             printf("Anda telah melakukan world travel ke petak ");
             PrintKata(namapetak);
             printf("\n");
