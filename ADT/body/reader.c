@@ -1,7 +1,5 @@
 #include "../header/reader.h"
 #include "stdio.h"
-#include "../../globalvariable.h"
-#include "../header/kata.h"
 
 void read_with_limit(int mins, int maks, int * in)
 {
