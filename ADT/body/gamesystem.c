@@ -1,12 +1,14 @@
 #include "../header/gamesystem.h"
-#include "../header/gamesystem.h"
+#include "../header/reader.h"
+#include "../header/player.h"
 #include "../header/boolean.h"
 #include "../../constant.h"
 #include "../header/petak.h"
 #include "../header/kata.h"
 
+
 #ifndef PRINTF
-#define PRINTF(x) printf("\x1B[32m" x "\x1B[0m \n")
+#define PRINTF(x) printf("\x1B[32m" x "\x1B[0m")
 #endif
 
 void gamesystem_print_giliran_player()
@@ -35,7 +37,7 @@ void gamesystem_start()
 
 void gamesystem_show_leaderboard()
 {
-	
+
 }
 
 void gamesystem_show_help()
@@ -113,9 +115,21 @@ void gamesystem_show_help()
 	printf("    Input command:\n");
 	PRINTF("    > off <nama kota/tempat rekreasi>\n");
 	printf("\n");
-	printf("19. Memakai Kartu perlindungan\n");
+	printf("19. Memakai kartu perlindungan\n");
 	printf("    Input command:\n");
-	PRINTF("    > protect <nama kota/tempat rekreasi>");
+	PRINTF("    > protect <nama kota/tempat rekreasi>\n");
+	printf("\n");
+	printf("20. Memakai kartu langkah dobel\n");
+	printf("    Input command:\n");
+	PRINTF("    > double move\n");
+	printf("\n");
+	printf("21. Menampilkan help ini\n");
+	printf("    Input command:\n");
+	PRINTF("    > help\n");
+	printf("\n");
+	printf("22. Keluar dari permainan\n");
+	printf("    Input command:\n");
+	PRINTF("    > exit\n");
 }
 
 
@@ -167,7 +181,7 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 		case SHOW_OFFERED: PrintSale();
 		break;
 
-		case BUY_OFFERED: 
+		case BUY_OFFERED: BeliSale(parameter);
 		break;
 
 		case UPGRADE: LevelUp();
@@ -179,10 +193,10 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 		case LEADERBOARD: gamesystem_show_leaderboard();
 		break;
 
-		case HOST: 
+		case HOST: AppointWorldCup(parameter);
 		break;
 
-		case TRAVEL: 
+		case TRAVEL: WorldTravel(parameter);
 		break;
 
 		case END_TURN: gamesystem_next_player();
@@ -204,6 +218,9 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 		break;
 
 		case PROTECT:
+		break;
+
+		case DOUBLE_MOVE:
 		break;
 
 		case HELP: gamesystem_show_help();

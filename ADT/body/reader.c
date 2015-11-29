@@ -145,6 +145,13 @@ void read_user_input(UserAction *userAction, Kata *parameter)
 		return;
 	}
 
+	if (IsKataSama(input, ConstructKata("double")))
+	{
+		*userAction = DOUBLE_MOVE;
+		BacaKata(&input);
+		return;
+	}
+
 	if (IsKataSama(input, ConstructKata("help")))
 	{
 		*userAction = HELP;
