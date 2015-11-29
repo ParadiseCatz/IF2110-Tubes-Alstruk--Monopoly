@@ -966,7 +966,7 @@ void BeliSale(Kata namapetak)
 
 //==================================================================================upgrade
 
-void LevelUp()
+boolean LevelUp()
 // meningkatkan level bangunan pada petak
 {
     int harga;
@@ -977,14 +977,17 @@ void LevelUp()
     if (Info(global.currentPlayer).penjara)
     {
         printf("Anda tidak bisa menggunakan command ini saat sedang dipenjara\n");
+        return false;
     }
     else if (Pemilik(p) != Infoid(global.currentPlayer))
     {
         printf("Petak bukan milik anda, anda hanya bisa meningkatkan level bangunan petak milik sendiri\n");
+        return false;
     }
     else if ((isTempatWisata(p) && Level(p) == 1) || (isKota(p) && Level(p) == 5))
     {
         printf("Petak telah mencapai level bangunan maksimum");
+        return false;
     }
     else
     {
@@ -994,6 +997,7 @@ void LevelUp()
         if (Infouang(global.currentPlayer) < harga)
         {
             printf("Uang anda tidak mencukupi untuk ungrade bangunan\n");
+            return false;
         }
         else
         {
@@ -1004,6 +1008,7 @@ void LevelUp()
             printf("Upgrade bangunan berhasil, bangunan pada petak ");
             PrintKata(Nama_Petak(p));
             printf(" menjadi level %i\n", Level(p));
+            return true;
         }
     }
 }

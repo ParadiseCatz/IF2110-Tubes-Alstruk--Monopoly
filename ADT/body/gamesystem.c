@@ -321,8 +321,8 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 		case UPGRADE: 
 			if (!global.alreadyUpgrade)
 			{
-				LevelUp();
-				global.alreadyUpgrade = true;
+				if (LevelUp())
+					global.alreadyUpgrade = true;
 			}
 			else
 			{

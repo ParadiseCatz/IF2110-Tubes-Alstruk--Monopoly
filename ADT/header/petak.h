@@ -2,6 +2,7 @@
 #ifndef PETAK_H
 #define PETAK_H
 #include "../../globalvariable.h"
+#include "../header/boolean.h"
 
 typedef struct {
 	int T[4];
@@ -147,7 +148,7 @@ void BeliSale(Kata namapetak);
 
 //==================================================================================upgrade
 
-void LevelUp();
+boolean LevelUp();
 // meningkatkan level bangunan pada petak
 
 //====================================================================================board
