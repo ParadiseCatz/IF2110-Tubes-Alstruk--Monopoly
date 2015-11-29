@@ -691,8 +691,7 @@ void GetBonus()
     bonus[8] = 90000;
     bonus[9] = 100000;
 
-    srand(9);
-    random = rand();
+    random = rand()%10;
     Infouang(global.currentPlayer) += bonus[random];
     printf("Anda mendapat bonus sebesar %i\n", bonus[random]);
 }
