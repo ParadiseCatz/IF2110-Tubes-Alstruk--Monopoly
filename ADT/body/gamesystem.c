@@ -154,7 +154,7 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 			if (!global.rolldice)
 			{
 				int numOfStep = gamesystem_roll_dice(2);
-				MajuNLangkah(global.currentPlayer, global.listOfPetak, numOfStep);
+				MajuNLangkah(&Info(global.currentPlayer), global.listOfPetak, numOfStep);
 				printf("Anda melangkah sebayak %d langkah\n", numOfStep);
 			}
 			else
@@ -162,6 +162,10 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 				if (!IsPenjara(Info(global.currentPlayer)))
 				{
 					printf("Udah pernah roll dice!\n");
+				}
+				else
+				{
+					printf("Lagi di penjara bos\n");
 				}
 			}
 		break;
