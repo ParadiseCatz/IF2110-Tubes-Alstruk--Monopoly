@@ -238,7 +238,7 @@ void gamesystem_next_player()
 		printf("Anda belum roll dice\n");
 		return;
 	}
-	global.rolldice = false;
+	global.rolldice = global.alreadyUpgrade = false;
 	printf("Ending Turn...\n");
 
 	if (IsTourismMonopoly(Info(global.currentPlayer)) || IsTripleMonopoly(Info(global.currentPlayer)))
@@ -318,7 +318,17 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 		case BUY_OFFERED: BeliSale(parameter);
 		break;
 
-		case UPGRADE: LevelUp();
+		case UPGRADE: 
+			if (!global.alreadyUpgrade)
+			{
+				LevelUp();
+				global.alreadyUpgrade = true;
+			}
+			else
+			{
+				printf("Anda sudah pernah upgrade\n");
+			}
+			
 		break;
 
 		case BOARD: PrintBoard(global.listOfPetak, global.listOfPlayer);
