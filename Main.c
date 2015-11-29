@@ -2,6 +2,8 @@
 #include "ADT/header/reader.h"
 #include "constant.h"
 #include "ADT/header/kata.h"
+#include "ADT/header/gamesystem.h"
+#include "ADT/header/load_save.h"
 
 void welcome_screen()
 {
