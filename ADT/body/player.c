@@ -18,11 +18,11 @@ void PrintElmtPlayer (InfoPlayer X)
 //Mencetak informasi dari suatu pemain
 {
     printf("================ "); PrintKata(X.nama); printf(" ================"); puts("");
-	printf("Nama : "); PrintKata(X.nama); puts("");
-	printf("ID Player : "); printf("%d",X.id); puts("");
-	printf("Uang : "); printf("%d",X.uang); puts("");
-	printf("Kartu yang dimiliki : "); PrintAOI(X.idKartu); 
-	printf("Petak yang dimiliki : "); PrintAOK(X.kota);
+	printf("Nama\t\t\t: "); PrintKata(X.nama); puts("");
+	printf("ID Player\t\t: "); printf("%d",X.id); puts("");
+	printf("Uang\t\t\t: "); printf("%d",X.uang); puts("");
+	printf("Kartu yang dimiliki\t: "); PrintAOI(X.idKartu); 
+	printf("Petak yang dimiliki\t: "); PrintAOK(X.kota);
 }
 
 AddressOfPlayer Alokasi (InfoPlayer X)

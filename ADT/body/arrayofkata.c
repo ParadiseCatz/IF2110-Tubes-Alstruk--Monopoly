@@ -48,10 +48,15 @@ void PrintAOK(ArrayOfKata A)
 	// Kamus Lokal
 	int i;
 	// Algoritma
-	printf("[\n");
+	printf("[");
 	for(i=1; i<=NbElmtAOK(A); i++)
 	{
-		PrintKata(A.T[i]);
+		if(i==1) PrintKata(A.T[i]);
+		else
+		{
+			printf(", ");
+			PrintKata(A.T[i]);
+		}
 	}
 	printf("]\n");
 }

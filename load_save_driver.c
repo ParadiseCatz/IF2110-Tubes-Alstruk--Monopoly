@@ -43,8 +43,55 @@ int main()
 	/* ======================== Testing untuk SaveGame ======================== */
 
 	Kata namaFile;
-	BacaKata(&namaFile);
+	printf("Masukan kata kunci untuk penyimpanan file : "); BacaKata(&namaFile);
 	SaveGame(namaFile);
+
+	puts("Testing SaveGame Done!\n *** ============ oOOo ============ *** ");
+
+	/* ======================== Testing untuk LoadGame ======================== */
+
+	printf("Masukan kata kunci untuk load game : "); BacaKata(&namaFile);
+	LoadGame(namaFile);
+
+	P = FirstPetak(global.listOfPetak); 
+	do
+	{
+		InfoPetak X;
+		X = InfoPetak(P);
+		Kata namaPetak = X.nama_petak;
+		PrintPetak(namaPetak); puts("/=========================/");
+
+		P = NextPetak(P);
+
+	}while(P!=FirstPetak(global.listOfPetak));
+
+	Pl = First(global.listOfPlayer);
+	do
+	{
+		InfoPlayer X;
+		X = Info(Pl);
+		PrintElmtPlayer(X);
+
+		Pl = Next(Pl);
+
+	} while(Pl != First(global.listOfPlayer));
+
+	puts("\n\nCURRENT PLAYER:");
+	PrintElmtPlayer(Info(global.currentPlayer));
+
+	puts("\n\nCURRENT WORLDCUP:");
+	if(global.currentWorldCup == NULL) puts("NULL");
+	else PrintPetak(Info(global.currentWorldCup).nama_petak);
+
+	puts("\n\nStackOfDefeated:");
+	while(Top(global.stackOfDefeated) != NULL)
+	{
+		InfoPlayer X;
+		Pop(&global.stackOfDefeated, &X);
+		PrintElmtPlayer(X);
+	}
+
+	puts("Testing LoadGame Done!\n *** ============ oOOo ============ *** ");
 
 	return 0;
 }

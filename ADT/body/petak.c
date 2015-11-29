@@ -338,15 +338,17 @@ AddressOfPetak SearchPetak(ListPetak L, Kata namapetak)
 // output address petak
 {
     AddressOfPetak p;
+    boolean Found = false;
 
     p = FirstPetak(L);
     do
     {
-        p = NextPetak(p);
+    	if(IsKataSama(namapetak, Nama_Petak(p))) Found = true;
+    	else p = NextPetak(p);
     }
-    while(!(IsKataSama(namapetak, Nama_Petak(p))) && p != FirstPetak(L));
+    while(p != FirstPetak(L) && !Found);
 
-    if (IsKataSama(namapetak, Nama_Petak(p)))
+    if (Found)
     {
         return p;
     }
@@ -360,13 +362,15 @@ AddressOfPetak SearchPetakByID(ListPetak L, int id)
 // output address petak
 {
     AddressOfPetak p;
+    boolean Found = false;
 
     p = FirstPetak(L);
     do
     {
-        p = NextPetak(p);
+    	if(InfoPetak(p).id_petak == id) Found = true;
+    	else p = NextPetak(p);
     }
-    while(id == ID_Petak(p) && p != FirstPetak(L));
+    while(p != FirstPetak(L) && !Found);
 
     if (id == ID_Petak(p))
     {
@@ -731,21 +735,27 @@ void PrintPetak(Kata namapetak)
     }
     else if(!isKota(p) && !isTempatWisata(p))
     {
-        printf("Nama Petak : ");
+        printf("Nama Petak\t\t: ");
         PrintKata(namapetak);
         printf("\n");
     }
     else
     {
+    	printf("ID petak\t\t: %d\n", ID_Petak(p));
+
         printf("Nama petak\t\t: ");
         PrintKata(Nama_Petak(p));
         printf("\n");
 
-        printf("Pemilik\t\t: ");
+        printf("Jenis petak\t\t: "); 
+        PrintKata(Jenis_Petak(p)); 
+        printf("\n");
+
+        printf("Pemilik\t\t\t: ");
         if (Pemilik(p) == 0)
         {
             printf("tidak ada\n");
-            printf("Harga\t\t: %i\n", Harga_Dasar(p));
+            printf("Harga\t\t\t: %i\n", Harga_Dasar(p));
         }
         else
         {
