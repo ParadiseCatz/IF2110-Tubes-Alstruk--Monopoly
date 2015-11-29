@@ -5,6 +5,7 @@
 #include "../../constant.h"
 #include "../header/petak.h"
 #include "../header/kata.h"
+#include "../header/load_save.h"
 #include "time.h"
 
 #ifndef PRINTF
