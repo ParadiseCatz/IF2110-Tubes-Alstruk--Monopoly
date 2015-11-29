@@ -33,6 +33,11 @@ void gamesystem_start()
 	} while (true);
 }
 
+void gamesystem_show_leaderboard()
+{
+	
+}
+
 void gamesystem_show_help()
 {
 	printf("Help:\n");
@@ -150,28 +155,28 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 		case INFO: PrintPetak(parameter);
 		break;
 
-		case BUY: 
+		case BUY: Buy();
 		break;
 
-		case SELL: 
+		case SELL: SalePetak(parameter);
 		break;
 
-		case SELL_BANK: 
+		case SELL_BANK: JualKeBank(parameter);
 		break;
 
-		case SHOW_OFFERED: 
+		case SHOW_OFFERED: PrintSale();
 		break;
 
 		case BUY_OFFERED: 
 		break;
 
-		case UPGRADE: 
+		case UPGRADE: LevelUp();
 		break;
 
 		case BOARD: PrintBoard(global.listOfPetak, global.listOfPlayer);
 		break;
 
-		case LEADERBOARD: 
+		case LEADERBOARD: gamesystem_show_leaderboard();
 		break;
 
 		case HOST: 
