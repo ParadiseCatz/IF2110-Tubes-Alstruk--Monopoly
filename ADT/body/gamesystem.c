@@ -270,8 +270,14 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 			if (!global.rolldice)
 			{
 				global.diceRollResult = gamesystem_roll_dice(2);
-				MajuNLangkah(&Info(global.currentPlayer), global.listOfPetak, global.diceRollResult);
 				printf("Anda melangkah sebayak %d langkah\n", global.diceRollResult);
+				MajuNLangkah(&Info(global.currentPlayer), global.listOfPetak, global.diceRollResult);
+				if (isKota(Info(global.currentPlayer).posisi) || isTempatWisata(Info(global.currentPlayer).posisi))
+				{
+					printf("Saat ini anda berada di:\n");
+					PrintPetak(Info(Info(global.currentPlayer).posisi).nama_petak);
+				}
+				
 			}
 			else
 			{
@@ -374,6 +380,12 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 			if (isMemberAOI(Info(global.currentPlayer).idKartu, 5) && global.rolldice && !IsPenjara(Info(global.currentPlayer)))
 			{
 				printf("Anda melangkah lagi sebanyak %d\n", global.diceRollResult);
+				MajuNLangkah(&Info(global.currentPlayer), global.listOfPetak, global.diceRollResult);
+				if (isKota(Info(global.currentPlayer).posisi) || isTempatWisata(Info(global.currentPlayer).posisi))
+				{
+					printf("Saat ini anda berada di:\n");
+					PrintPetak(Info(Info(global.currentPlayer).posisi).nama_petak);
+				}
 				global.diceRollResult = global.diceRollResult << 1;
 			}
 			else
