@@ -123,11 +123,6 @@ void read_user_input(UserAction *userAction, Kata *parameter)
 			*userAction = FREE_ME;
 			return;
 		}
-		if (IsKataSama(input, ConstructKata("tax")))
-		{
-			*userAction = FREE_TAX;
-			return;
-		}
 	}
 	if (IsKataSama(input, ConstructKata("off")))
 	{

@@ -11,7 +11,7 @@
 #endif
 
 #ifndef PLAYER_MAX
-#define PLAYER_MAX 7
+#define PLAYER_MAX 4
 #endif
 
 #ifndef SAVE_SLOT_MAX

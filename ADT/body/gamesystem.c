@@ -107,27 +107,23 @@ void gamesystem_show_help()
 	printf("    Input command:\n");
 	PRINTF("    > free me\n");
 	printf("\n");
-	printf("17. Memakai kartu bebas pajak\n");
-	printf("    Input command:\n");
-	PRINTF("    > free tax\n");
-	printf("\n");
-	printf("18. Memakai kartu mati lampu\n");
+	printf("17. Memakai kartu mati lampu\n");
 	printf("    Input command:\n");
 	PRINTF("    > off <nama kota/tempat rekreasi>\n");
 	printf("\n");
-	printf("19. Memakai kartu perlindungan\n");
+	printf("18. Memakai kartu perlindungan\n");
 	printf("    Input command:\n");
 	PRINTF("    > protect <nama kota/tempat rekreasi>\n");
 	printf("\n");
-	printf("20. Memakai kartu langkah dobel\n");
+	printf("19. Memakai kartu langkah dobel\n");
 	printf("    Input command:\n");
 	PRINTF("    > double move\n");
 	printf("\n");
-	printf("21. Menampilkan help ini\n");
+	printf("20. Menampilkan help ini\n");
 	printf("    Input command:\n");
 	PRINTF("    > help\n");
 	printf("\n");
-	printf("22. Keluar dari permainan\n");
+	printf("21. Keluar dari permainan\n");
 	printf("    Input command:\n");
 	PRINTF("    > exit\n");
 }
@@ -141,7 +137,7 @@ void gamesystem_next_player()
 		return;
 	}
 	global.rolldice = false;
-	printf("End Turn\n");
+	printf("Ending Turn...\n");
 	global.currentPlayer = Next(global.currentPlayer);
 	gamesystem_print_giliran_player();
 }
@@ -153,9 +149,9 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 		case ROLL_DICE: 
 			if (!global.rolldice)
 			{
-				int numOfStep = gamesystem_roll_dice(2);
-				MajuNLangkah(&Info(global.currentPlayer), global.listOfPetak, numOfStep);
-				printf("Anda melangkah sebayak %d langkah\n", numOfStep);
+				global.diceRollResult = gamesystem_roll_dice(2);
+				MajuNLangkah(&Info(global.currentPlayer), global.listOfPetak, global.diceRollResult);
+				printf("Anda melangkah sebayak %d langkah\n", global.diceRollResult);
 			}
 			else
 			{
@@ -173,7 +169,15 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 		case INFO: PrintPetak(parameter);
 		break;
 
-		case BUY: Buy();
+		case BUY: 
+		if (isKota(Info(global.currentPlayer).posisi))
+		{
+			Buy();
+		}
+		else
+		{
+			printf("Anda tidak sedang berada di kota\n");
+		}
 		break;
 
 		case SELL: SalePetak(parameter);
@@ -206,25 +210,44 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 		case END_TURN: gamesystem_next_player();
 		break;
 
-		case SAVE: 
+		case SAVE: SaveGame(parameter);
 		break;
 
-		case LOAD:
+		case LOAD: LoadGame(parameter);
 		break;
 
-		case FREE_ME:
+		case FREE_ME: 
+			if (isMemberAOI(Info(global.currentPlayer).idKartu, 1) && IsPenjara(Info(global.currentPlayer)))
+			{
+				DeleteAOI(&Info(global.currentPlayer).idKartu, 1);
+				KeluarPenjara(&Info(global.currentPlayer));
+			}
 		break;
 
-		case FREE_TAX:
+		case OFF: 
+			if (isMemberAOI(Info(global.currentPlayer).idKartu, 6) && SearchPetak(global.listOfPetak, parameter))
+			{
+				Info(SearchPetak(global.listOfPetak, parameter)).blackout = true;
+			}
 		break;
 
-		case OFF:
-		break;
-
-		case PROTECT:
+		case PROTECT: 
+			if (isMemberAOI(Info(global.currentPlayer).idKartu, 7) && SearchPetak(global.listOfPetak, parameter))
+			{
+				Info(SearchPetak(global.listOfPetak, parameter)).blackout = true;
+			}
 		break;
 
 		case DOUBLE_MOVE:
+			if (isMemberAOI(Info(global.currentPlayer).idKartu, 5) && global.rolldice && !IsPenjara(Info(global.currentPlayer)))
+			{
+				printf("Anda melangkah lagi sebanyak %d\n", global.diceRollResult);
+				global.diceRollResult = global.diceRollResult << 1;
+			}
+			else
+			{
+				printf("Anda tidak bisa melakukan double move\n");
+			}
 		break;
 
 		case HELP: gamesystem_show_help();
@@ -236,10 +259,6 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 		default: printf("ERROR USER ACTION");
 		break;
 	}
-	printf("Press Enter to continue.\n");
-	char dum;
-	scanf("%c", &dum);
-	scanf("%c", &dum);
 	printf("\n\n\n\n");
 }
 

@@ -104,6 +104,7 @@ typedef struct {
 	ArrayOfCards arrayOfCards;
 	StackOfPlayer stackOfDefeated;
     boolean rolldice;
+    int diceRollResult;
 } GlobalVariable;
 
 GlobalVariable global;
@@ -111,7 +112,7 @@ GlobalVariable global;
 typedef enum {
     ROLL_DICE, INFO, BUY, SELL, SELL_BANK, SHOW_OFFERED, BUY_OFFERED,
     UPGRADE, BOARD, LEADERBOARD, HOST, TRAVEL, END_TURN, SAVE, LOAD,
-    FREE_ME, FREE_TAX, OFF, PROTECT, DOUBLE_MOVE, HELP, EXIT
+    FREE_ME, OFF, PROTECT, DOUBLE_MOVE, HELP, EXIT
 } UserAction;
 
 #endif
