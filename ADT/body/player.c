@@ -327,3 +327,54 @@ int NbElmtPlayer (ListPlayer L)
 	}
 	
 }
+
+int countTourismSpots(InfoPlayer X)
+{
+	int i, count=0;
+	for(i=1; i<=NbElmtAOK(X.kota); i++)
+	{
+		Kata now = X.kota.T[i];
+		AddressOfPetak P = SearchPetak(global.listOfPetak, now);
+		if(isTempatWisata(P)) count++;
+	}
+	return count;
+}
+
+boolean IsTourismMonopoly(InfoPlayer X)
+{
+	if(countTourismSpots(X) >= 3) return true;
+	else return false;
+}
+
+int countCompleteBlock(InfoPlayer X)
+{
+	int i, count=0;
+	int cntHuruf[10];
+	for(i=0; i<10; i++) cntHuruf[i] = 0;
+
+	for(i=1; i<=NbElmtAOK(X.kota); i++)
+	{
+		Kata now = X.kota.T[i];
+		AddressOfPetak P = SearchPetak(global.listOfPetak, now);
+		char blokNow = Info(P).blok;
+
+		if(blokNow != 'T')
+		{
+			cntHuruf[blokNow-'A']++;
+		}
+	}
+
+	for(i=0; i<8; i++)
+	{
+		if((i == 0 || i == 3 || i == 6 || i == 7) && cntHuruf[i] == 2) count++;
+		else if(((i == 1 || i == 2 || i == 4 || i == 5) && cntHuruf[i] == 3)) count++;
+	}
+	return count;
+}
+
+boolean IsTripleMonopoly(InfoPlayer X)
+{
+	if(countCompleteBlock(InfoPlayer X) >=3) return true;
+	else return false;
+}
+
