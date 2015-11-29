@@ -35,9 +35,82 @@ void gamesystem_start()
 	} while (true);
 }
 
-void gamesystem_show_leaderboard()
+void swapInt(int *a, int *b)
 {
+	*a ^= *b;
+	*b ^= *a;
+	*a ^= *b;
+}
 
+void swapKata(Kata *a, Kata *b)
+{
+	Kata tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+
+void gamesystem_show_defeated()
+{
+	printf("List of Defeated Player:\n");
+	StackOfPlayer tmp;
+	tmp = global.stackOfDefeated;
+	int i = 1;
+	while (Top(tmp) != Nil)
+	{
+		printf("%d. ", i++);
+		PrintKata(Info(Top(tmp)).nama);
+		printf("\n");
+	}
+}
+
+void gamesystem_show_leaderboard(ListPlayer L)
+{
+	if (First(L) == Nil)
+	{
+		gamesystem_show_defeated();
+		return;
+	}
+	ArrayOfInt playerWealthArray;
+	CreateEmptyAOI(&playerWealthArray);
+
+	ArrayOfKata playerNameArray;
+	CreateEmptyAOK(&playerNameArray);
+
+	AddressOfPlayer Last=First(L);
+    while (Next(Last)!=First(L))
+    {
+    	AddAOI(&playerWealthArray, HitungHartaPlayer(Info(Last)));
+    	AddAOK(&playerNameArray, Info(Last).nama);
+        Last=Next(Last);
+    }
+    AddAOI(&playerWealthArray, HitungHartaPlayer(Info(Last)));
+    AddAOK(&playerNameArray, Info(Last).nama);
+
+    int n = NbElmtAOK(playerNameArray);
+    int i;
+    for (i = 1; i <= n - 1; ++i)
+    {
+    	int j;
+    	for (j = i+1; j <= n; ++j)
+    	{
+    		if (playerWealthArray.T[i] < playerWealthArray.T[j])
+    		{
+    			swapInt(&playerWealthArray.T[i], &playerWealthArray.T[j]);
+    			swapKata(&playerNameArray.T[i], &playerNameArray.T[j]);
+    		}
+    	}
+    }
+
+    printf("Leaderboard:\n");
+    for (i = 1; i <= n; ++i)
+    {
+    	printf("%d. Player: ", i);
+    	PrintKata(playerNameArray.T[i]);
+    	printf("\n");
+
+    	printf("   Wealth: %d\n", playerWealthArray.T[i]);
+    }
+    gamesystem_show_defeated();
 }
 
 void gamesystem_show_help()
@@ -138,6 +211,7 @@ void gamesystem_next_player()
 	}
 	global.rolldice = false;
 	printf("Ending Turn...\n");
+
 	global.currentPlayer = Next(global.currentPlayer);
 	gamesystem_print_giliran_player();
 }
@@ -198,7 +272,7 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 		case BOARD: PrintBoard(global.listOfPetak, global.listOfPlayer);
 		break;
 
-		case LEADERBOARD: gamesystem_show_leaderboard();
+		case LEADERBOARD: gamesystem_show_leaderboard(global.listOfPlayer);
 		break;
 
 		case HOST: AppointWorldCup(parameter);
@@ -222,6 +296,10 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 				DeleteAOI(&Info(global.currentPlayer).idKartu, 1);
 				KeluarPenjara(&Info(global.currentPlayer));
 			}
+			else
+			{
+				printf("Anda tidak bisa melakukan bebas penjara\n");
+			}
 		break;
 
 		case OFF: 
@@ -229,12 +307,20 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 			{
 				Info(SearchPetak(global.listOfPetak, parameter)).blackout = true;
 			}
+			else
+			{
+				printf("Anda tidak bisa melakukan blackout\n");
+			}
 		break;
 
 		case PROTECT: 
 			if (isMemberAOI(Info(global.currentPlayer).idKartu, 7) && SearchPetak(global.listOfPetak, parameter))
 			{
 				Info(SearchPetak(global.listOfPetak, parameter)).blackout = true;
+			}
+			else
+			{
+				printf("Anda tidak bisa melakukan protection\n");
 			}
 		break;
 

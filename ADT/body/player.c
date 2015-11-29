@@ -374,7 +374,6 @@ int countCompleteBlock(InfoPlayer X)
 
 boolean IsTripleMonopoly(InfoPlayer X)
 {
-	if(countCompleteBlock(InfoPlayer X) >=3) return true;
-	else return false;
+	return (countCompleteBlock(X) >= 3);
 }
 
