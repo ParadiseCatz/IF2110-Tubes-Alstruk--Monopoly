@@ -296,7 +296,7 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 		break;
 
 		case BUY: 
-		if (isKota(Info(global.currentPlayer).posisi))
+		if (isKota(Info(global.currentPlayer).posisi) || isTempatWisata(Info(global.currentPlayer).posisi))
 		{
 			Buy();
 		}
