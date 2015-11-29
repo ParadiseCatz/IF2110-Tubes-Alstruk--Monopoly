@@ -19,7 +19,13 @@ void read_user_input(UserAction *userAction, Kata *parameter)
 	if (IsKataSama(input, ConstructKata("roll")))
 	{
 		BacaKata(&input);
-		*userAction = ROLL_DICE;
+		if (IsKataSama(input, ConstructKata("dice")))
+		{
+			*userAction = ROLL_DICE;
+			return;
+		}
+		printf("! Input salah, silahkan ulangi lagi. !\n");
+		read_user_input(userAction, parameter);
 		return;
 	}
 	if (IsKataSama(input, ConstructKata("info")))
@@ -60,8 +66,14 @@ void read_user_input(UserAction *userAction, Kata *parameter)
 	}
 	if (IsKataSama(input, ConstructKata("show")))
 	{
-		*userAction = SHOW_OFFERED;
 		BacaKata(&input);
+		if (IsKataSama(input, ConstructKata("offered")))
+		{
+			*userAction = SHOW_OFFERED;
+			return;
+		}
+		printf("! Input salah, silahkan ulangi lagi. !\n");
+		read_user_input(userAction, parameter);
 		return;
 	}
 
@@ -98,8 +110,14 @@ void read_user_input(UserAction *userAction, Kata *parameter)
 
 	if (IsKataSama(input, ConstructKata("end")))
 	{
-		*userAction = END_TURN;
 		BacaKata(&input);
+		if (IsKataSama(input, ConstructKata("turn")))
+		{
+			*userAction = END_TURN;
+			return;
+		}
+		printf("! Input salah, silahkan ulangi lagi. !\n");
+		read_user_input(userAction, parameter);
 		return;
 	}
 	if (IsKataSama(input, ConstructKata("save")))
@@ -123,6 +141,9 @@ void read_user_input(UserAction *userAction, Kata *parameter)
 			*userAction = FREE_ME;
 			return;
 		}
+		printf("! Input salah, silahkan ulangi lagi. !\n");
+		read_user_input(userAction, parameter);
+		return;
 	}
 	if (IsKataSama(input, ConstructKata("off")))
 	{
@@ -140,8 +161,14 @@ void read_user_input(UserAction *userAction, Kata *parameter)
 
 	if (IsKataSama(input, ConstructKata("double")))
 	{
-		*userAction = DOUBLE_MOVE;
 		BacaKata(&input);
+		if (IsKataSama(input, ConstructKata("move")))
+		{
+			*userAction = DOUBLE_MOVE;
+			return;
+		}
+		printf("! Input salah, silahkan ulangi lagi. !\n");
+		read_user_input(userAction, parameter);
 		return;
 	}
 

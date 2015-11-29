@@ -1,6 +1,7 @@
 #include "stdio.h"
 #include "ADT/header/reader.h"
 #include "constant.h"
+#include "ADT/header/kata.h"
 
 void welcome_screen()
 {
@@ -24,9 +25,9 @@ void start_menu()
 	}
 	else
 	{
-		printf("Slot Number? ");
-		read_with_limit(1, SAVE_SLOT_MAX, &pilihan);
-		LoadGame(pilihan);
+		Kata input;
+		BacaKata(&input);
+		LoadGame(input);
 		gamesystem_start();
 	}
 }

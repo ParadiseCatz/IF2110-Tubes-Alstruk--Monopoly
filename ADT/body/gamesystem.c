@@ -26,6 +26,7 @@ void gamesystem_print_giliran_player()
 
 void gamesystem_start()
 {
+	srand((unsigned int)time(NULL));
 	gamesystem_print_giliran_player();
 	do {
 		int pilihan;
@@ -202,6 +203,33 @@ void gamesystem_show_help()
 	PRINTF("    > exit\n");
 }
 
+boolean gamesystem_check_losing_condition()
+{
+	if (Info(global.currentPlayer).uang <= 0)
+	{
+		AddressOfPlayer P = global.currentPlayer;
+		global.currentPlayer = Next(global.currentPlayer);
+
+		InfoPlayer X;
+		Del (&(global.listOfPlayer), &X, Info(P).id);
+		return true;
+	}
+	return false;
+}
+
+void gamesystem_make_champion(InfoPlayer x)
+{
+	printf("\n\n");
+	printf("#################\n");
+	printf("#### WE HAVE ####\n");
+	printf("####### A #######\n");
+	printf("#### WINNER! ####\n");
+	printf("#################\n");
+	printf("Champion: \n");
+	printf("   Player ");
+	PrintKata(x.nama);
+	printf("\n");
+}
 
 void gamesystem_next_player()
 {
@@ -213,7 +241,24 @@ void gamesystem_next_player()
 	global.rolldice = false;
 	printf("Ending Turn...\n");
 
-	global.currentPlayer = Next(global.currentPlayer);
+	if (IsTourismMonopoly(Info(global.currentPlayer)) || IsTripleMonopoly(Info(global.currentPlayer)))
+	{
+		gamesystem_make_champion(Info(global.currentPlayer));
+	}
+
+	if (gamesystem_check_losing_condition())
+	{
+		printf("Maaf Player ");
+		PrintKata(Info(global.currentPlayer).nama);
+		printf(" kalah\n");
+	}
+	else
+		global.currentPlayer = Next(global.currentPlayer);
+	// Tinggal 1 Player
+	if (global.currentPlayer == Next(global.currentPlayer))
+	{
+		gamesystem_make_champion(Info(global.currentPlayer));
+	}
 	gamesystem_print_giliran_player();
 }
 
