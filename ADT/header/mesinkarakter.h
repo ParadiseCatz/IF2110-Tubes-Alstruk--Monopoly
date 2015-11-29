@@ -46,6 +46,8 @@ void ADV();
 boolean EOP();
 /*	true jika CC==mark */
 
+boolean FILE_NOT_FOUND();
+
 void END();
 
 #endif

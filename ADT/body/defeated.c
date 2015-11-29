@@ -1,4 +1,5 @@
 #include "../header/defeated.h"
+#include "../header/player.h"
 
 void CreateEmptyS(StackOfPlayer *S) {
     Top(*S)=Nil;

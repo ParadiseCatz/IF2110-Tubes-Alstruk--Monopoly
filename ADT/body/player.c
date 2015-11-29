@@ -1,5 +1,6 @@
 #include "../header/petak.h"
 #include "../header/player.h"
+#include "../header/cards.h"
 
 void CreateEmptyLPlayer (ListPlayer *L)
 //membuat ListOfPlayer
@@ -16,13 +17,12 @@ boolean IsLPlayerEmpty (ListPlayer L)
 void PrintElmtPlayer (InfoPlayer X)
 //Mencetak informasi dari suatu pemain
 {
-	int i,N=X.nama.Length;
-	Kata temp=X.nama;
-	for (i=0;i<N;i++){
-		printf("%c",temp.TabKata[i]);
-	}
-	printf("\n");
-	printf("%d\n",X.uang);
+    printf("======================== "); PrintKata(X.nama); printf(" ========================"); puts("");
+	printf("Nama\t\t\t: "); PrintKata(X.nama); puts("");
+	printf("ID Player\t\t: "); printf("%d",X.id); puts("");
+	printf("Uang\t\t\t: "); printf("%d",X.uang); puts("");
+	printf("Kartu yang dimiliki\t: "); PrintAOI(X.idKartu); 
+	printf("Petak yang dimiliki\t: "); PrintAOK(X.kota);
 }
 
 AddressOfPlayer Alokasi (InfoPlayer X)
@@ -52,7 +52,7 @@ void InsVLast (ListPlayer *L, InfoPlayer X)
 */
 {
     AddressOfPlayer P=Alokasi(X);
-    InsertLast(&*L,P);
+    InsertLast(L,P);
 }
 
 void InsertFirst (ListPlayer *L, AddressOfPlayer P)
@@ -60,8 +60,16 @@ void InsertFirst (ListPlayer *L, AddressOfPlayer P)
 	F.S. Menambahkan elemen ber-Address P sebagai elemen pertama
 */
 {
-    Next(P) = First(*L) ;
-    First(*L) = P;
+	if(IsLPlayerEmpty(*L))
+	{
+		First(*L) = P;
+		Next(P) = P;
+	}
+	else
+	{
+		Next(P) = First(*L) ;
+    	First(*L) = P;
+	}
 }
 void InsertAfter (ListPlayer *L, AddressOfPlayer P, AddressOfPlayer Prec)
 /*	I.S. Prec pastilah elemen list dan bukan elemen terakhir,
@@ -69,24 +77,27 @@ void InsertAfter (ListPlayer *L, AddressOfPlayer P, AddressOfPlayer Prec)
 	F.S. Insert P sebagai elemen sesudah elemen beralamat Prec
 */
 {
-    Next(P)=Next(Prec);
-    Next(Prec)=P;
+    Next(P) = Next(Prec);
+    Next(Prec) = P;
 }
+
 void InsertLast (ListPlayer *L, AddressOfPlayer P)
 /*	I.S. Sembarang, P sudah dialokasi
 	F.S. P ditambahkan sebagai elemen terakhir yang baru
 */
 {
     if (IsLPlayerEmpty(*L)){
-        InsertFirst(&*L,P);
+        InsertFirst(L,P);
     }
     else
     {
         AddressOfPlayer Last=First(*L);
-        while (Next(Last)!=Nil){
+        while (Next(Last)!=First(*L))
+        {
             Last=Next(Last);
         }
-        InsertAfter(&*L,P,Last);
+        Next(Last) = P;
+        Next(P) = First(*L);
     }
 }
 
@@ -97,6 +108,29 @@ void Del (ListPlayer *L, InfoPlayer *X, int id)
 	AddressOfPlayer Prec, P;
     if (!IsLPlayerEmpty(*L))
     {
+    	if(NbElmtPlayer(*L) == 1)
+    	{
+    		P = First(*L);
+    		if(Info(P).id == id)
+    		{
+    			*X = Info(P);
+    			Next(P) = Nil;
+    			First(*L) = Nil;
+    			Dealokasi(&P);
+    		}
+    	}
+    	else
+    	{
+    		P = SearchidPlayer(*L, id);
+    		if(P == Nil) return;
+
+    		Prec = SearchPrec(*L, id);
+    		Next(Prec) = Next(P);
+    		if(First(*L) == P) First(*L) = Next(P);
+    		Next(P) = Nil;
+    		Dealokasi(&P);
+    	}
+    	/*
         if (id == Infoid(First(*L)))
         {
             P = First(*L);
@@ -115,6 +149,7 @@ void Del (ListPlayer *L, InfoPlayer *X, int id)
                 Dealokasi(&P);
             }
         }
+        */
     }
 }
 
@@ -122,25 +157,14 @@ AddressOfPlayer SearchPrec (ListPlayer L, int id)
 /*Mencari Alamat sebelum alamat pemain dari ListPlayer. Pencarian dilakukan
 	dengan menggunakan id player*/
 {
-	AddressOfPlayer Prec,P;
-    P=First(L);
-    Prec=Nil;
-    if (IsLPlayerEmpty(L))
-    {
-        return Nil;
-    }
-    else
-    {
-        while (P!=Nil && Infoid(P)!=id)
-        {
-            Prec=P;
-            P=Next(P);
-        }
-        if (Infoid(P)==id)
-            return Prec;
-        else
-            return Nil;
-    }
+	AddressOfPlayer P = SearchidPlayer(L, id);
+	if(P == Nil) return Nil;
+	AddressOfPlayer Prec = First(L);
+	while(Next(Prec) != P)
+	{
+		Prec = Next(Prec);
+	}
+	return Prec;
 }
 
 AddressOfPlayer SearchidPlayer (ListPlayer L, int id)
@@ -153,15 +177,17 @@ AddressOfPlayer SearchidPlayer (ListPlayer L, int id)
 	}
 	else
 	{
-		AddressOfPlayer P=First(L);
-		while (P!=Nil && Infoid(P)!=id)
+		AddressOfPlayer P = First(L);
+		boolean Found = false;
+		do
 		{
-			P=Next(P);
+			if(Info(P).id == id) Found = true;
+			else P = Next(P);
 		}
-		if (Infoid(P)==id)
-			return P;
-		else
-			return Nil;
+		while(P != First(L) && !Found);
+
+		if(Found) return P;
+		else return Nil;
 	}
 }
 
@@ -178,16 +204,17 @@ void MasukPenjara (InfoPlayer *X, ListPetak L)
 /*Memasukkan pemain kedalam penjara karena mendapatkan kartu chance*/
 {
 	(*X).penjara=true;
-	LompatKe(&*X,SearchPetakByID(L,9));
-	Kata namapetak;
-	AddressOfPetak P = SearchPetak(L, namapetak);
-	(*X).posisi=P;
+
+	AddressOfPetak P = SearchPetakByID(L,9);
+	LompatKe(X, P);
 }
 
 void KeluarPenjara (InfoPlayer *X)
 /*Mengeluarkan pemain dari penjara karena menggunakan kartu bebas penjara*/
 {
-	if (IsPenjara(*X)){
+	(*X).penjara = false;
+	/*if (IsPenjara(*X))
+	{
 		int i=0;
 		boolean found=false;
 		while (i<(*X).idKartu.Neff&&!found) //mencari apakah pemain punya kartu bebas penjara
@@ -207,7 +234,7 @@ void KeluarPenjara (InfoPlayer *X)
 			else if (pil=='N'||pil=='n')
 				(*X).penjara=1;
 		}
-	}
+	}*/
 }
 
 boolean isGetKartuPenjara (int X)
@@ -221,12 +248,12 @@ boolean isGetKartuPenjara (int X)
 int HitungHartaPlayer (InfoPlayer X)
 /*Menghitung semua aset milik pemain (uang+kota)*/
 {
-	int i,sum=X.uang;
+	int i, sum = X.uang;
 	AddressOfPetak P;
-	for (i=0;i<NbElmtAOK(X.kota);i++)
+	for (i=1; i<=NbElmtAOK(X.kota); i++)
 	{
-		P=SearchPetak(global.listOfPetak,X.kota.T[i]);
-		sum+=hargapetak(P);
+		P = SearchPetak(global.listOfPetak,X.kota.T[i]);
+		sum += hargapetak(P);
 	}
 	return sum;
 }
@@ -236,34 +263,45 @@ void MajuNLangkah (InfoPlayer *X, ListPetak L, int N)
  Jumlah langkah tergantung dari roll dadu (N>=2 dan N<=12). */
 {
 	int i;
-	AddressOfPetak P=(*X).posisi;
-	for (i=0;i<N;i++)
+	AddressOfPetak P = (*X).posisi;
+	for(i=0; i<N; i++)
 	{
-		if (P==Nil)
-			P=First(L);
-		else
-			P=Next(P);
+		P = Next(P);
+		if(Info(P).id_petak == 1) ExecuteStart();
 	}
-	(*X).posisi=P;
+
+	(*X).posisi = P;
+	if(Info(P).id_petak == 3) GetBonus();
+	else if(Info(P).id_petak == 9) Info(global.currentPlayer).penjara = true;
+	else if(Info(P).id_petak == 13 || Info(P).id_petak == 21 || Info(P).id_petak == 29) DrawCards();
+	else if(Info(P).id_petak == 31) PayTax();
+	else if(isKota(P) || isTempatWisata(P)) BayarSewa();
+
 }
 
 void LompatKe (InfoPlayer *X, AddressOfPetak Pt)
 /*Mengubah posisi pemain menuju ke petak 'pt' karena berhenti di world travel*/
 {
-	(*X).posisi=Pt;
+	(*X).posisi = Pt;
+	if(Info(Pt).id_petak == 1) ExecuteStart();
+	else if(Info(Pt).id_petak == 3) GetBonus();
+	else if(Info(Pt).id_petak == 9) Info(global.currentPlayer).penjara = true;
+	else if(Info(Pt).id_petak == 13 || Info(Pt).id_petak == 21 || Info(Pt).id_petak == 29) DrawCards();
+	else if(Info(Pt).id_petak == 31) PayTax();
+	else if(isKota(Pt) || isTempatWisata(Pt)) BayarSewa();
 }
 void AddKota (InfoPlayer *X, Kata K)
 /*Menambahkan aset pemain. Kota dapat diperoleh dengan cara membeli dari bank
  atau membeli paksa dari pemain lain.*/
 {
-	AddAOK(&(*X).kota,K);
+	AddAOK(&(*X).kota, K);
 }
 
 void DelKota (InfoPlayer *X, Kata K)
 /*Menghapus aset pemain karena menjual kota ke bank maupun kota dibeli paksa oleh
  pemain lain.*/
 {
-	DeleteAOK(&(*X).kota,K);
+	DeleteAOK(&(*X).kota, K);
 }
 
 boolean IsMember (InfoPlayer X, Kata K)
@@ -272,14 +310,70 @@ boolean IsMember (InfoPlayer X, Kata K)
 	return (isMemberAOK(X.kota,K));
 }
 
-int NbElmt (ListPlayer L)
+int NbElmtPlayer (ListPlayer L)
 //Mengembalikan banyaknya pemain
 {
-	AddressOfPlayer P=First(L);
-	int cnt=0;
-	while (P!=Nil)
+	if(IsLPlayerEmpty(L)) return 0;
+	else
 	{
-		cnt++;
+		AddressOfPlayer P = First(L);
+		int cnt = 0;
+		do
+		{
+			cnt++;
+			P = Next(P);
+		} while(P != First(L));
+		return cnt;
 	}
-	return cnt;
+	
 }
+
+int countTourismSpots(InfoPlayer X)
+{
+	int i, count=0;
+	for(i=1; i<=NbElmtAOK(X.kota); i++)
+	{
+		Kata now = X.kota.T[i];
+		AddressOfPetak P = SearchPetak(global.listOfPetak, now);
+		if(isTempatWisata(P)) count++;
+	}
+	return count;
+}
+
+boolean IsTourismMonopoly(InfoPlayer X)
+{
+	if(countTourismSpots(X) >= 3) return true;
+	else return false;
+}
+
+int countCompleteBlock(InfoPlayer X)
+{
+	int i, count=0;
+	int cntHuruf[10];
+	for(i=0; i<10; i++) cntHuruf[i] = 0;
+
+	for(i=1; i<=NbElmtAOK(X.kota); i++)
+	{
+		Kata now = X.kota.T[i];
+		AddressOfPetak P = SearchPetak(global.listOfPetak, now);
+		char blokNow = Info(P).blok;
+
+		if(blokNow != 'T')
+		{
+			cntHuruf[blokNow-'A']++;
+		}
+	}
+
+	for(i=0; i<8; i++)
+	{
+		if((i == 0 || i == 3 || i == 6 || i == 7) && cntHuruf[i] == 2) count++;
+		else if(((i == 1 || i == 2 || i == 4 || i == 5) && cntHuruf[i] == 3)) count++;
+	}
+	return count;
+}
+
+boolean IsTripleMonopoly(InfoPlayer X)
+{
+	return (countCompleteBlock(X) >= 3);
+}
+

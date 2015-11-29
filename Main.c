@@ -1,6 +1,15 @@
+#include "stdio.h"
+#include "ADT/header/reader.h"
+#include "constant.h"
+#include "ADT/header/kata.h"
+#include "ADT/header/gamesystem.h"
+#include "ADT/header/load_save.h"
+
 void welcome_screen()
 {
-	printf("Halo\n");
+	printf("===== Ayo, Jadi Tajir! =====\n");
+	printf("Rasakan sensasi kepuasan tersendiri menjadi orang tajir saat memainkan game ini\n");
+	printf("\n");
 }
 
 void start_menu()
@@ -20,9 +29,9 @@ void start_menu()
 	}
 	else
 	{
-		printf("Slot Number? ");
-		read_with_limit(1, SAVE_SLOT_MAX, &pilihan);
-		LoadGame(pilihan);
+		Kata input;
+		BacaKata(&input);
+		LoadGame(input);
 		gamesystem_start();
 	}
 }

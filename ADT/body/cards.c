@@ -6,11 +6,11 @@
 *	Deskripsi 	: Implementasi ADT Queue
 */
 
-#include "ADT/header/cards.h"
-#include "ADT/header/petak.h"
-#include "ADT/header/player.h"
-#include "ADT/header/arrayofint.h"
-#include "ADT/header/arrayofkata.h"
+#include "../header/cards.h"
+#include "../header/petak.h"
+#include "../header/player.h"
+#include "../header/arrayofint.h"
+#include "../header/arrayofkata.h"
 #include "../../globalvariable.h"
 
 //pemeriksaan kondisi queue
@@ -86,42 +86,15 @@ void DrawCards(){
 
 	i = rand() % 8;
 
-	if(i == 0)
-	{
-		FreeTax();
-	} 
-	else if (i == 1)
-	{
-		FreePrison();
-	}
-	else if (i == 2)
-	{
-		GetPrison();
-	}
-	else if (i == 3)
-	{
-		MajuRandLangkah();
-	}
-	else if (i == 4)
-	{
-		Bday();
-	}
-	else if (i == 5)
-	{
-		DoubledMove();
-	}
-	else if (i == 6)
-	{
-		BlackOut();
-	}
-	else if (i == 7)
-	{
-		ProtFromBlackOut();
-	}
-	else 
-	{
-		printf("Tunggu sebentar!!\n");
-	}
+	if(i == 0) FreeTax();
+	else if (i == 1) FreePrison();
+	else if (i == 2) GetPrison();
+	else if (i == 3) MajuRandLangkah();
+	else if (i == 4) Bday();
+	else if (i == 5) DoubledMove();
+	else if (i == 6) BlackOut();
+	else if (i == 7) ProtFromBlackOut();
+	else printf("Datang lagi lain waktu!\n");
 }
 
 void PrintCard (InfoKartu C){
@@ -135,50 +108,52 @@ void FreeTax(){
  * F.S. : freetax
  * Proses :
  */	
-	AddAOI(global.(*currentPlayer).idKartu,1);
+	AddAOI(&Info(global.currentPlayer).idKartu, 1);
 }
 
 void FreePrison(){
-	AddAOI(global.(*currentPlayer).idKartu,2);
+	AddAOI(&Info(global.currentPlayer).idKartu, 2);
 }
 
 void GetPrison(){
 
-	MasukPenjara(global.(*currentPlayer).penjara);
+	MasukPenjara(&Info(global.currentPlayer), global.listOfPetak);
 }
 
 void MajuRandLangkah(){
 
-	N = rand() % 15; 
-	N++;
-		MajuNLangkah(&global.(*currentPlayer), global.listOfPetak, N);
+	int N = rand() % 15; N++;
+	printf("Anda perlu maju %d langkah\n", N);
+	MajuNLangkah(&Info(global.currentPlayer), global.listOfPetak, N);
 }
 
 void Bday(){
 	int i;
 	AddressOfPlayer P;
 
-		global.(*currentPlayer).uang += gift * NbElmt(global.listOfPlayer);
-		P = First(global.listOfPlayer);
+	Info(global.currentPlayer).uang += (GIFT * NbElmtPlayer(global.listOfPlayer));
+	
+	P = First(global.listOfPlayer);
+	do
+	{
+		Info(P).uang = Info(P).uang - GIFT; 
+		P = Next(P);
 
-		while (P != Nil){
-			P.uang = P.uang - gift; 
-			P = Next(P);
-	}
+	} while(P != First(global.listOfPlayer));
 }
 
 void DoubledMove(){
 	
-	AddAOI(global.(*currentPlayer).idKartu,6);
+	AddAOI(&Info(global.currentPlayer).idKartu, 6);
 }
 
 void BlackOut(){
 
-	AddAOI(global.(*currentPlayer).idKartu,7);
+	AddAOI(&Info(global.currentPlayer).idKartu, 7);
 }
 
 void ProtFromBlackOut(){
 
-	AddAOI(global.currentPlayer).idKartu,8);
+	AddAOI(&Info(global.currentPlayer).idKartu, 8);
 }
 

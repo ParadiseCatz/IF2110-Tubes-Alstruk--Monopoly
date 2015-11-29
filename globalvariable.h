@@ -4,12 +4,11 @@
 #include "ADT/header/kata.h"
 #include "ADT/header/arrayofint.h"
 #include "ADT/header/arrayofkata.h"
+#include "constant.h"
 #include <stdio.h>
 #include <stdlib.h>
 
 //Konstanta
-#define Nil NULL
-
 typedef struct TElmtListPetak *AddressOfPetak;
 
 typedef struct TElmtListPlayer *AddressOfPlayer;
@@ -55,8 +54,6 @@ typedef struct
     int harga_jual; //harga jual Sale
 } InfoPetak;
 
-
-
 typedef struct TElmtListPetak {
 	InfoPetak 	info;
 	AddressOfPetak 	next;
@@ -82,6 +79,19 @@ typedef struct {
 #define Blackout(P) Info(P).blackout
 #define Harga_Jual(P) Info(P).harga_jual
 
+typedef int Address;
+
+typedef struct {
+    int cardID;
+    Kata cardName;
+    Kata cardDescription;
+} InfoKartu;
+
+typedef struct {
+    InfoKartu TabCards[MAX_CARDS];
+    int Neff;
+} ArrayOfCards;
+
 typedef struct {
     AddressOfPlayer     top;
 } StackOfPlayer;
@@ -89,12 +99,21 @@ typedef struct {
 typedef struct {
 	ListPlayer listOfPlayer;
 	ListPetak listOfPetak;
-	InfoPlayer *currentPlayer;
-	InfoPetak *currentWorldCup;
-	QueueOfKartu queueOfKartu;
+	AddressOfPlayer currentPlayer;
+	AddressOfPetak currentWorldCup;
+	ArrayOfCards arrayOfCards;
 	StackOfPlayer stackOfDefeated;
+    boolean rolldice;
+    int diceRollResult;
+    boolean alreadyUpgrade;
 } GlobalVariable;
 
 GlobalVariable global;
+
+typedef enum {
+    ROLL_DICE, INFO, BUY, SELL, SELL_BANK, SHOW_OFFERED, BUY_OFFERED,
+    UPGRADE, BOARD, LEADERBOARD, HOST, TRAVEL, END_TURN, SAVE, LOAD,
+    FREE_ME, OFF, PROTECT, DOUBLE_MOVE, HELP, EXIT
+} UserAction;
 
 #endif

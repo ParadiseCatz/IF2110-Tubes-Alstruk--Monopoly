@@ -5,11 +5,21 @@
 void InitDataKartu()
 {
 	STARTKATA("data/dataKartu.txt");
+	int id = 0;
 	while(!EndKata)
 	{
-		// Simpan deskripsi ke global variable
-	}	
+		InfoKartu X;
+		X.cardID = id;
+		X.cardName = CKata; ADVKATA();
+		X.cardDescription = CKata; ADVKATA();
+		
+		global.arrayOfCards.TabCards[id] = X;
+		
+		id++;
+	}
 }
+
+/* ===================================== PRINT SOMETHING TO FILE ===================================== */
 
 void PrintKataToFile(FILE *fp, Kata K)
 {
@@ -24,7 +34,7 @@ void PrintPetakToFile(FILE *fp, InfoPetak X)
 {
 	int blackout = (X.blackout)?1:0;
 	fprintf(fp, "===== "); PrintKataToFile(fp, X.nama_petak); fprintf(fp, " =====\n");
-	fprintf(fp, "Jenis_Petak: "); PrintKataToFile(fp, X.nama_petak); fprintf(fp, "\n");
+	fprintf(fp, "Jenis_Petak: "); PrintKataToFile(fp, X.jenis_petak); fprintf(fp, "\n");
 	fprintf(fp, "Nama_Petak: "); PrintKataToFile(fp, X.nama_petak); fprintf(fp, "\n");
 	fprintf(fp, "Harga_Dasar: "); fprintf(fp,"%d", X.harga_dasar); fprintf(fp, "\n");
 	fprintf(fp, "Harga_Jual: "); fprintf(fp,"%d", X.harga_jual); fprintf(fp, "\n");
@@ -34,14 +44,20 @@ void PrintPetakToFile(FILE *fp, InfoPetak X)
 	fprintf(fp, "Multiplier_Sewa: "); fprintf(fp,"%.4lf", X.multiplier_sewa); fprintf(fp, "\n");
 	fprintf(fp, "Pemilik: "); fprintf(fp,"%d", X.pemilik); fprintf(fp, "\n");
 	fprintf(fp, "Blok: "); fprintf(fp,"%c", X.blok); fprintf(fp, "\n");
-	fprintf(fp, "Blackout: "); fprintf(fp, "%d", blackout); fprintf(fp, "\n");
+	fprintf(fp, "Blackout: "); fprintf(fp, "%d", blackout); fprintf(fp, "\n\n");
 }
 
 void PrintPlayerToFile(FILE *fp, InfoPlayer X)
 {
 	int playerLocationIdx, isInPenjara, jumlahKartu, jumlahKota, i;
+
+	AddressOfPetak playerLocation = X.posisi;
+	playerLocationIdx = playerLocation -> info.id_petak;
+	isInPenjara = (X.penjara)?1:0;
+	jumlahKartu = X.idKartu.Neff;
+	jumlahKota = X.kota.Neff;
 	
-	fprintf(fp, "===== "); printf("%d", X.id); fprintf(fp, " =====\n");
+	fprintf(fp, "===== "); fprintf(fp, "%d", X.id); fprintf(fp, " =====\n");
 	fprintf(fp, "Nama_Player: "); PrintKataToFile(fp, X.nama); fprintf(fp, "\n");
 	fprintf(fp, "Lokasi_Player: "); fprintf(fp, "%d", playerLocationIdx); fprintf(fp, "\n");
 	fprintf(fp, "Uang: "); fprintf(fp, "%d", X.uang); fprintf(fp, "\n");
@@ -56,33 +72,17 @@ void PrintPlayerToFile(FILE *fp, InfoPlayer X)
 	{
 		fprintf(fp," "); PrintKataToFile(fp, X.kota.T[i]);
 	}
-	fprintf(fp, "\n");
+	fprintf(fp, "\n\n");
 }
 
-void InitUrutanBoard()
-{
-	STARTKATA("data/urutanPetak.txt");
-	while(!EndKata)
-	{
-		AddressOfPetak P;
-		InfoPetak X;
-
-		X.nama_petak = CKata;
-		X.jenis_petak = CKata;
-		P = AlokasiPetak(X);
-
-		AddLastLPetak(&global.listOfPetak, P);
-		ADVKATA();
-	}	
-}
+/* ===================================== AKUISISI OBJECT ===================================== */
 
 void AkuisisiPetak(InfoPetak *X)
 {
 	InfoPetak Xtmp;
-
 	ADVKATA();
 
-	Xtmp.nama_petak = CKata; 
+	Xtmp.nama_petak = CKata;
 	ADVKATA(); ADVKATA(); ADVKATA();
 
 	Xtmp.jenis_petak = CKata;
@@ -123,57 +123,6 @@ void AkuisisiPetak(InfoPetak *X)
 	*X = Xtmp;
 }
 
-void InitDataAwalBoard()
-{
-	// Kamus Lokal
-	InfoPetak X;
-	AddressOfPetak P;
-
-	// Algoritma
-	STARTKATA("data/dataPetak.txt");
-	while(!EndKata)
-	{
-		AkuisisiPetak(&X);
-		P = SearchPetak(global.listOfPetak, X.nama_petak);
-		InfoPetak(P) = X;
-	}	
-}
-
-void InitBoardAwal()
-{
-	InitUrutanBoard();
-	InitDataPetakAwal();
-}
-
-void InitPlayers(int numOfPlayers)
-{
-	// Kamus Lokal
-	int i;
-	AddressOfPlayer P;
-	InfoPlayer X;
-	// Algoritma
-	CreateEmptyLPlayer(&global.listOfPlayer);
-	for(i=1; i<=numOfPlayers; i++)
-	{
-		X.id = i;
-		X.uang = STARTING_MONEY;
-		CreateEmptyAOI(&X.idKartu);
-		printf("Masukan nama untuk player %d : ", i); BacaKata(&X.nama);
-		CreateEmptyAOK(&X.kota);
-		X.posisi = FirstPetak(global.listOfPlayer);
-		X.penjara = false;
-		
-		P = AlokasiPlayer(X);
-		AddPlayer(&global.listOfPlayer, P);
-	}
-}
-
-void NewGame(int numOfPlayers)
-{
-	InitBoardAwal();
-	InitPlayers(numOfPlayers);
-}
-
 void AkuisisiPlayer(InfoPlayer *X)
 {
 	InfoPlayer Xtmp;
@@ -189,7 +138,8 @@ void AkuisisiPlayer(InfoPlayer *X)
 
 	int playerLocation = KataToInt(CKata);
 	AddressOfPetak playerPosition = SearchPetakByID(global.listOfPetak, playerLocation);
-	Xtmp.posisi = playerPosition;
+	Xtmp.posisi = playerPosition; 
+
 	ADVKATA(); ADVKATA();
 
 	Xtmp.uang = KataToInt(CKata);
@@ -201,15 +151,17 @@ void AkuisisiPlayer(InfoPlayer *X)
 	ADVKATA(); ADVKATA();
 
 	int numOfCardsOwned = KataToInt(CKata);
+	CreateEmptyAOI(&Xtmp.idKartu);
 	ADVKATA();
 	for(i=0; i<numOfCardsOwned; i++)
 	{
 		AddAOI(&Xtmp.idKartu, KataToInt(CKata));
 		ADVKATA();
 	}
-	ADVKATA();
 
+	ADVKATA();
 	int numOfPetakOwned = KataToInt(CKata);
+	CreateEmptyAOK(&Xtmp.kota);
 	ADVKATA();
 	for(i=0; i<numOfPetakOwned; i++)
 	{
@@ -220,39 +172,152 @@ void AkuisisiPlayer(InfoPlayer *X)
 	*X = Xtmp;
 }
 
+/* ===================================== INIT BOARD = INIT URUTAN + INIT DATA AWAL ===================================== */
+
+void InitUrutanBoard()
+{
+	STARTKATA("data/urutanPetak.txt");
+	CreateListPetak(&(global.listOfPetak));
+
+	int i = 1;
+
+	while(!EndKata)
+	{
+		AddressOfPetak P;
+		InfoPetak X;
+		X.nama_petak = CKata;
+		X.jenis_petak = CKata;
+		X.id_petak = i; i++;
+		P = AlokasiPetak(X);
+		AddLastPetak(&global.listOfPetak, P);
+		ADVKATA();
+	}	
+}
+
+void InitDataAwalBoard()
+{
+	// Kamus Lokal
+	InfoPetak X;
+	AddressOfPetak P;
+
+	// Algoritma
+	STARTKATA("data/dataPetak.txt");
+	while(!EndKata)
+	{
+		AkuisisiPetak(&X);
+		P = SearchPetak(global.listOfPetak, X.nama_petak);
+
+    	Info(P).jenis_petak = X.jenis_petak;
+    	Info(P).nama_petak = X.nama_petak;
+    	Info(P).biaya_sewa = X.biaya_sewa;
+    	Info(P).harga_dasar = X.harga_dasar;
+    	Info(P).biaya_upgrade = X.biaya_upgrade;
+    	Info(P).level = X.level;
+    	Info(P).multiplier_sewa = X.multiplier_sewa;
+    	Info(P).pemilik = X.pemilik;
+    	Info(P).blok = X.blok;
+    	Info(P).blackout = X.blackout;
+    	Info(P).harga_jual = X.harga_jual;
+	}
+}
+
+void InitBoardAwal()
+{
+	InitUrutanBoard();
+	InitDataAwalBoard();
+}
+
+/* ===================================== INIT PLAYERS ===================================== */
+
+void InitPlayers(int numOfPlayers)
+{
+	// Kamus Lokal
+	int i;
+	AddressOfPlayer P;
+	InfoPlayer X;
+	// Algoritma
+	CreateEmptyLPlayer(&global.listOfPlayer);
+	for(i=1; i<=numOfPlayers; i++)
+	{
+		X.id = i;
+		X.uang = STARTING_MONEY;
+		CreateEmptyAOI(&X.idKartu);
+
+		Kata namaPlayer;
+		namaPlayer.TabKata[0] = 'A'+i-1;
+		namaPlayer.Length = 1;
+		X.nama = namaPlayer;
+
+		CreateEmptyAOK(&X.kota);
+		X.posisi = FirstPetak(global.listOfPetak);
+		X.penjara = false;
+		
+		P = Alokasi(X);
+		InsertLast(&global.listOfPlayer, P);
+	}
+}
+
+/* ===================================== NEW GAME ===================================== */
+
+void NewGame(int numOfPlayers)
+{
+	InitBoardAwal(); InitDataKartu();
+	InitPlayers(numOfPlayers);
+	global.currentPlayer = First(global.listOfPlayer);
+	global.currentWorldCup = NULL;
+	global.diceRollResult = 0;
+	global.rolldice = false;
+	global.alreadyUpgrade = false;
+	CreateEmptyS(&global.stackOfDefeated);
+}
+
+/* ===================================== LOAD GAME ===================================== */
+
 void LoadGlobalVariables(char *directory)
 {
 	// Kamus Lokal
-	int id_currentPlayer, id_currentWorldCup, jumlahKartu, i;
+	int id_currentPlayer, id_currentWorldCup, jumlahKartu, bool_diceroll, bool_AlrdyUp, i;
 	ArrayOfInt currentIDKartu;
 
 	// Algoritma
 	STARTKATA(directory);
-	ADVKATA();
-
-	id_currentPlayer = KataToInt(CKata);
-	ADVKATA(); ADVKATA();
-
-	id_currentWorldCup = KataToInt(CKata);
-	ADVKATA(); ADVKATA();
-
-	jumlahKartu = KataToInt(CKata);
-	ADVKATA(); ADVKATA();
-
-	for(i=0; i<jumlahKartu; i++)
+	if(!FILE_NOT_FOUND())
 	{
-		int tmpIDKartu = KataToInt(CKata);
-		AddAOI(&currentIDKartu, tmpIDKartu);
 		ADVKATA();
-	}
 
-	ADVKATA();
-	while(!EndKata)
-	{
-		InfoPlayer X;
-		AkuisisiPlayer(&X);
-		Push(&global.stackOfDefeated, X);
+		id_currentPlayer = KataToInt(CKata);
+		global.currentPlayer = SearchidPlayer(global.listOfPlayer, id_currentPlayer);
+		ADVKATA(); ADVKATA();
+
+		id_currentWorldCup = KataToInt(CKata);
+		if(id_currentWorldCup == -1) global.currentWorldCup = NULL;
+		else global.currentWorldCup = SearchPetakByID(global.listOfPetak, id_currentWorldCup);
+		ADVKATA(); ADVKATA();
+
+		global.diceRollResult = KataToInt(CKata);
+		ADVKATA(); ADVKATA();
+
+		bool_diceroll = KataToInt(CKata);
+		if(bool_diceroll == 1) global.rolldice = true;
+		else global.rolldice = false;
+		ADVKATA(); ADVKATA();
+
+		bool_AlrdyUp = KataToInt(CKata);
+		if(bool_AlrdyUp == 1) global.alreadyUpgrade = true;
+		else global.alreadyUpgrade = false;
+		ADVKATA();
+
+		ADVKATA();
+		CreateEmptyS(&global.stackOfDefeated);
+		while(!EndKata)
+		{
+			InfoPlayer X;
+			AkuisisiPlayer(&X);
+			Push(&global.stackOfDefeated, X);
+		}
 	}
+	else puts("File GlobalVar.txt is missing!");
+	
 
 }
 
@@ -264,12 +329,28 @@ void LoadDataPetak(char *directory)
 
 	// Algoritma
 	STARTKATA(directory);
-	while(!EndKata)
+	if(!FILE_NOT_FOUND())
 	{
-		AkuisisiPetak(&X);
-		P = SearchPetak(global.listOfPetak, X.nama_petak);
-		InfoPetak(P) = X;
-	}	
+		while(!EndKata)
+		{
+			AkuisisiPetak(&X);
+			P = SearchPetak(global.listOfPetak, X.nama_petak);
+			
+			Info(P).jenis_petak = X.jenis_petak;
+	    	Info(P).nama_petak = X.nama_petak;
+	    	Info(P).biaya_sewa = X.biaya_sewa;
+	    	Info(P).harga_dasar = X.harga_dasar;
+	    	Info(P).biaya_upgrade = X.biaya_upgrade;
+	    	Info(P).level = X.level;
+	    	Info(P).multiplier_sewa = X.multiplier_sewa;
+	    	Info(P).pemilik = X.pemilik;
+	    	Info(P).blok = X.blok;
+	    	Info(P).blackout = X.blackout;
+	    	Info(P).harga_jual = X.harga_jual;
+		}	
+	}
+	else puts("File DataPetak.txt is missing!");
+	
 }
 
 void LoadDataPlayers(char *directory)
@@ -280,62 +361,95 @@ void LoadDataPlayers(char *directory)
 
 	// ALgoritma
 	STARTKATA(directory);
-	while(!EndKata)
+	if(!FILE_NOT_FOUND())
 	{
-		AkuisisiPlayer(&X);
-		P = AlokasiPlayer(X);
-		AddLPlayer(&global.listOfPlayer, P);
+		CreateEmptyLPlayer(&global.listOfPlayer);
+		while(!EndKata)
+		{
+			AkuisisiPlayer(&X);
+			P = Alokasi(X);
+			InsertLast(&global.listOfPlayer, P);
+		}
 	}
 }
 
-void LoadGame(int slot)
+void LoadGame(Kata namaSaveGame)
 {
-	char *dirDataPlayer, *dirDataPetak, *dirGlobalVar;
+	Kata dirDataPlayer, dirDataPetak, dirGlobalVar;
+	CreateEmptyKata(&dirDataPlayer); CreateEmptyKata(&dirDataPetak); CreateEmptyKata(&dirGlobalVar);
 
-	if(slot == 1)
+	char *savegame = "savegame/";
+	int i;
+	for (i=0; i<strlen(savegame); i++)
 	{
-		dirDataPlayer = "savegame/savegame1/dataPlayer.txt";
-		dirDataPetak = "savegame/savegame1/dataPetak.txt";
-		dirGlobalVar = "savegame/savegame1/dataGlobalVariables.txt";
+		dirDataPlayer.TabKata[i] = dirDataPetak.TabKata[i] = dirGlobalVar.TabKata[i] = *(savegame+i);
+		dirDataPlayer.Length++; dirDataPetak.Length++; dirGlobalVar.Length++; 
 	}
+
+	dirDataPlayer = ConcatKata(dirDataPlayer, namaSaveGame); dirDataPetak = ConcatKata(dirDataPetak, namaSaveGame); 
+	dirGlobalVar = ConcatKata(dirGlobalVar, namaSaveGame); 
+
+	Kata dataPlayerTXT, dataPetakTXT, dataGlobalVarTXT;
+	dataPlayerTXT.TabKata[0] = '_'; dataPetakTXT.TabKata[0] = '_'; dataGlobalVarTXT.TabKata[0] = '_';
+	dataPlayerTXT.TabKata[1] = 'd'; dataPetakTXT.TabKata[1] = 'd'; dataGlobalVarTXT.TabKata[1] = 'd';
+	dataPlayerTXT.TabKata[2] = 'a'; dataPetakTXT.TabKata[2] = 'a'; dataGlobalVarTXT.TabKata[2] = 'a';
+	dataPlayerTXT.TabKata[3] = 't'; dataPetakTXT.TabKata[3] = 't'; dataGlobalVarTXT.TabKata[3] = 't';
+	dataPlayerTXT.TabKata[4] = 'a'; dataPetakTXT.TabKata[4] = 'a'; dataGlobalVarTXT.TabKata[4] = 'a';
+	dataPlayerTXT.TabKata[5] = 'P'; dataPetakTXT.TabKata[5] = 'P'; dataGlobalVarTXT.TabKata[5] = 'G';
+	dataPlayerTXT.TabKata[6] = 'l'; dataPetakTXT.TabKata[6] = 'e'; dataGlobalVarTXT.TabKata[6] = 'l';
+	dataPlayerTXT.TabKata[7] = 'a'; dataPetakTXT.TabKata[7] = 't'; dataGlobalVarTXT.TabKata[7] = 'o';
+	dataPlayerTXT.TabKata[8] = 'y'; dataPetakTXT.TabKata[8] = 'a'; dataGlobalVarTXT.TabKata[8] = 'b';
+	dataPlayerTXT.TabKata[9] = 'e'; dataPetakTXT.TabKata[9] = 'k'; dataGlobalVarTXT.TabKata[9] = 'a';
+	dataPlayerTXT.TabKata[10] = 'r'; dataPetakTXT.TabKata[10] = '.'; dataGlobalVarTXT.TabKata[10] = 'l';
+	dataPlayerTXT.TabKata[11] = '.'; dataPetakTXT.TabKata[11] = 't'; dataGlobalVarTXT.TabKata[11] = 'V';
+	dataPlayerTXT.TabKata[12] = 't'; dataPetakTXT.TabKata[12] = 'x'; dataGlobalVarTXT.TabKata[12] = 'a';
+	dataPlayerTXT.TabKata[13] = 'x'; dataPetakTXT.TabKata[13] = 't'; dataGlobalVarTXT.TabKata[13] = 'r';
+	dataPlayerTXT.TabKata[14] = 't'; 								 dataGlobalVarTXT.TabKata[14] = '.';
+																	 dataGlobalVarTXT.TabKata[15] = 't';
+																	 dataGlobalVarTXT.TabKata[16] = 'x';
+																	 dataGlobalVarTXT.TabKata[17] = 't';
+	dataPlayerTXT.Length = 15; dataPetakTXT.Length = 14; dataGlobalVarTXT.Length = 18;
+
+	dirDataPlayer = ConcatKata(dirDataPlayer, dataPlayerTXT); dirDataPetak = ConcatKata(dirDataPetak, dataPetakTXT); 
+	dirGlobalVar = ConcatKata(dirGlobalVar, dataGlobalVarTXT); 
+
+	FILE *fileTest;
+	fileTest = fopen(dirDataPlayer.TabKata, "r");
+	if(fileTest == NULL) puts("File tidak ditemukan");
 	else
 	{
-		dirDataPlayer = "savegame/savegame2/dataPlayer.txt";
-		dirDataPetak = "savegame/savegame2/dataPetak.txt";
-		dirGlobalVar = "savegame/savegame2/dataGlobalVariables.txt";
+		if(FirstPetak(global.listOfPetak) == NULL)
+		{
+			InitUrutanBoard(); InitDataKartu();
+		}
+		LoadDataPlayers(dirDataPlayer.TabKata); puts("Player Loaded");
+		LoadDataPetak(dirDataPetak.TabKata); puts("Petak Loaded");
+		LoadGlobalVariables(dirGlobalVar.TabKata); puts("GlobalVariable Loaded");
 	}
-
-	InitUrutanBoard();
-	LoadGlobalVariables(dirGlobalVar); LoadDataPetak(dirDataPetak); LoadDataPlayers(dirDataPlayer); 
+	
 }
+
+/* ===================================== SAVE GAME ===================================== */
 
 void SaveDataGlobalVariables(char *directory)
 // Menyimpan currentPlayer, currentWorldCup, queueKartu, dan stackDefeated
 {
-	/*
-	Current_Player: 3
-	Current_WorldCup: 5
-	Queue_kartu: 5 1 2 3 4 5
-	Stack_defeated_players:
-	====== 1 ======
-	...
-	...
-	====== 2 ======
-	...
-	...
-	#
-	*/
 	FILE *fp;
 	fp = fopen(directory, "w");
 	
-	InfoPlayer P = global.currentPlayer;
-	fprintf(fp, "Current_Player: %d\n", P.id);
+	fprintf(fp, "Current_Player: %d\n", Info(global.currentPlayer).id);
 	
-	InfoPetak WC = global.currentWorldCup;
-	fprintf(fp, "Current_WorldCup: %d\n", WC.id_petak);
-	
-	fprintf(fp, "Queue_kartu:\n");
-	fprintf(fp, "%d\n", NbElmt(global.queueOfKartu));
+	AddressOfPetak WC = global.currentWorldCup;
+	if(WC != NULL) fprintf(fp, "Current_WorldCup: %d\n", Info(WC).id_petak);
+	else fprintf(fp, "Current_WorldCup: -1\n");
+
+	fprintf(fp, "diceRollResult: %d\n", global.diceRollResult);
+
+	int valRollDice = (global.rolldice)?1:0;
+	fprintf(fp, "rolldice: %d\n", valRollDice);
+
+	int valAldyUp = (global.alreadyUpgrade)?1:0;
+	fprintf(fp, "alreadyUpgrade: %d\n", valAldyUp);
 	
 	fprintf(fp, "Stack_defeated_players:\n");
 	while(Top(global.stackOfDefeated) != Nil)
@@ -344,7 +458,6 @@ void SaveDataGlobalVariables(char *directory)
 		Pop(&global.stackOfDefeated, &X);
 		PrintPlayerToFile(fp, X);
 	}
-	
 	fprintf(fp, "\n#\n");
 	fclose(fp);
 }
@@ -354,17 +467,17 @@ void SaveDataPlayer(char *directory)
 	FILE *fp;
 	fp = fopen(directory, "w");
 	
-	int numOfPlayers = NbElmtLPlayer(global.listOfPlayer);
+	int numOfPlayers = NbElmtPlayer(global.listOfPlayer);
 	int i;
 	InfoPlayer X;
 	AddressOfPlayer P;
 
-	P = FirstLPlayer(global.listOfPlayer);
+	P = First(global.listOfPlayer);
 	for(i=0; i<numOfPlayers; i++)
 	{
-		X = InfoPlayer(P);
+		X = Info(P);
 		PrintPlayerToFile(fp, X);
-		P = NextPlayer(P);
+		P = Next(P);
 	}
 	
 	fprintf(fp, "\n#\n");
@@ -384,12 +497,11 @@ void SaveDataPetak(char *directory)
 	TEMPAT_WISATA.TabKata[8] = 'i'; TEMPAT_WISATA.TabKata[9] = 's'; TEMPAT_WISATA.TabKata[10] = 'a'; TEMPAT_WISATA.TabKata[11] = 't'; 
 	TEMPAT_WISATA.TabKata[12] = 'a';  TEMPAT_WISATA.Length = 13;
 
-	int numOfPetak = NbElmtLPetak(global.listOfPetak);
 	int i;
 	InfoPetak X;
 	AddressOfPetak P;
 
-	P = FirstLPetak(global.listOfPetak);
+	P = FirstPetak(global.listOfPetak);
 	do
 	{
 		X = InfoPetak(P);
@@ -400,30 +512,54 @@ void SaveDataPetak(char *directory)
 		}
 					
 		P = NextPetak(P);
-	} while(P != FirstLPetak(global.listOfPetak));
+	} while(P != FirstPetak(global.listOfPetak));
 	
 	fprintf(fp, "\n#\n");
 	fclose(fp);
 }
 
-void SaveGame(int slot)
+void SaveGame(Kata namaSaveGame)
 {
-	char *dirDataPlayer, *dirDataPetak, *dirGlobalVar;
+	Kata dirDataPlayer, dirDataPetak, dirGlobalVar;
+	CreateEmptyKata(&dirDataPlayer); CreateEmptyKata(&dirDataPetak); CreateEmptyKata(&dirGlobalVar);
 
-	if(slot == 1)
+	char *savegame = "savegame/";
+	int i;
+	for (i=0; i<strlen(savegame); i++)
 	{
-		dirDataPlayer = "savegame/savegame1/dataPlayer.txt";
-		dirDataPetak = "savegame/savegame1/dataPetak.txt";
-		dirGlobalVar = "savegame/savegame1/dataGlobalVariables.txt";
-	}
-	else
-	{
-		dirDataPlayer = "savegame/savegame2/dataPlayer.txt";
-		dirDataPetak = "savegame/savegame2/dataPetak.txt";
-		dirGlobalVar = "savegame/savegame2/dataGlobalVariables.txt";
+		dirDataPlayer.TabKata[i] = dirDataPetak.TabKata[i] = dirGlobalVar.TabKata[i] = *(savegame+i);
+		dirDataPlayer.Length++; dirDataPetak.Length++; dirGlobalVar.Length++; 
 	}
 
-	SaveDataGlobalVariables(dirGlobalVar);
-	SaveDataPlayer(dirDataPlayer);
-	SaveDataPetak(dirDataPetak);
+	dirDataPlayer = ConcatKata(dirDataPlayer, namaSaveGame); dirDataPetak = ConcatKata(dirDataPetak, namaSaveGame); 
+	dirGlobalVar = ConcatKata(dirGlobalVar, namaSaveGame); 
+
+	Kata dataPlayerTXT, dataPetakTXT, dataGlobalVarTXT;
+	dataPlayerTXT.TabKata[0] = '_'; dataPetakTXT.TabKata[0] = '_'; dataGlobalVarTXT.TabKata[0] = '_';
+	dataPlayerTXT.TabKata[1] = 'd'; dataPetakTXT.TabKata[1] = 'd'; dataGlobalVarTXT.TabKata[1] = 'd';
+	dataPlayerTXT.TabKata[2] = 'a'; dataPetakTXT.TabKata[2] = 'a'; dataGlobalVarTXT.TabKata[2] = 'a';
+	dataPlayerTXT.TabKata[3] = 't'; dataPetakTXT.TabKata[3] = 't'; dataGlobalVarTXT.TabKata[3] = 't';
+	dataPlayerTXT.TabKata[4] = 'a'; dataPetakTXT.TabKata[4] = 'a'; dataGlobalVarTXT.TabKata[4] = 'a';
+	dataPlayerTXT.TabKata[5] = 'P'; dataPetakTXT.TabKata[5] = 'P'; dataGlobalVarTXT.TabKata[5] = 'G';
+	dataPlayerTXT.TabKata[6] = 'l'; dataPetakTXT.TabKata[6] = 'e'; dataGlobalVarTXT.TabKata[6] = 'l';
+	dataPlayerTXT.TabKata[7] = 'a'; dataPetakTXT.TabKata[7] = 't'; dataGlobalVarTXT.TabKata[7] = 'o';
+	dataPlayerTXT.TabKata[8] = 'y'; dataPetakTXT.TabKata[8] = 'a'; dataGlobalVarTXT.TabKata[8] = 'b';
+	dataPlayerTXT.TabKata[9] = 'e'; dataPetakTXT.TabKata[9] = 'k'; dataGlobalVarTXT.TabKata[9] = 'a';
+	dataPlayerTXT.TabKata[10] = 'r'; dataPetakTXT.TabKata[10] = '.'; dataGlobalVarTXT.TabKata[10] = 'l';
+	dataPlayerTXT.TabKata[11] = '.'; dataPetakTXT.TabKata[11] = 't'; dataGlobalVarTXT.TabKata[11] = 'V';
+	dataPlayerTXT.TabKata[12] = 't'; dataPetakTXT.TabKata[12] = 'x'; dataGlobalVarTXT.TabKata[12] = 'a';
+	dataPlayerTXT.TabKata[13] = 'x'; dataPetakTXT.TabKata[13] = 't'; dataGlobalVarTXT.TabKata[13] = 'r';
+	dataPlayerTXT.TabKata[14] = 't'; 								 dataGlobalVarTXT.TabKata[14] = '.';
+																	 dataGlobalVarTXT.TabKata[15] = 't';
+																	 dataGlobalVarTXT.TabKata[16] = 'x';
+																	 dataGlobalVarTXT.TabKata[17] = 't';
+	dataPlayerTXT.Length = 15; dataPetakTXT.Length = 14; dataGlobalVarTXT.Length = 18;
+
+	dirDataPlayer = ConcatKata(dirDataPlayer, dataPlayerTXT); dirDataPetak = ConcatKata(dirDataPetak, dataPetakTXT); 
+	dirGlobalVar = ConcatKata(dirGlobalVar, dataGlobalVarTXT); 
+
+
+	SaveDataGlobalVariables(dirGlobalVar.TabKata); puts("GlobalVariable Saved");
+	SaveDataPlayer(dirDataPlayer.TabKata); puts("Player Saved");
+	SaveDataPetak(dirDataPetak.TabKata);  puts("Petak Saved");
 }

@@ -48,10 +48,15 @@ void PrintAOK(ArrayOfKata A)
 	// Kamus Lokal
 	int i;
 	// Algoritma
-	printf("[\n");
+	printf("[");
 	for(i=1; i<=NbElmtAOK(A); i++)
 	{
-		PrintKata(A.T[i]);
+		if(i==1) PrintKata(A.T[i]);
+		else
+		{
+			printf(", ");
+			PrintKata(A.T[i]);
+		}
 	}
 	printf("]\n");
 }
@@ -61,12 +66,12 @@ void BacaKataWithValidation(Kata *K, ArrayOfKata S)
 	Kata tmp;
 	do
 	{
-		scanf("%s",&tmp.TabKata);
+		scanf("%s",tmp.TabKata);
 		tmp.Length = strlen(tmp.TabKata);
 		
-		if(!isMember(S,tmp)) printf("Masukan salah, ulangi!\n");
+		if(!isMemberAOK(S,tmp)) printf("Masukan salah, ulangi!\n");
 		
-	} while(!isMember(S, tmp));
+	} while(!isMemberAOK(S, tmp));
 	*K = tmp;
 }
 

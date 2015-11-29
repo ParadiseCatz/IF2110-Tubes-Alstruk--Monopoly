@@ -78,7 +78,19 @@ void DelKota (InfoPlayer *X, Kata K);
 boolean IsMember (InfoPlayer X, Kata K);
 /*Mengecek apakah sebuah kota tertentu telah dimiliki oleh pemain*/
 
-int NbElmt (ListPlayer L);
+int NbElmtPlayer (ListPlayer L);
 //Mengembalikan banyak pemain dalam permainan
+
+int countTourismSpots(InfoPlayer X);
+// Mengembalikan jumlah petak berjenis Tempat_Wisata yang dimiliki X
+
+boolean IsTourismMonopoly(InfoPlayer X);
+// Mengembalikan true apabila X sudah memiliki 3 (atau lebih) buah Tempat_Wisata
+
+int countCompleteBlock(InfoPlayer X);
+// Mengembalikan jumlah blok lengkap (berjenis Kota) yang dimiliki oleh X
+
+boolean IsTripleMonopoly(InfoPlayer X);
+// Mengembalikan true apabila X sudah memiliki 3 blok lengkap
 
 #endif

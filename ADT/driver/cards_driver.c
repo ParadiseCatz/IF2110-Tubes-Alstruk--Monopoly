@@ -1,4 +1,4 @@
-#include "ADT/header/cards.h"
+#include "../header/cards.h"
 
 int main(){
 	InfoKartu C;

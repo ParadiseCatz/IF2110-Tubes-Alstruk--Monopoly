@@ -1,5 +1,12 @@
 #include "../header/kata.h"
 
+void CreateEmptyKata(Kata *K)
+{
+	int i;
+	for (i=0; i<=100; i++) (*K).TabKata[i] = 0;
+	(*K).Length = 0;
+}
+
 int Size(Kata K)
 {
 	return K.Length;
@@ -36,10 +43,23 @@ boolean IsKataSama(Kata K1, Kata K2)
 void BacaKata(Kata *K)
 {
 	Kata tmp;
-	scanf("%s",&tmp.TabKata);
+	scanf("%s",tmp.TabKata);
 	tmp.Length = strlen(tmp.TabKata);
 	
 	*K = tmp;
+}
+
+Kata ConstructKata(const char s[])
+{
+	Kata tmp;
+	CreateEmptyKata(&tmp);
+	tmp.Length = strlen(s);
+	int i;
+	for (i = 0; i < tmp.Length; ++i)
+	{
+		tmp.TabKata[i] = s[i];
+	}
+	return tmp;
 }
 
 void PrintKata(Kata K)
@@ -104,4 +124,16 @@ double KataToDouble(Kata K)
 char KataToChar(Kata K)
 {
 	return K.TabKata[0];
+}
+
+Kata ConcatKata(Kata K1, Kata K2)
+{
+	Kata res = K1;
+	int i;
+	for(i=0; i<K2.Length; i++)
+	{
+		res.TabKata[res.Length] = K2.TabKata[i];
+		res.Length++;
+	}
+	return res;
 }

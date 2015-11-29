@@ -8,12 +8,11 @@
 
 #ifndef CARDS_H
 #define CARDS_H
-#include "ADT/header/boolean.h"
-#include "ADT/header/arrayofkata.h"
-#include "ADT/header/arrayofint.h"
-#include "ADT/header/kata.h"
-#include "../../globalvariable.h"
-#include "ADT/header/player.h"
+#include "../header/boolean.h"
+#include "../header/arrayofkata.h"
+#include "../header/arrayofint.h"
+#include "../header/kata.h"
+#include "../header/player.h"
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -27,22 +26,9 @@
 	Dari pernyataan ini berarti elemen yang digunakan berada pada indeks dari 1..MaxEl, dan yang harus dialokasi adalah sebanyak MaxEl+1
 */
 
+#ifndef Nil
 #define Nil 0
-typedef int Address;
-
-typedef struct {
-	int cardID;
-	Kata cardName;
-	Kata cardDescription;
-} InfoKartu;
-
-typedef struct {
-	InfoKartu TabCards[MaxCards];
-	int Neff;
-} ArrayOfCards;
-
-#define gift 100000
-#define MaxCards 8
+#endif
 
 void DrawCards();
 

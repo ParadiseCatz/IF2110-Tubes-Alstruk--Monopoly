@@ -15,7 +15,8 @@ void START(char *inputFile)
 */
 {
 	fp = fopen(inputFile, "r");
-	CC = fgetc(fp);
+	if(fp == NULL) puts("Maaf, file tidak ditemukan. Coba lagi!");
+	else CC = fgetc(fp);
 }
 
 void ADV()
@@ -25,7 +26,7 @@ void ADV()
 		 Bila Kondisi EOP terpenuhi, nyalakan EOP
 */
 {
-	CC = fgetc(fp);
+	if(fp != NULL) CC = fgetc(fp);
 }
 
 boolean EOP()
@@ -41,7 +42,13 @@ boolean EOP()
 	}
 }
 
+boolean FILE_NOT_FOUND()
+{
+	if(fp == NULL) return true;
+	else return false;
+}
+
 void END()
 {
-	fclose(fp);
+	if(fp != NULL) fclose(fp);
 }
