@@ -310,6 +310,7 @@ void LoadDataPlayers(char *directory)
 	AddressOfPlayer P;
 
 	// ALgoritma
+	CreateEmptyLPlayer(&global.listOfPlayer);
 	STARTKATA(directory);
 	while(!EndKata)
 	{
@@ -319,19 +320,49 @@ void LoadDataPlayers(char *directory)
 	}
 }
 
-void LoadGame(char *namaSaveGame)
+void LoadGame(Kata namaSaveGame)
 {
-	char *dirDataPlayer, *dirDataPetak, *dirGlobalVar;
+	Kata dirDataPlayer, dirDataPetak, dirGlobalVar;
+	CreateEmptyKata(&dirDataPlayer); CreateEmptyKata(&dirDataPetak); CreateEmptyKata(&dirGlobalVar);
 
-	dirDataPlayer = "savegame/"; dirDataPetak = "savegame/"; dirGlobalVar = "savegame/";
-	strcat(dirDataPlayer, namaSaveGame); strcat(dirDataPetak, namaSaveGame); strcat(dirGlobalVar, namaSaveGame);
-	strcat(dirDataPlayer, "/dataPlayer.txt"); strcat(dirDataPetak, "/dataPetak.txt"); strcat(dirGlobalVar, "/dataGlobalVar.txt");
+	char *savegame = "savegame/";
+	int i;
+	for (i=0; i<strlen(savegame); i++)
+	{
+		dirDataPlayer.TabKata[i] = dirDataPetak.TabKata[i] = dirGlobalVar.TabKata[i] = *(savegame+i);
+		dirDataPlayer.Length++; dirDataPetak.Length++; dirGlobalVar.Length++; 
+	}
 
-	InitUrutanBoard(); InitDataKartu();
+	dirDataPlayer = ConcatKata(dirDataPlayer, namaSaveGame); dirDataPetak = ConcatKata(dirDataPetak, namaSaveGame); 
+	dirGlobalVar = ConcatKata(dirGlobalVar, namaSaveGame); 
+
+	Kata dataPlayerTXT, dataPetakTXT, dataGlobalVarTXT;
+	dataPlayerTXT.TabKata[0] = '_'; dataPetakTXT.TabKata[0] = '_'; dataGlobalVarTXT.TabKata[0] = '_';
+	dataPlayerTXT.TabKata[1] = 'd'; dataPetakTXT.TabKata[1] = 'd'; dataGlobalVarTXT.TabKata[1] = 'd';
+	dataPlayerTXT.TabKata[2] = 'a'; dataPetakTXT.TabKata[2] = 'a'; dataGlobalVarTXT.TabKata[2] = 'a';
+	dataPlayerTXT.TabKata[3] = 't'; dataPetakTXT.TabKata[3] = 't'; dataGlobalVarTXT.TabKata[3] = 't';
+	dataPlayerTXT.TabKata[4] = 'a'; dataPetakTXT.TabKata[4] = 'a'; dataGlobalVarTXT.TabKata[4] = 'a';
+	dataPlayerTXT.TabKata[5] = 'P'; dataPetakTXT.TabKata[5] = 'P'; dataGlobalVarTXT.TabKata[5] = 'G';
+	dataPlayerTXT.TabKata[6] = 'l'; dataPetakTXT.TabKata[6] = 'e'; dataGlobalVarTXT.TabKata[6] = 'l';
+	dataPlayerTXT.TabKata[7] = 'a'; dataPetakTXT.TabKata[7] = 't'; dataGlobalVarTXT.TabKata[7] = 'o';
+	dataPlayerTXT.TabKata[8] = 'y'; dataPetakTXT.TabKata[8] = 'a'; dataGlobalVarTXT.TabKata[8] = 'b';
+	dataPlayerTXT.TabKata[9] = 'e'; dataPetakTXT.TabKata[9] = 'k'; dataGlobalVarTXT.TabKata[9] = 'a';
+	dataPlayerTXT.TabKata[10] = 'r'; dataPetakTXT.TabKata[10] = '.'; dataGlobalVarTXT.TabKata[10] = 'l';
+	dataPlayerTXT.TabKata[11] = '.'; dataPetakTXT.TabKata[11] = 't'; dataGlobalVarTXT.TabKata[11] = 'V';
+	dataPlayerTXT.TabKata[12] = 't'; dataPetakTXT.TabKata[12] = 'x'; dataGlobalVarTXT.TabKata[12] = 'a';
+	dataPlayerTXT.TabKata[13] = 'x'; dataPetakTXT.TabKata[13] = 't'; dataGlobalVarTXT.TabKata[13] = 'r';
+	dataPlayerTXT.TabKata[14] = 't'; 								 dataGlobalVarTXT.TabKata[14] = '.';
+																	 dataGlobalVarTXT.TabKata[15] = 't';
+																	 dataGlobalVarTXT.TabKata[16] = 'x';
+																	 dataGlobalVarTXT.TabKata[17] = 't';
+	dataPlayerTXT.Length = 15; dataPetakTXT.Length = 14; dataGlobalVarTXT.Length = 18;
+
+	dirDataPlayer = ConcatKata(dirDataPlayer, dataPlayerTXT); dirDataPetak = ConcatKata(dataPetakTXT, namaSaveGame); 
+	dirGlobalVar = ConcatKata(dataGlobalVarTXT, namaSaveGame); 
 	
-	LoadDataPlayers(dirDataPlayer); puts("Player Loaded");
-	LoadDataPetak(dirDataPetak); puts("Petak Loaded");
-	LoadGlobalVariables(dirGlobalVar); puts("GlobalVariable Loaded");
+	LoadDataPlayers(dirDataPlayer.TabKata); puts("Player Loaded");
+	LoadDataPetak(dirDataPetak.TabKata); puts("Petak Loaded");
+	LoadGlobalVariables(dirGlobalVar.TabKata); puts("GlobalVariable Loaded");
 	
 }
 
@@ -416,15 +447,48 @@ void SaveDataPetak(char *directory)
 	fclose(fp);
 }
 
-void SaveGame(char *namaSaveGame)
+void SaveGame(Kata namaSaveGame)
 {
-	char *dirDataPlayer, *dirDataPetak, *dirGlobalVar;
+	Kata dirDataPlayer, dirDataPetak, dirGlobalVar;
+	CreateEmptyKata(&dirDataPlayer); CreateEmptyKata(&dirDataPetak); CreateEmptyKata(&dirGlobalVar);
 
-	dirDataPlayer = "savegame/"; dirDataPetak = "savegame/"; dirGlobalVar = "savegame/";
-	strcat(dirDataPlayer, namaSaveGame); strcat(dirDataPetak, namaSaveGame); strcat(dirGlobalVar, namaSaveGame);
-	strcat(dirDataPlayer, "/dataPlayer.txt"); strcat(dirDataPetak, "/dataPetak.txt"); strcat(dirGlobalVar, "/dataGlobalVar.txt");
+	char *savegame = "savegame/";
+	int i;
+	for (i=0; i<strlen(savegame); i++)
+	{
+		dirDataPlayer.TabKata[i] = dirDataPetak.TabKata[i] = dirGlobalVar.TabKata[i] = *(savegame+i);
+		dirDataPlayer.Length++; dirDataPetak.Length++; dirGlobalVar.Length++; 
+	}
 
-	SaveDataGlobalVariables(dirGlobalVar);
-	SaveDataPlayer(dirDataPlayer);
-	SaveDataPetak(dirDataPetak); 
+	dirDataPlayer = ConcatKata(dirDataPlayer, namaSaveGame); dirDataPetak = ConcatKata(dirDataPetak, namaSaveGame); 
+	dirGlobalVar = ConcatKata(dirGlobalVar, namaSaveGame); 
+
+	Kata dataPlayerTXT, dataPetakTXT, dataGlobalVarTXT;
+	dataPlayerTXT.TabKata[0] = '_'; dataPetakTXT.TabKata[0] = '_'; dataGlobalVarTXT.TabKata[0] = '_';
+	dataPlayerTXT.TabKata[1] = 'd'; dataPetakTXT.TabKata[1] = 'd'; dataGlobalVarTXT.TabKata[1] = 'd';
+	dataPlayerTXT.TabKata[2] = 'a'; dataPetakTXT.TabKata[2] = 'a'; dataGlobalVarTXT.TabKata[2] = 'a';
+	dataPlayerTXT.TabKata[3] = 't'; dataPetakTXT.TabKata[3] = 't'; dataGlobalVarTXT.TabKata[3] = 't';
+	dataPlayerTXT.TabKata[4] = 'a'; dataPetakTXT.TabKata[4] = 'a'; dataGlobalVarTXT.TabKata[4] = 'a';
+	dataPlayerTXT.TabKata[5] = 'P'; dataPetakTXT.TabKata[5] = 'P'; dataGlobalVarTXT.TabKata[5] = 'G';
+	dataPlayerTXT.TabKata[6] = 'l'; dataPetakTXT.TabKata[6] = 'e'; dataGlobalVarTXT.TabKata[6] = 'l';
+	dataPlayerTXT.TabKata[7] = 'a'; dataPetakTXT.TabKata[7] = 't'; dataGlobalVarTXT.TabKata[7] = 'o';
+	dataPlayerTXT.TabKata[8] = 'y'; dataPetakTXT.TabKata[8] = 'a'; dataGlobalVarTXT.TabKata[8] = 'b';
+	dataPlayerTXT.TabKata[9] = 'e'; dataPetakTXT.TabKata[9] = 'k'; dataGlobalVarTXT.TabKata[9] = 'a';
+	dataPlayerTXT.TabKata[10] = 'r'; dataPetakTXT.TabKata[10] = '.'; dataGlobalVarTXT.TabKata[10] = 'l';
+	dataPlayerTXT.TabKata[11] = '.'; dataPetakTXT.TabKata[11] = 't'; dataGlobalVarTXT.TabKata[11] = 'V';
+	dataPlayerTXT.TabKata[12] = 't'; dataPetakTXT.TabKata[12] = 'x'; dataGlobalVarTXT.TabKata[12] = 'a';
+	dataPlayerTXT.TabKata[13] = 'x'; dataPetakTXT.TabKata[13] = 't'; dataGlobalVarTXT.TabKata[13] = 'r';
+	dataPlayerTXT.TabKata[14] = 't'; 								 dataGlobalVarTXT.TabKata[14] = '.';
+																	 dataGlobalVarTXT.TabKata[15] = 't';
+																	 dataGlobalVarTXT.TabKata[16] = 'x';
+																	 dataGlobalVarTXT.TabKata[17] = 't';
+	dataPlayerTXT.Length = 15; dataPetakTXT.Length = 14; dataGlobalVarTXT.Length = 18;
+
+	dirDataPlayer = ConcatKata(dirDataPlayer, dataPlayerTXT); dirDataPetak = ConcatKata(dirDataPetak, dataPetakTXT); 
+	dirGlobalVar = ConcatKata(dirGlobalVar, dataGlobalVarTXT); 
+
+
+	SaveDataGlobalVariables(dirGlobalVar.TabKata); puts("GlobalVariable Saved");
+	SaveDataPlayer(dirDataPlayer.TabKata); puts("Player Saved");
+	SaveDataPetak(dirDataPetak.TabKata);  puts("Petak Saved");
 }

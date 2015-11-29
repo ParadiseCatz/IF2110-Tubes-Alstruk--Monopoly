@@ -2,6 +2,8 @@
 #include "ADT/header/load_save.h"
 #include "ADT/header/player.h"
 #include "ADT/header/petak.h"
+#include "ADT/header/gamesystem.h"
+#include "ADT/header/cards.h"
 
 int main()
 {
@@ -37,6 +39,12 @@ int main()
 	} while(Pl != First(global.listOfPlayer));
 
 	puts("Testing InitPlayerAwal Done!\n *** ============ oOOo ============ *** ");
+
+	/* ======================== Testing untuk SaveGame ======================== */
+
+	Kata namaFile;
+	BacaKata(&namaFile);
+	SaveGame(namaFile);
 
 	return 0;
 }

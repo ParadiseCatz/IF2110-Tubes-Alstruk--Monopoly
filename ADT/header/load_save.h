@@ -27,7 +27,7 @@ void LoadDataPetak(char *directory);
 
 void LoadDataPlayers(char *directory);
 
-void LoadGame(char *namaSaveGame);
+void LoadGame(Kata namaSaveGame);
 
 void SaveDataGlobalVariables(char *directory);
 
@@ -35,6 +35,6 @@ void SaveDataPlayer(char *directory);
 
 void SaveDataPetak(char *directory);
 
-void SaveGame(char *namaSaveGame);
+void SaveGame(Kata namaSaveGame);
 
 #endif
