@@ -105,6 +105,7 @@ typedef struct {
 	StackOfPlayer stackOfDefeated;
     boolean rolldice;
     int diceRollResult;
+    boolean alreadyUpgrade;
 } GlobalVariable;
 
 GlobalVariable global;
