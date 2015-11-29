@@ -267,6 +267,7 @@ void NewGame(int numOfPlayers)
 	global.currentWorldCup = NULL;
 	global.diceRollResult = 0;
 	global.rolldice = false;
+	global.alreadyUpgrade = false;
 	CreateEmptyS(&global.stackOfDefeated);
 }
 
@@ -275,7 +276,7 @@ void NewGame(int numOfPlayers)
 void LoadGlobalVariables(char *directory)
 {
 	// Kamus Lokal
-	int id_currentPlayer, id_currentWorldCup, jumlahKartu, bool_diceroll, i;
+	int id_currentPlayer, id_currentWorldCup, jumlahKartu, bool_diceroll, bool_AlrdyUp, i;
 	ArrayOfInt currentIDKartu;
 
 	// Algoritma
@@ -299,6 +300,11 @@ void LoadGlobalVariables(char *directory)
 		bool_diceroll = KataToInt(CKata);
 		if(bool_diceroll == 1) global.rolldice = true;
 		else global.rolldice = false;
+		ADVKATA(); ADVKATA();
+
+		bool_AlrdyUp = KataToInt(CKata);
+		if(bool_AlrdyUp == 1) global.alreadyUpgrade = true;
+		else global.alreadyUpgrade = false;
 		ADVKATA();
 
 		ADVKATA();
@@ -435,7 +441,10 @@ void SaveDataGlobalVariables(char *directory)
 	fprintf(fp, "diceRollResult: %d\n", global.diceRollResult);
 
 	int valRollDice = (global.rolldice)?1:0;
-	fprintf(fp, "rolldice: %d\n", global.rolldice);
+	fprintf(fp, "rolldice: %d\n", valRollDice);
+
+	int valAldyUp = (global.alreadyUpgrade)?1:0;
+	fprintf(fp, "alreadyUpgrade: %d\n", valAldyUp);
 	
 	fprintf(fp, "Stack_defeated_players:\n");
 	while(Top(global.stackOfDefeated) != Nil)
