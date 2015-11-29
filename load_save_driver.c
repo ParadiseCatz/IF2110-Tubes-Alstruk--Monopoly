@@ -19,7 +19,7 @@ int main()
 		InfoPetak X;
 		X = InfoPetak(P);
 		Kata namaPetak = X.nama_petak;
-		PrintPetak(namaPetak); puts("/=========================/");
+		PrintPetak(namaPetak);
 
 		P = NextPetak(P);
 
@@ -59,7 +59,7 @@ int main()
 		InfoPetak X;
 		X = InfoPetak(P);
 		Kata namaPetak = X.nama_petak;
-		PrintPetak(namaPetak); puts("/=========================/");
+		PrintPetak(namaPetak);
 
 		P = NextPetak(P);
 

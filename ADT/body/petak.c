@@ -741,6 +741,7 @@ void PrintPetak(Kata namapetak)
     }
     else
     {
+    	printf("================= "); PrintKata(Nama_Petak(p)); printf(" ================="); puts("");
     	printf("ID petak\t\t: %d\n", ID_Petak(p));
 
         printf("Nama petak\t\t: ");

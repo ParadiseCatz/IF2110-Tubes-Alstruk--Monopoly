@@ -17,7 +17,7 @@ boolean IsLPlayerEmpty (ListPlayer L)
 void PrintElmtPlayer (InfoPlayer X)
 //Mencetak informasi dari suatu pemain
 {
-    printf("================ "); PrintKata(X.nama); printf(" ================"); puts("");
+    printf("======================== "); PrintKata(X.nama); printf(" ========================"); puts("");
 	printf("Nama\t\t\t: "); PrintKata(X.nama); puts("");
 	printf("ID Player\t\t: "); printf("%d",X.id); puts("");
 	printf("Uang\t\t\t: "); printf("%d",X.uang); puts("");
