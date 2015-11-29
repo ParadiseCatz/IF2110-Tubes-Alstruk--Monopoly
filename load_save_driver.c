@@ -5,8 +5,12 @@
 
 int main()
 {
-	NewGame(3);
+	NewGame(4);
 	AddressOfPetak P;
+	AddressOfPlayer Pl;
+
+	/* ======================== Testing untuk NewGame ======================== */
+	// Testing untuk InitBoardAwal
 	P = FirstPetak(global.listOfPetak); 
 	do
 	{
@@ -18,5 +22,21 @@ int main()
 		P = NextPetak(P);
 
 	}while(P!=FirstPetak(global.listOfPetak));
+
+	puts("Testing InitBoardAwal Done!\n *** ============ oOOo ============ *** ");
+
+	Pl = First(global.listOfPlayer);
+	do
+	{
+		InfoPlayer X;
+		X = Info(Pl);
+		PrintElmtPlayer(X);
+
+		Pl = Next(Pl);
+
+	} while(Pl != First(global.listOfPlayer));
+
+	puts("Testing InitPlayerAwal Done!\n *** ============ oOOo ============ *** ");
+
 	return 0;
 }
