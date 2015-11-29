@@ -106,7 +106,7 @@ void PrintBoard(ListPetak L, ListPlayer P)
 	printf("         |\n| ");
 	PPlay = First(P);
 	i = 0; T.eff = 0;
-	while (PPlay != Nil)
+	while (Next(PPlay) != First(P))
 	{
 		PPos = Info(PPlay).posisi;
 		T.T[i] = Info(PPos).id_petak;
@@ -114,6 +114,11 @@ void PrintBoard(ListPetak L, ListPlayer P)
 		T.eff = T.eff + 1;
 		i = i + 1;
 	}
+	PPos = Info(PPlay).posisi;
+	T.T[i] = Info(PPos).id_petak;
+	PPlay = Next(PPlay);
+	T.eff = T.eff + 1;
+	i = i + 1;
 	PPos = First(L);
 	while (Info(PPos).id_petak != 10)
 	{
