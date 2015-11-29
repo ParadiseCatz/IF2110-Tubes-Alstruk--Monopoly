@@ -4,9 +4,6 @@
 
 void PrintOwner(AddressOfPetak P)
 {
-<<<<<<< HEAD
-
-=======
 	int id;
 	char own;
 	
@@ -29,7 +26,6 @@ void PrintOwner(AddressOfPetak P)
 		}
 		id = Info(P).level;
 		printf("   %c%d    |",own,id);
->>>>>>> origin/master
 }
 
 void PrintPosition(AddressOfPetak P,TabInt T)

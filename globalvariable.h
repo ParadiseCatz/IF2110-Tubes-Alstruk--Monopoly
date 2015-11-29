@@ -103,8 +103,15 @@ typedef struct {
 	AddressOfPetak currentWorldCup;
 	ArrayOfCards arrayOfCards;
 	StackOfPlayer stackOfDefeated;
+    boolean rolldice;
 } GlobalVariable;
 
 GlobalVariable global;
+
+typedef enum {
+    ROLL_DICE, INFO, BUY, SELL, SELL_BANK, SHOW_OFFERED, BUY_OFFERED,
+    UPGRADE, BOARD, LEADERBOARD, HOST, TRAVEL, END_TURN, SAVE, LOAD,
+    FREE_ME, FREE_TAX, OFF, PROTECT, HELP, EXIT
+} UserAction;
 
 #endif

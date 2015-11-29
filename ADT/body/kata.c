@@ -42,6 +42,18 @@ void BacaKata(Kata *K)
 	*K = tmp;
 }
 
+Kata ConstructKata(const char s[])
+{
+	Kata tmp;
+	tmp.Length = strlen(s);
+	int i;
+	for (i = 0; i < tmp.Length; ++i)
+	{
+		tmp.TabKata[i] = s[i];
+	}
+	return tmp;
+}
+
 void PrintKata(Kata K)
 {
 	// Kamus Lokal

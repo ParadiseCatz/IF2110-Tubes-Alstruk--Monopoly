@@ -25,4 +25,6 @@ double KataToDouble(Kata K);
 
 char KataToChar(Kata K);
 
+Kata ConstructKata(const char s[]);
+
 #endif
