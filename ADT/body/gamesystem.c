@@ -229,6 +229,7 @@ void gamesystem_make_champion(InfoPlayer x)
 	printf("   Player ");
 	PrintKata(x.nama);
 	printf("\n");
+	exit(0);
 }
 
 void gamesystem_next_player()
