@@ -7,7 +7,9 @@
 
 void welcome_screen()
 {
-	printf("Halo\n");
+	printf("===== Ayo, Jadi Tajir! =====\n");
+	printf("Rasakan sensasi kepuasan tersendiri menjadi orang tajir saat memainkan game ini\n");
+	printf("\n");
 }
 
 void start_menu()
