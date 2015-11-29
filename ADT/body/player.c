@@ -266,8 +266,15 @@ void MajuNLangkah (InfoPlayer *X, ListPetak L, int N)
 	for(i=0; i<N; i++)
 	{
 		P = Next(P);
+		if(Info(P).id_petak == 1) ExecuteStart();
 	}
+
 	(*X).posisi = P;
+	if(Info(P).id_petak == 3) GetBonus();
+	else if(Info(P).id_petak == 13 || Info(P).id_petak == 21 || Info(P).id_petak == 29) DrawCards();
+	else if(Info(P).id_petak == 31) PayTax();
+	else if(isKota(P) || isTempatWisata(P)) BayarSewa();
+
 }
 
 void LompatKe (InfoPlayer *X, AddressOfPetak Pt)
