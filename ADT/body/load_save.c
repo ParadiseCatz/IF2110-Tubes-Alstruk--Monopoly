@@ -265,6 +265,8 @@ void NewGame(int numOfPlayers)
 	InitPlayers(numOfPlayers);
 	global.currentPlayer = First(global.listOfPlayer);
 	global.currentWorldCup = NULL;
+	global.diceRollResult = 0;
+	global.rolldice = false;
 	CreateEmptyS(&global.stackOfDefeated);
 }
 
@@ -273,7 +275,7 @@ void NewGame(int numOfPlayers)
 void LoadGlobalVariables(char *directory)
 {
 	// Kamus Lokal
-	int id_currentPlayer, id_currentWorldCup, jumlahKartu, i;
+	int id_currentPlayer, id_currentWorldCup, jumlahKartu, bool_diceroll, i;
 	ArrayOfInt currentIDKartu;
 
 	// Algoritma
@@ -289,7 +291,14 @@ void LoadGlobalVariables(char *directory)
 		id_currentWorldCup = KataToInt(CKata);
 		if(id_currentWorldCup == -1) global.currentWorldCup = NULL;
 		else global.currentWorldCup = SearchPetakByID(global.listOfPetak, id_currentWorldCup);
-		
+		ADVKATA(); ADVKATA();
+
+		global.diceRollResult = KataToInt(CKata);
+		ADVKATA(); ADVKATA();
+
+		bool_diceroll = KataToInt(CKata);
+		if(bool_diceroll == 1) global.rolldice = true;
+		else global.rolldice = false;
 		ADVKATA();
 
 		ADVKATA();
@@ -422,6 +431,11 @@ void SaveDataGlobalVariables(char *directory)
 	AddressOfPetak WC = global.currentWorldCup;
 	if(WC != NULL) fprintf(fp, "Current_WorldCup: %d\n", Info(WC).id_petak);
 	else fprintf(fp, "Current_WorldCup: -1\n");
+
+	fprintf(fp, "diceRollResult: %d\n", global.diceRollResult);
+
+	int valRollDice = (global.rolldice)?1:0;
+	fprintf(fp, "rolldice: %d\n", global.rolldice);
 	
 	fprintf(fp, "Stack_defeated_players:\n");
 	while(Top(global.stackOfDefeated) != Nil)

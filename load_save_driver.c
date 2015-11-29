@@ -83,6 +83,10 @@ int main()
 	if(global.currentWorldCup == NULL) puts("NULL");
 	else PrintPetak(Info(global.currentWorldCup).nama_petak);
 
+	printf("rollDiceResult : %d\n", global.diceRollResult);
+	if(global.rolldice) puts("ROLL DICE");
+	else puts("NO ROLL DICE");
+
 	puts("\n\nStackOfDefeated:");
 	while(Top(global.stackOfDefeated) != NULL)
 	{
