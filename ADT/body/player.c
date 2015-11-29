@@ -272,7 +272,7 @@ void MajuNLangkah (InfoPlayer *X, ListPetak L, int N)
 
 	(*X).posisi = P;
 	if(Info(P).id_petak == 3) GetBonus();
-	else if(Info(P).id_petak == 9) Info(P).penjara = true;
+	else if(Info(P).id_petak == 9) Info(global.currentPlayer).penjara = true;
 	else if(Info(P).id_petak == 13 || Info(P).id_petak == 21 || Info(P).id_petak == 29) DrawCards();
 	else if(Info(P).id_petak == 31) PayTax();
 	else if(isKota(P) || isTempatWisata(P)) BayarSewa();
@@ -285,8 +285,8 @@ void LompatKe (InfoPlayer *X, AddressOfPetak Pt)
 	(*X).posisi = Pt;
 	if(Info(Pt).id_petak == 1) ExecuteStart();
 	else if(Info(Pt).id_petak == 3) GetBonus();
-	else if(Info(Pt).id_petak == 9) Info(P).penjara = true;
-	else if(Info(Pt).id_petak == 13 || Info(P).id_petak == 21 || Info(P).id_petak == 29) DrawCards();
+	else if(Info(Pt).id_petak == 9) Info(global.currentPlayer).penjara = true;
+	else if(Info(Pt).id_petak == 13 || Info(Pt).id_petak == 21 || Info(Pt).id_petak == 29) DrawCards();
 	else if(Info(Pt).id_petak == 31) PayTax();
 	else if(isKota(Pt) || isTempatWisata(Pt)) BayarSewa();
 }
