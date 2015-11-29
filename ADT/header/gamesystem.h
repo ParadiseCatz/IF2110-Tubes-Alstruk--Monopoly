@@ -4,4 +4,5 @@
 void game_system_start();
 void gamesystem_show_help();
 void gamesystem_do_action(UserAction userAction, Kata parameter);
+int gamesystem_roll_dice(int diceCount);
 #endif
