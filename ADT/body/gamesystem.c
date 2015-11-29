@@ -5,9 +5,17 @@
 #include "../../constant.h"
 #include "../header/petak.h"
 
+boolean rolldice, finish;
+
+void init()
+{
+	rolldice = finish = false;
+}
+
 void gamesystem_start()
 {
-	boolean finish = false;
+	
+	init();
 	do {
 		gamesystem_show_menu();
 		int pilihan;
@@ -30,11 +38,29 @@ void gamesystem_show_menu()
 	printf("9. End Turn\n");
 }
 
+
+void gamesystem_next_player()
+{
+	rolldice = false;
+	global.currentPlayer = Next(global.currentPlayer);
+}
+
 void gamesystem_do_action(int pilihan)
 {
 	switch (pilihan)
 	{
-		case 1: MajuNLangkah(global.currentPlayer, global.listOfPetak, gamesystem_roll_dice(2));
+		case 1: 
+			if (!rolldice)
+			{
+				int numOfStep = gamesystem_roll_dice(2);
+				MajuNLangkah(global.currentPlayer, global.listOfPetak, numOfStep);
+				printf("Anda melangkah sebayak %d langkah\n", numOfStep);
+				rolldice = true;
+			}
+			else
+			{
+				printf("Udah pernah roll dice!\n");
+			}
 		break;
 		//Roll Dice
 
@@ -46,7 +72,7 @@ void gamesystem_do_action(int pilihan)
 		break;
 		//Info player
 
-		case 4: PrintBoard();
+		case 4: PrintBoard(global.listOfPetak, global.listOfPlayer);
 		break;
 		//Info board
 
@@ -66,8 +92,8 @@ void gamesystem_do_action(int pilihan)
 		break;
 		//show leaderboard
 
-		case 9: 
-		break;
+		case 9: gamesystem_next_player();
+		break; 
 		//end turn
 	}
 }
