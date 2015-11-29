@@ -5,7 +5,7 @@
 #include "../../constant.h"
 #include "../header/petak.h"
 #include "../header/kata.h"
-
+#include "time.h"
 
 #ifndef PRINTF
 #define PRINTF(x) printf("\x1B[32m" x "\x1B[0m")
