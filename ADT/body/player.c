@@ -1,5 +1,6 @@
 #include "../header/petak.h"
 #include "../header/player.h"
+#include "../header/cards.h"
 
 void CreateEmptyLPlayer (ListPlayer *L)
 //membuat ListOfPlayer
