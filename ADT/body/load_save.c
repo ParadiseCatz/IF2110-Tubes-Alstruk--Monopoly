@@ -229,7 +229,12 @@ void InitPlayers(int numOfPlayers)
 		X.id = i;
 		X.uang = STARTING_MONEY;
 		CreateEmptyAOI(&X.idKartu);
-		printf("Masukan nama untuk player %d : ", i); BacaKata(&X.nama);
+
+		Kata namaPlayer;
+		namaPlayer.TabKata[0] = 'A'+i-1;
+		namaPlayer.Length = 1;
+		X.nama = namaPlayer;
+
 		CreateEmptyAOK(&X.kota);
 		X.posisi = FirstPetak(global.listOfPetak);
 		X.penjara = false;
@@ -314,22 +319,13 @@ void LoadDataPlayers(char *directory)
 	}
 }
 
-void LoadGame(int slot)
+void LoadGame(char *namaSaveGame)
 {
 	char *dirDataPlayer, *dirDataPetak, *dirGlobalVar;
 
-	if(slot == 1)
-	{
-		dirDataPlayer = "savegame/savegame1/dataPlayer.txt";
-		dirDataPetak = "savegame/savegame1/dataPetak.txt";
-		dirGlobalVar = "savegame/savegame1/dataGlobalVariables.txt";
-	}
-	else
-	{
-		dirDataPlayer = "savegame/savegame2/dataPlayer.txt";
-		dirDataPetak = "savegame/savegame2/dataPetak.txt";
-		dirGlobalVar = "savegame/savegame2/dataGlobalVariables.txt";
-	}
+	dirDataPlayer = "savegame/"; dirDataPetak = "savegame/"; dirGlobalVar = "savegame/";
+	strcat(dirDataPlayer, namaSaveGame); strcat(dirDataPetak, namaSaveGame); strcat(dirGlobalVar, namaSaveGame);
+	strcat(dirDataPlayer, "/dataPlayer.txt"); strcat(dirDataPetak, "/dataPetak.txt"); strcat(dirGlobalVar, "/dataGlobalVar.txt");
 
 	InitUrutanBoard(); InitDataKartu();
 	
@@ -420,22 +416,13 @@ void SaveDataPetak(char *directory)
 	fclose(fp);
 }
 
-void SaveGame(int slot)
+void SaveGame(char *namaSaveGame)
 {
 	char *dirDataPlayer, *dirDataPetak, *dirGlobalVar;
 
-	if(slot == 1)
-	{
-		dirDataPlayer = "savegame/savegame1/dataPlayer.txt";
-		dirDataPetak = "savegame/savegame1/dataPetak.txt";
-		dirGlobalVar = "savegame/savegame1/dataGlobalVariables.txt";
-	}
-	else
-	{
-		dirDataPlayer = "savegame/savegame2/dataPlayer.txt";
-		dirDataPetak = "savegame/savegame2/dataPetak.txt";
-		dirGlobalVar = "savegame/savegame2/dataGlobalVariables.txt";
-	}
+	dirDataPlayer = "savegame/"; dirDataPetak = "savegame/"; dirGlobalVar = "savegame/";
+	strcat(dirDataPlayer, namaSaveGame); strcat(dirDataPetak, namaSaveGame); strcat(dirGlobalVar, namaSaveGame);
+	strcat(dirDataPlayer, "/dataPlayer.txt"); strcat(dirDataPetak, "/dataPetak.txt"); strcat(dirGlobalVar, "/dataGlobalVar.txt");
 
 	SaveDataGlobalVariables(dirGlobalVar);
 	SaveDataPlayer(dirDataPlayer);
