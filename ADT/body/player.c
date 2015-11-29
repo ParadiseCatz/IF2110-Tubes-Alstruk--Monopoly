@@ -250,7 +250,7 @@ int HitungHartaPlayer (InfoPlayer X)
 {
 	int i, sum = X.uang;
 	AddressOfPetak P;
-	for (i=0; i<NbElmtAOK(X.kota); i++)
+	for (i=1; i<=NbElmtAOK(X.kota); i++)
 	{
 		P = SearchPetak(global.listOfPetak,X.kota.T[i]);
 		sum += hargapetak(P);
