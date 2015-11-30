@@ -55,7 +55,7 @@ boolean isWorldCup(AddressOfPetak P);
 // mengembalikan true jika p merupakan petak world cup
 
 boolean isWorldTravel(AddressOfPetak P);
-// mengembalikan true jika p merupakan petak world trabel
+// mengembalikan true jika p merupakan petak world travel
 
 // LEVEL UP BANGUNAN
 
