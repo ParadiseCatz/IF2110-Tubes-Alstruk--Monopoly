@@ -207,12 +207,14 @@ void MasukPenjara (InfoPlayer *X, ListPetak L)
 
 	AddressOfPetak P = SearchPetakByID(L,9);
 	LompatKe(X, P);
+	printf("Anda masuk penjara\n");
 }
 
 void KeluarPenjara (InfoPlayer *X)
 /*Mengeluarkan pemain dari penjara karena menggunakan kartu bebas penjara*/
 {
 	(*X).penjara = false;
+	printf("Anda keluar dati penjara\n");
 	/*if (IsPenjara(*X))
 	{
 		int i=0;
