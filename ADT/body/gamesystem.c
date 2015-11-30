@@ -20,7 +20,6 @@ void gamesystem_print_giliran_player()
 	if (IsPenjara(Info(global.currentPlayer)))
 	{
 		printf("Anda sedang dipenjara\n");
-		global.rolldice = true;
 	}
 }
 
