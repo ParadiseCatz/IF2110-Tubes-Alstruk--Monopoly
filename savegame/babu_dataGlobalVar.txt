@@ -1,0 +1,24 @@
+Current_Player: 1
+Current_WorldCup: 2
+diceRollResult: 8
+rolldice: 1
+alreadyUpgrade: 0
+Stack_defeated_players:
+===== 3 =====
+Nama_Player: C
+Lokasi_Player: 1
+Uang: 1000000
+Status_Penjara: 0
+Kartu_Yang_Dimiliki: 0
+Petak_Yang_Dimiliki: 0
+
+===== 2 =====
+Nama_Player: B
+Lokasi_Player: 1
+Uang: 1000000
+Status_Penjara: 0
+Kartu_Yang_Dimiliki: 0
+Petak_Yang_Dimiliki: 0
+
+
+#

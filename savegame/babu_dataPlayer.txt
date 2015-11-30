@@ -1,0 +1,18 @@
+===== 1 =====
+Nama_Player: A
+Lokasi_Player: 9
+Uang: 1000000
+Status_Penjara: 1
+Kartu_Yang_Dimiliki: 0
+Petak_Yang_Dimiliki: 8 Jakarta Taipei New_Delhi Seoul Hawai Tokyo Sydney Singapura
+
+===== 4 =====
+Nama_Player: D
+Lokasi_Player: 1
+Uang: 1000000
+Status_Penjara: 0
+Kartu_Yang_Dimiliki: 0
+Petak_Yang_Dimiliki: 0
+
+
+#

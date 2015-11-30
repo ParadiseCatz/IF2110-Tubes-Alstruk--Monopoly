@@ -1,0 +1,301 @@
+===== Beijing =====
+Jenis_Petak: Kota
+Nama_Petak: Beijing
+Harga_Dasar: 120000
+Harga_Jual: -1
+Biaya_Sewa: 12000
+Biaya_Upgrade: 120000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 1
+Blok: A
+Blackout: 0
+
+===== Jakarta =====
+Jenis_Petak: Kota
+Nama_Petak: Jakarta
+Harga_Dasar: 100000
+Harga_Jual: -1
+Biaya_Sewa: 10000
+Biaya_Upgrade: 100000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 1
+Blok: A
+Blackout: 0
+
+===== Ancol =====
+Jenis_Petak: Tempat_Wisata
+Nama_Petak: Ancol
+Harga_Dasar: 160000
+Harga_Jual: -1
+Biaya_Sewa: 16000
+Biaya_Upgrade: 160000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 0
+Blok: T
+Blackout: 0
+
+===== Taipei =====
+Jenis_Petak: Kota
+Nama_Petak: Taipei
+Harga_Dasar: 90000
+Harga_Jual: -1
+Biaya_Sewa: 9000
+Biaya_Upgrade: 90000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 1
+Blok: B
+Blackout: 0
+
+===== New_Delhi =====
+Jenis_Petak: Kota
+Nama_Petak: New_Delhi
+Harga_Dasar: 100000
+Harga_Jual: -1
+Biaya_Sewa: 10000
+Biaya_Upgrade: 100000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 1
+Blok: B
+Blackout: 0
+
+===== Seoul =====
+Jenis_Petak: Kota
+Nama_Petak: Seoul
+Harga_Dasar: 150000
+Harga_Jual: -1
+Biaya_Sewa: 15000
+Biaya_Upgrade: 150000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 1
+Blok: B
+Blackout: 0
+
+===== Hawaii =====
+Jenis_Petak: Kota
+Nama_Petak: Hawaii
+Harga_Dasar: 200000
+Harga_Jual: -1
+Biaya_Sewa: 20000
+Biaya_Upgrade: 200000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 1
+Blok: C
+Blackout: 0
+
+===== Tokyo =====
+Jenis_Petak: Kota
+Nama_Petak: Tokyo
+Harga_Dasar: 200000
+Harga_Jual: -1
+Biaya_Sewa: 20000
+Biaya_Upgrade: 200000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 1
+Blok: C
+Blackout: 0
+
+===== Sydney =====
+Jenis_Petak: Kota
+Nama_Petak: Sydney
+Harga_Dasar: 200000
+Harga_Jual: -1
+Biaya_Sewa: 20000
+Biaya_Upgrade: 200000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 1
+Blok: C
+Blackout: 0
+
+===== Singapura =====
+Jenis_Petak: Kota
+Nama_Petak: Singapura
+Harga_Dasar: 100000
+Harga_Jual: -1
+Biaya_Sewa: 10000
+Biaya_Upgrade: 100000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 1
+Blok: D
+Blackout: 0
+
+===== Senggigi =====
+Jenis_Petak: Tempat_Wisata
+Nama_Petak: Senggigi
+Harga_Dasar: 160000
+Harga_Jual: -1
+Biaya_Sewa: 16000
+Biaya_Upgrade: 160000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 1
+Blok: T
+Blackout: 0
+
+===== Sao_Paolo =====
+Jenis_Petak: Kota
+Nama_Petak: Sao_Paolo
+Harga_Dasar: 200000
+Harga_Jual: -1
+Biaya_Sewa: 20000
+Biaya_Upgrade: 200000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 1
+Blok: D
+Blackout: 0
+
+===== Denmark =====
+Jenis_Petak: Kota
+Nama_Petak: Denmark
+Harga_Dasar: 200000
+Harga_Jual: -1
+Biaya_Sewa: 20000
+Biaya_Upgrade: 200000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 0
+Blok: E
+Blackout: 0
+
+===== Bintan =====
+Jenis_Petak: Tempat_Wisata
+Nama_Petak: Bintan
+Harga_Dasar: 150000
+Harga_Jual: -1
+Biaya_Sewa: 15000
+Biaya_Upgrade: 150000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 0
+Blok: E
+Blackout: 0
+
+===== Berlin =====
+Jenis_Petak: Kota
+Nama_Petak: Berlin
+Harga_Dasar: 220000
+Harga_Jual: -1
+Biaya_Sewa: 22000
+Biaya_Upgrade: 220000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 0
+Blok: E
+Blackout: 0
+
+===== Geneva =====
+Jenis_Petak: Kota
+Nama_Petak: Geneva
+Harga_Dasar: 150000
+Harga_Jual: -1
+Biaya_Sewa: 15000
+Biaya_Upgrade: 150000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 0
+Blok: F
+Blackout: 0
+
+===== Moscow =====
+Jenis_Petak: Kota
+Nama_Petak: Moscow
+Harga_Dasar: 150000
+Harga_Jual: -1
+Biaya_Sewa: 15000
+Biaya_Upgrade: 150000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 0
+Blok: F
+Blackout: 0
+
+===== Rome =====
+Jenis_Petak: Kota
+Nama_Petak: Rome
+Harga_Dasar: 200000
+Harga_Jual: -1
+Biaya_Sewa: 20000
+Biaya_Upgrade: 200000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 0
+Blok: F
+Blackout: 0
+
+===== Kuta =====
+Jenis_Petak: Tempat_Wisata
+Nama_Petak: Kuta
+Harga_Dasar: 200000
+Harga_Jual: -1
+Biaya_Sewa: 20000
+Biaya_Upgrade: 200000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 0
+Blok: T
+Blackout: 0
+
+===== London =====
+Jenis_Petak: Kota
+Nama_Petak: London
+Harga_Dasar: 210000
+Harga_Jual: -1
+Biaya_Sewa: 21000
+Biaya_Upgrade: 210000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 0
+Blok: G
+Blackout: 0
+
+===== Paris =====
+Jenis_Petak: Kota
+Nama_Petak: Paris
+Harga_Dasar: 190000
+Harga_Jual: -1
+Biaya_Sewa: 19000
+Biaya_Upgrade: 190000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 0
+Blok: G
+Blackout: 0
+
+===== New_York =====
+Jenis_Petak: Kota
+Nama_Petak: New_York
+Harga_Dasar: 300000
+Harga_Jual: -1
+Biaya_Sewa: 30000
+Biaya_Upgrade: 300000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 0
+Blok: H
+Blackout: 0
+
+===== Bangkok =====
+Jenis_Petak: Kota
+Nama_Petak: Bangkok
+Harga_Dasar: 200000
+Harga_Jual: -1
+Biaya_Sewa: 20000
+Biaya_Upgrade: 200000
+Level: 1
+Multiplier_Sewa: 1.0000
+Pemilik: 0
+Blok: H
+Blackout: 0
+
+
+#
