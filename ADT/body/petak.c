@@ -6,7 +6,7 @@ void PrintOwner(AddressOfPetak P)
 {
 	int id;
 	char own;
-	
+
 	switch (Info(P).pemilik)
 		{
 			case 1 :
@@ -37,7 +37,7 @@ void PrintOwner(AddressOfPetak P)
 void PrintPosition(AddressOfPetak P,TabInt T)
 {
 	int n, i;
-	
+
 	for (i=0;i<T.eff;i++)
 	{
 		if (Info(P).id_petak == T.T[i])
@@ -92,7 +92,7 @@ void PrintBoard(ListPetak L, ListPlayer P)
 	int A,B,C,D;
 	int i, eff;
 	TabInt T;
-	
+
 	printf(" __________________________________________________________________________________________\n");
 	printf("|  Start  | Beijing |  Bonus  | Jakarta |  Ancol  | Taipei  |New Delhi|  Seoul  |Deserted |\n");
 	printf("|         |  120K   |         |  100K   |  160K   |   90K   |  100K   |  150K   |Island   |\n");
@@ -131,7 +131,7 @@ void PrintBoard(ListPetak L, ListPlayer P)
 		PPos = Next(PPos);
 	}
 	printf("\n");
-	
+
 	printf("|_________________________________________________________________________________________|\n");
 	printf("| Bangkok |                                                                     | Hawaii  |\n");
 	printf("|  200 K  |                                                                     |  200K   |\n|");
@@ -140,7 +140,7 @@ void PrintBoard(ListPetak L, ListPlayer P)
 		PAcc = Next(PAcc);
 	PrintMid(PAcc,PPos,T);
 	PPos = Next(PPos);
-	
+
 	printf("|__________                                                                     __________|\n");
 	printf("|   Tax   |                                                                     | Tokyo   |\n");
 	printf("|         |                                                                     |  200K   |\n|");
@@ -155,7 +155,7 @@ void PrintBoard(ListPetak L, ListPlayer P)
 	PrintPosition(PPos,T);
 	printf("\n");
 	PPos = Next(PPos);
-	
+
 	printf("|__________                                                                     __________|\n");
 	printf("|New York |                                                                     |  Sydney |\n");
 	printf("|  300 K  |                                                                     |   200K  |\n|");
@@ -164,7 +164,7 @@ void PrintBoard(ListPetak L, ListPlayer P)
 		PAcc = Next(PAcc);
 	PrintMid(PAcc,PPos,T);
 	PPos = Next(PPos);
-	
+
 	printf("|__________                                                                     __________|\n");
 	printf("| Chance  |                                                                     |  Chance |\n");
 	printf("|         |                                                                     |         |\n|");
@@ -177,7 +177,7 @@ void PrintBoard(ListPetak L, ListPlayer P)
 	PrintPosition(PPos,T);
 	printf("\n");
 	PPos = Next(PPos);
-		
+
 	printf("|__________                                                                     __________|\n");
 	printf("|  Paris  |                                                                     |Singapura|\n");
 	printf("|  190 K  |                                                                     |   100K  |\n|");
@@ -186,7 +186,7 @@ void PrintBoard(ListPetak L, ListPlayer P)
 		PAcc = Next(PAcc);
 	PrintMid(PAcc,PPos,T);
 	PPos = Next(PPos);
-	
+
 	printf("|__________                                                                     __________|\n");
 	printf("| London  |                                                                     | Senggigi|\n");
 	printf("|  210 K  |                                                                     |   160K  |\n|");
@@ -195,7 +195,7 @@ void PrintBoard(ListPetak L, ListPlayer P)
 		PAcc = Next(PAcc);
 	PrintMid(PAcc,PPos,T);
 	PPos = Next(PPos);
-	
+
 	printf("|__________                                                                     __________|\n");
 	printf("|  Kuta   |                                                                     |Sao Paolo|\n");
 	printf("|  200 K  |                                                                     |   200K  |\n|");
@@ -204,7 +204,7 @@ void PrintBoard(ListPetak L, ListPlayer P)
 		PAcc = Next(PAcc);
 	PrintMid(PAcc,PPos,T);
 	PPos = Next(PPos);
-	
+
 	printf("|_________________________________________________________________________________________|\n");
 	printf("| World   |  Rome   | Moscow  | Geneva  | Chance  | Berlin  | Bintan  | Denmark | World   |\n");
 	printf("| Travel  |  200K   |  150K   |  150K   |         |  220K   |  150K   |  200K   | Cup     |\n");
@@ -308,9 +308,10 @@ void PrintBoard(ListPetak L, ListPlayer P)
 // HARGA PETAK (untuk hitungaset)
 
 int hargapetak(AddressOfPetak P)
-// Menghitung harga petah (bangunan dan harga dasar)
+// Menghitung harga petak (bangunan dan harga dasar)
 {
-    return Harga_Dasar(P) + (Level(P) - 1)*(Level(P))*Biaya_Upgrade(P) ;
+
+    return Harga_Dasar(P) + ((int)(Level(P) - 1)*(Level(P))*Biaya_Upgrade(P)/2) ;
 }
 
 
@@ -463,7 +464,7 @@ boolean isWorldTravel(AddressOfPetak P)
 void UpdateMultiplier(AddressOfPetak *L)
 // mengupdate multiplier jika ada perubahan kondisi bangunan
 {
-    Multiplier_Sewa(*L) = (Level(*L) + 1)/2;
+    Multiplier_Sewa(*L) = ((Level(*L) + 1)*0.5);
 }
 
 //TRANSAKSI DENGAN BANK
@@ -475,8 +476,7 @@ int HargaJualKeBank(Kata namapetak)
     AddressOfPetak p;
 
     p = SearchPetak(global.listOfPetak, namapetak);
-    harga = (int) Level(p)*(Level(p)-1)/2*Biaya_Upgrade(p) + Harga_Dasar(p);
-    harga = (int) 9/10*harga;
+    harga = (int)(9*hargapetak(p)/10);
 
     return harga;
 }
@@ -579,7 +579,7 @@ int HargaSewa()
     int sewa;
 
     p = Info(global.currentPlayer).posisi;
-    sewa = (int) Biaya_Sewa(p) * Multiplier_Sewa(p) * WorldCupMultiplier(p) * BlokMultiplier(p) * BlackoutMultiplier(p);
+    sewa = (int) (Biaya_Sewa(p) * Multiplier_Sewa(p) * WorldCupMultiplier(p) * BlokMultiplier(p) * BlackoutMultiplier(p));
 
     return sewa;
 }
@@ -656,7 +656,6 @@ void BayarSewa()
     AddressOfPlayer owner;
 
     owner = SearchidPlayer(global.listOfPlayer, Pemilik(Info(global.currentPlayer).posisi));
-
     if (owner == global.currentPlayer)
     {
         printf("Anda berhenti di petak milik anda sendiri\n");
@@ -763,7 +762,7 @@ void PrintPetak(Kata namapetak)
     p = SearchPetak(global.listOfPetak, namapetak);
     if (p == Nil)
     {
-        printf("Tidak ada petak bernama");
+        printf("Tidak ada petak bernama ");
         PrintKata(namapetak);
         printf(" pada board\n");
     }
@@ -782,8 +781,8 @@ void PrintPetak(Kata namapetak)
         PrintKata(Nama_Petak(p));
         printf("\n");
 
-        printf("Jenis petak\t\t: "); 
-        PrintKata(Jenis_Petak(p)); 
+        printf("Jenis petak\t\t: ");
+        PrintKata(Jenis_Petak(p));
         printf("\n");
 
         printf("Pemilik\t\t\t: ");
@@ -825,6 +824,9 @@ void SalePetak(Kata namapetak)
 // menjual petak secara offer (pasang harga offer)
 {
     AddressOfPetak p;
+    int price;
+    char c;
+    boolean fail;
 
     p = SearchPetak(global.listOfPetak, namapetak);
     if (p == Nil)
@@ -835,8 +837,34 @@ void SalePetak(Kata namapetak)
     }
     else if(Pemilik(p) == Infoid(global.currentPlayer))
     {
-        Harga_Jual(p) = hargapetak(p);
-        printf("Petak berhasil dimasukkan ke dalam daftar offered dengan harga %i\n", hargapetak(p));
+        price = 0;
+        fail = false;
+
+        printf("Masukkan harga jual yang diinginkan : ");
+        getchar();
+        do
+        {
+            scanf("%c", &c);
+            if ((c >= '0' && c <= '9') && !fail)
+            {
+                price = 10 * price + (int)c - (int)'0';
+            }
+            else if (c != '\n')
+            {
+                fail = true;
+            }
+        }while (c != '\n');
+
+        if (fail)
+        {
+            printf("Petak gagal dimasukkan ke daftar offered\n");
+            printf("Harga jual harus berupa bilangan non negatif\n");
+        }
+        else
+        {
+            Harga_Jual(p) = price;
+            printf("Petak berhasil dimasukkan ke dalam daftar offered dengan harga %i\n", price);
+        }
     }
     else
     {
@@ -905,7 +933,7 @@ void JualKeBank(Kata namapetak)
         Harga_Jual(p) = -1;
         UpdateMultiplier(&p);
         Blackout(p) = false;
-        printf("Penjualan berhasil");
+        printf("Penjualan berhasil\n");
     }
 }
 
@@ -963,7 +991,7 @@ void BeliSale(Kata namapetak)
     }
     else if (Harga_Jual(p) == -1)
     {
-        printf("Petak yang anda inginkan tidak termasuk dalam daftar offered");
+        printf("Petak yang anda inginkan tidak termasuk dalam daftar offered\n");
     }
     else if (Pemilik(p) == Infoid(global.currentPlayer))
     {
@@ -986,9 +1014,9 @@ void BeliSale(Kata namapetak)
         Pemilik(p) = Infoid(global.currentPlayer);
         Harga_Jual(p) = -1;
 
-        printf("Pembelian berhasil, petak");
+        printf("Pembelian berhasil, petak ");
         PrintKata(Nama_Petak(p));
-        printf("sekarang menjadi milik anda\n");
+        printf(" sekarang menjadi milik anda\n");
     }
 }
 
@@ -1002,25 +1030,24 @@ boolean LevelUp()
 
     p = Info(global.currentPlayer).posisi;
 
-    if (Info(global.currentPlayer).penjara)
+    if (Pemilik(p) != Infoid(global.currentPlayer))
     {
-        printf("Anda tidak bisa menggunakan command ini saat sedang dipenjara\n");
+        printf("Anda hanya bisa meningkatkan level bangunan petak milik sendiri\n");
         return false;
     }
-    else if (Pemilik(p) != Infoid(global.currentPlayer))
+    else if (isTempatWisata(p))
     {
-        printf("Petak bukan milik anda, anda hanya bisa meningkatkan level bangunan petak milik sendiri\n");
+        printf("Level petak tempat wisata tidak bisa ditingkatkan\n");
         return false;
     }
-    else if ((isTempatWisata(p) && Level(p) == 1) || (isKota(p) && Level(p) == 5))
+    else if (Level(p) == 5)
     {
-        printf("Petak telah mencapai level bangunan maksimum");
+        printf("Petak telah mencapai level bangunan maksimum\n");
         return false;
     }
     else
     {
         harga = Biaya_Upgrade(p)*Level(p);
-
 
         if (Infouang(global.currentPlayer) < harga)
         {
@@ -1064,13 +1091,9 @@ void AppointWorldCup(Kata namapetak)
     world_cup.TabKata[8] = 'p';
     world_cup.Length = 9;
 
-    if (Info(global.currentPlayer).penjara)
+    if (!IsKataSama(Jenis_Petak(Info(global.currentPlayer).posisi),world_cup))
     {
-        printf("Anda tidak bisa menggunakan command ini saat sedang dipenjara\n");
-    }
-    else if (!IsKataSama(Jenis_Petak(Info(global.currentPlayer).posisi),world_cup))
-    {
-        printf("Anda sedang tidak berada di petak World Cup");
+        printf("Anda sedang tidak berada di petak World Cup\n");
     }
     else
     {
@@ -1128,7 +1151,7 @@ void WorldTravel(Kata namapetak)
     }
     else if (!IsKataSama(Jenis_Petak(Info(global.currentPlayer).posisi), world_travel))
     {
-        printf("Anda sedang tidak berada di petak World Travel");
+        printf("Anda sedang tidak berada di petak World Travel\n");
     }
     else
     {
@@ -1149,7 +1172,7 @@ void WorldTravel(Kata namapetak)
         	AddressOfPetak goal = SearchPetak(global.listOfPetak, namapetak);
 
         	int idPetakAwal = Info(Info(global.currentPlayer).posisi).id_petak;
-        	
+
         	printf("Anda telah melakukan world travel ke petak ");
             PrintKata(namapetak);
             printf("\n");
