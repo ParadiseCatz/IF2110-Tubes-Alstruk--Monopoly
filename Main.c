@@ -40,7 +40,7 @@ void start_menu()
 {
 	printf("Menu:\n");
 	printf("1. New Game\n");
-	printf("2. Load Game:\n");
+	printf("2. Load Game\n");
 	printf("Pilihan: ");
 	int pilihan;
 	read_with_limit(1, 2, &pilihan);
@@ -54,8 +54,13 @@ void start_menu()
 	else
 	{
 		Kata input;
-		BacaKata(&input);
-		LoadGame(input);
+		do
+		{
+			printf("Masukan kata kunci yang dipakai saat save game : "); BacaKata(&input);
+			LoadGame(input);
+
+		}while (FirstPetak(global.listOfPetak) == Nil);
+		
 		gamesystem_start();
 	}
 }
