@@ -651,7 +651,7 @@ void BayarSewa()
 
         printf("Anda membayar sewa kepada ");
         PrintKata((*owner).info.nama);
-        printf("sebesar %i\n", HargaSewa());
+        printf(" sebesar %i\n", HargaSewa());
     }
 }
 
@@ -712,7 +712,7 @@ void ExecuteStart()
     valstart = 200000;
     Infouang(global.currentPlayer) += valstart;
     printf("Anda melewati start\n");
-    printf("Anda mendapatkan uang sebesar %i", valstart);
+    printf("Anda mendapatkan uang sebesar %i\n", valstart);
     p = FirstPetak(global.listOfPetak);
     do
     {
