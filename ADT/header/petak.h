@@ -51,6 +51,12 @@ boolean isKota(AddressOfPetak P);
 boolean isTempatWisata(AddressOfPetak P);
 // mengembalikan true jika p merupakan petak tempat wisata
 
+boolean isWorldCup(AddressOfPetak P);
+// mengembalikan true jika p merupakan petak world cup
+
+boolean isWorldTravel(AddressOfPetak P);
+// mengembalikan true jika p merupakan petak world trabel
+
 // LEVEL UP BANGUNAN
 
 void UpdateMultiplier(AddressOfPetak *L);

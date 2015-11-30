@@ -283,6 +283,14 @@ void MajuNLangkah (InfoPlayer *X, ListPetak L, int N)
 		PrintPetak(Info(Info(global.currentPlayer).posisi).nama_petak);
 		BayarSewa();
 	}
+	else if (isWorldCup(P))
+	{
+		printf("Saat ini anda berada di Petak World Cup\n");
+	}
+	else if (isWorldTravel(P))
+	{
+		printf("Saat ini anda berada di Petak World Travel.\n");
+	}
 
 }
 

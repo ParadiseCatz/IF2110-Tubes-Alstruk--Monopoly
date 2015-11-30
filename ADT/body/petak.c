@@ -435,6 +435,18 @@ boolean isTempatWisata(AddressOfPetak P)
     return IsKataSama(Jenis_Petak(P), tempat_wisata);
 }
 
+boolean isWorldCup(AddressOfPetak P)
+// mengembalikan true jika p merupakan petak world cup
+{
+	return IsKataSama(Jenis_Petak(P), ConstructKata("World_Cup"));
+}
+
+boolean isWorldTravel(AddressOfPetak P)
+// mengembalikan true jika p merupakan petak world travel
+{
+	return IsKataSama(Jenis_Petak(P), ConstructKata("World_Travel"));
+}
+
 // LEVEL UP BANGUNAN
 
 void UpdateMultiplier(AddressOfPetak *L)
@@ -1122,10 +1134,20 @@ void WorldTravel(Kata namapetak)
         }
         else
         {
-            Info(global.currentPlayer).posisi = SearchPetak(global.listOfPetak, namapetak);
-            printf("Anda telah melakukan world travel ke petak ");
+        	AddressOfPetak goal = SearchPetak(global.listOfPetak, namapetak);
+        	LompatKe (&Info(global.currentPlayer), goal);
+        	printf("Anda telah melakukan world travel ke petak ");
             PrintKata(namapetak);
             printf("\n");
+
+            AddressOfPetak P;
+        	(Info(global.currentPlayer)).posisi = P;
+			if(Info(P).id_petak == 3) GetBonus();
+			else if(Info(P).id_petak == 9) MasukPenjara(&Info(global.currentPlayer), global.listOfPetak);
+			else if(Info(P).id_petak == 13 || Info(P).id_petak == 21 || Info(P).id_petak == 29) DrawCards();
+			else if(Info(P).id_petak == 31) PayTax();
+			else if(isKota(P) || isTempatWisata(P)) BayarSewa();
+            
         }
     }
 }
