@@ -277,7 +277,12 @@ void MajuNLangkah (InfoPlayer *X, ListPetak L, int N)
 	else if(Info(P).id_petak == 9) Info(global.currentPlayer).penjara = true;
 	else if(Info(P).id_petak == 13 || Info(P).id_petak == 21 || Info(P).id_petak == 29) DrawCards();
 	else if(Info(P).id_petak == 31) PayTax();
-	else if(isKota(P) || isTempatWisata(P)) BayarSewa();
+	else if(isKota(P) || isTempatWisata(P))
+	{
+		printf("Saat ini anda berada di:\n");
+		PrintPetak(Info(Info(global.currentPlayer).posisi).nama_petak);
+		BayarSewa();
+	}
 
 }
 
