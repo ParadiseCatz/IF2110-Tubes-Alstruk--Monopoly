@@ -98,6 +98,9 @@ void PrintBoard(ListPetak L, ListPlayer P)
 	printf("|         |  120K   |         |  100K   |  160K   |   90K   |  100K   |  150K   |Island   |\n");
 	printf("|         |");
 	PAcc = Next(First(L));
+	PrintOwner(PAcc);
+	PAcc = Next(Next(PAcc));
+	printf("         |");
 	while (Info(PAcc).id_petak != 9)
 	{
 		PrintOwner(PAcc);
@@ -105,8 +108,10 @@ void PrintBoard(ListPetak L, ListPlayer P)
 	}
 	printf("         |\n| ");
 	PPlay = First(P);
+	for(i=0;i<=3;i++)
+		T.T[i] = '\0';
 	i = 0; T.eff = 0;
-	while (Next(PPlay) != First(P))
+	while (Next(PPlay) != Nil)
 	{
 		PPos = Info(PPlay).posisi;
 		T.T[i] = Info(PPos).id_petak;
@@ -202,7 +207,8 @@ void PrintBoard(ListPetak L, ListPlayer P)
 	
 	printf("|_________________________________________________________________________________________|\n");
 	printf("| World   |  Rome   | Moscow  | Geneva  | Chance  | Berlin  | Bintan  | Denmark | World   |\n");
-	printf("| Travel  |  200K   |  150K   |  150K   |         |  220K   |  150K   |  200K   | Cup     |\n|");
+	printf("| Travel  |  200K   |  150K   |  150K   |         |  220K   |  150K   |  200K   | Cup     |\n");
+	printf("|         |");
 	PAcc = PPos;
 	while (Info(PAcc).id_petak != 24)
 	{
@@ -265,7 +271,12 @@ void PrintBoard(ListPetak L, ListPlayer P)
 		PPos = Next(PPos);
 	}
 	PrintPosition(PPos,T);
-	printf("        | ");
+	PAcc = PPos;
+	while (Info(PPos).id_petak != 21)
+	{
+		PPos = Next(PPos);
+	}
+	PrintPosition(PPos,T);
 	PAcc = PPos;
 	while (Info(PPos).id_petak != 20)
 	{
