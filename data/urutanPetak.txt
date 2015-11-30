@@ -7,7 +7,7 @@ Taipei
 New_Delhi
 Seoul
 Deserted_Island
-Hawai
+Hawaii
 Tokyo
 Sydney
 Chance

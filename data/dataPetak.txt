@@ -76,9 +76,9 @@ Pemilik: 0
 Blok: B
 Blackout: 0
 
-===== Hawai =====
+===== Hawaii =====
 Jenis_Petak: Kota
-Nama_Petak: Hawai
+Nama_Petak: Hawaii
 Harga_Dasar: 200000
 Harga_Jual: -1
 Biaya_Sewa: 20000
