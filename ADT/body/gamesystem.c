@@ -12,6 +12,10 @@
 #define PRINTF(x) printf("\x1B[32m" x "\x1B[0m")
 #endif
 
+#ifndef PRINTFRED
+#define PRINTFRED(x) printf("\x1B[31m" x "\x1B[0m")
+#endif
+
 void gamesystem_print_giliran_player()
 {
 	printf("Giliran Player: ");
@@ -19,7 +23,7 @@ void gamesystem_print_giliran_player()
 	printf("\n");
 	if (IsPenjara(Info(global.currentPlayer)))
 	{
-		printf("Anda sedang dipenjara\n");
+		PRINTFRED("Anda sedang dipenjara\n");
 	}
 }
 
