@@ -247,8 +247,15 @@ void gamesystem_next_player()
 	global.rolldice = global.alreadyUpgrade = false;
 	printf("Ending Turn...\n");
 
-	if (IsTourismMonopoly(Info(global.currentPlayer)) || IsTripleMonopoly(Info(global.currentPlayer)))
+	if (IsTourismMonopoly(Info(global.currentPlayer)))
 	{
+		printf("Tourism Monopoly!\n");
+		gamesystem_make_champion(Info(global.currentPlayer));
+	}
+
+	if (IsTripleMonopoly(Info(global.currentPlayer)))
+	{
+		printf("Triple Monopoly!\n");
 		gamesystem_make_champion(Info(global.currentPlayer));
 	}
 
