@@ -1135,19 +1135,21 @@ void WorldTravel(Kata namapetak)
         else
         {
         	AddressOfPetak goal = SearchPetak(global.listOfPetak, namapetak);
-        	LompatKe (&Info(global.currentPlayer), goal);
+
+        	int idPetakAwal = Info(Info(global.currentPlayer).posisi).id_petak;
+        	
         	printf("Anda telah melakukan world travel ke petak ");
             PrintKata(namapetak);
             printf("\n");
 
+			LompatKe (&Info(global.currentPlayer), goal);
             AddressOfPetak P;
-        	(Info(global.currentPlayer)).posisi = P;
-			if(Info(P).id_petak == 3) GetBonus();
-			else if(Info(P).id_petak == 9) MasukPenjara(&Info(global.currentPlayer), global.listOfPetak);
-			else if(Info(P).id_petak == 13 || Info(P).id_petak == 21 || Info(P).id_petak == 29) DrawCards();
-			else if(Info(P).id_petak == 31) PayTax();
-			else if(isKota(P) || isTempatWisata(P)) BayarSewa();
-            
+        	P = Info(global.currentPlayer).posisi;
+
+        	if (Info(P).id_petak < idPetakAwal && Info(P).id_petak != 1)
+        	{
+        		ExecuteStart();
+        	}
         }
     }
 }
