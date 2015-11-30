@@ -10,7 +10,7 @@ Hooray!_It's_your_BIRTHDAY!! Selamat_ulang_tahun!_Terimalah_hadiah_100000_dollar
 
 Double_Dice_Card Maju_dua_kali_lipat_angka_dadu!!
 
-Nullify_Card Me-nullify_satu_petak.
+Blackout_Card Membuat_listrik_padam_di_petak_tujuan!_Kartu_ini_akan_disimpan_dalam_inventory_Anda!
 
 Anti-Blackout_Card Menyembuhkan_kota_yang_mati_lampu._Silahkan_simpan_atau_langsung_pakai.
 
