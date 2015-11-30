@@ -214,7 +214,7 @@ void KeluarPenjara (InfoPlayer *X)
 /*Mengeluarkan pemain dari penjara karena menggunakan kartu bebas penjara*/
 {
 	(*X).penjara = false;
-	printf("Anda keluar dati penjara\n");
+	printf("Anda keluar dari penjara\n");
 	/*if (IsPenjara(*X))
 	{
 		int i=0;
