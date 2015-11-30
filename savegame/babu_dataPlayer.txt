@@ -4,7 +4,7 @@ Lokasi_Player: 9
 Uang: 1000000
 Status_Penjara: 1
 Kartu_Yang_Dimiliki: 0
-Petak_Yang_Dimiliki: 8 Jakarta Taipei New_Delhi Seoul Hawai Tokyo Sydney Singapura
+Petak_Yang_Dimiliki: 11 Beijing Jakarta Taipei New_Delhi Seoul Hawaii Tokyo Sydney Singapura Senggigi Sao_Paolo
 
 ===== 4 =====
 Nama_Player: D
