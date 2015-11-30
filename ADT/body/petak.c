@@ -893,6 +893,7 @@ void PrintSale()
 {
 
     AddressOfPetak p;
+    boolean Found = false;
 
     p = FirstPetak(global.listOfPetak);
 
@@ -902,6 +903,7 @@ void PrintSale()
         p = NextPetak(p);
         if ((isKota(p) || isTempatWisata(p)) && Harga_Jual(p) >= 0)
         {
+        	Found = true;
             printf("\n");
             printf("\t"); PrintKata(Nama_Petak(p)); printf("\n");
             printf("\t\tOwner\t: %c\n", Pemilik(p));
@@ -910,6 +912,8 @@ void PrintSale()
         }
     } while (p != FirstPetak(global.listOfPetak));
     printf("\n");
+
+    if(!Found) puts("Tidak ada petak yang sedang dijual tanpa perantara saat ini");
 }
 
 //==============================================================================buy offered
