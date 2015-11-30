@@ -391,11 +391,6 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 			{
 				printf("Anda melangkah lagi sebanyak %d\n", global.diceRollResult);
 				MajuNLangkah(&Info(global.currentPlayer), global.listOfPetak, global.diceRollResult);
-				if (isKota(Info(global.currentPlayer).posisi) || isTempatWisata(Info(global.currentPlayer).posisi))
-				{
-					printf("Saat ini anda berada di:\n");
-					PrintPetak(Info(Info(global.currentPlayer).posisi).nama_petak);
-				}
 				global.diceRollResult = global.diceRollResult << 1;
 			}
 			else
