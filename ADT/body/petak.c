@@ -904,9 +904,10 @@ void PrintSale()
         if ((isKota(p) || isTempatWisata(p)) && Harga_Jual(p) >= 0)
         {
         	Found = true;
+        	char convertedOwner = 'A' + Pemilik(p) - 1;
             printf("\n");
             printf("\t"); PrintKata(Nama_Petak(p)); printf("\n");
-            printf("\t\tOwner\t: %c\n", Pemilik(p));
+            printf("\t\tOwner\t: %c\n", convertedOwner);
             printf("\t\tLevel\t: %i\n", Level(p));
             printf("\t\tPrice\t: %i\n", Harga_Jual(p));
         }
