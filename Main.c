@@ -7,8 +7,32 @@
 
 void welcome_screen()
 {
-	printf("===== Ayo, Jadi Tajir! =====\n");
-	printf("Rasakan sensasi kepuasan tersendiri menjadi orang tajir saat memainkan game ini\n");
+	printf("   ======================================================================\n");
+	printf("  ========================================================================\n");
+	printf("||  TTTTTTTTTTTTT       AAAAA          JJJJJJJJJJ    IIIIIII   RRRRRRRR   ||\n");
+	printf("|| TTTTTTTTTTTTTTT     AAAAAAA        JJJJJJJJJJJJ  IIIIIIIII  RRRRRRRRR  ||\n");
+	printf("||       TTT          AAA   AAA           JJJJJ        III     RRR    RRR ||\n");
+	printf("||       TTT         AAA     AAA          JJJJJ        III     RRR   RRR  ||\n");
+	printf("||       TTT        AAAAAAAAAAAAA         JJJJJ        III     RRRRRRR    ||\n");
+	printf("||       TTT       AAAAAAAAAAAAAAA        JJJJJ        III     RRR RRRRR  ||\n");
+	printf("||       TTT      AAA           AAA  JJJJJJJJJ      IIIIIIIII  RRR  RRRRR ||\n");
+	printf("||       TTT     AAAA           AAAA JJJJJJJJ        IIIIIII   RRR   RRRRR||\n");
+	printf("||                                                                        ||\n");
+	printf("||                                                       $$$$             ||\n");
+	printf("||  EEEEEEEEEEEE   UUU         UUU  YYY     YYY        $$$$$$$$           ||\n");
+	printf("|| EEEEEEEEEEEEEE  UUU         UUU   YYY   YYY        $$$$$$$$$$          ||\n");
+	printf("|| EEEE            UUU         UUU    YYY YYY        $$$$ $$  $$$         ||\n");
+	printf("|| EEEE            UUU         UUU     YYYYY           $$$$               ||\n");
+	printf("|| EEEEEEEEEEEEEE  UUU         UUU      YYY              $$$$             ||\n");
+	printf("|| EEEEEEEEEEEEEE  UUU         UUU      YYY                $$$$           ||\n");
+	printf("|| EEEE            UUU         UUU      YYY               $$ $$$$         ||\n");
+	printf("|| EEEE            UUU         UUU      YYY               $$  $$$$        ||\n");
+	printf("|| EEEEEEEEEEEEEE   UUUUUUUUUUUUU       YYY           $$$$$  $$$$$        ||\n");
+	printf("||  EEEEEEEEEEEE     UUUUUUUUUUU        YYY            $$$$$$$$$$         ||\n");
+	printf("||                                                        $$$$            ||\n");
+	printf("  ========================================================================\n");
+	printf("   ======================================================================\n");
+	printf("       Rasakan sensasi kepuasan tersendiri menjadi orang tajir!!!\n");
 	printf("\n");
 }
 
