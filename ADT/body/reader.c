@@ -52,14 +52,14 @@ void read_user_input(UserAction *userAction, Kata *parameter)
 		BacaKata(&input);
 		if (IsKataSama(input, ConstructKata("bank")))
 		{
-			*parameter = input;
+			BacaKata(parameter);
 			*userAction = SELL_BANK;
 			return;
 		}
 		else
 		{
 			*userAction = SELL;
-			BacaKata(parameter);
+			*parameter = input;
 			return;
 		}
 		return;
