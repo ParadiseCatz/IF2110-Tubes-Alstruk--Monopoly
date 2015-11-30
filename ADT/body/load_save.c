@@ -64,11 +64,11 @@ void PrintPlayerToFile(FILE *fp, InfoPlayer X)
 	fprintf(fp, "Status_Penjara: "); fprintf(fp, "%d", isInPenjara); fprintf(fp, "\n");
 	
 	fprintf(fp, "Kartu_Yang_Dimiliki: "); fprintf(fp, "%d", jumlahKartu);
-	for(i=0; i<jumlahKartu; i++) fprintf(fp," %d", X.idKartu.T[i]);
+	for(i=1; i<=jumlahKartu; i++) fprintf(fp," %d", X.idKartu.T[i]);
 	fprintf(fp, "\n");
 	
 	fprintf(fp, "Petak_Yang_Dimiliki: "); fprintf(fp, "%d", jumlahKota);
-	for(i=0; i<jumlahKota; i++)
+	for(i=1; i<=jumlahKota; i++)
 	{
 		fprintf(fp," "); PrintKataToFile(fp, X.kota.T[i]);
 	}
