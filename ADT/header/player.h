@@ -93,4 +93,7 @@ int countCompleteBlock(InfoPlayer X);
 boolean IsTripleMonopoly(InfoPlayer X);
 // Mengembalikan true apabila X sudah memiliki 3 blok lengkap
 
+void PrintInfoPlayer(Kata K);
+// Print info dari player
+
 #endif

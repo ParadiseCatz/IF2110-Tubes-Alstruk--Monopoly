@@ -203,11 +203,15 @@ void gamesystem_show_help()
 	printf("    Input command:\n");
 	PRINTF("    > bayar penjara\n");
 	printf("\n");
-	printf("21. Menampilkan help ini\n");
+	printf("21. Mencari tahu informasi tentang player\n");
+	printf("    Input command:\n");
+	PRINTF("    > kepo player <id player>\n");
+	printf("\n");
+	printf("22. Menampilkan help ini\n");
 	printf("    Input command:\n");
 	PRINTF("    > help\n");
 	printf("\n");
-	printf("22. Keluar dari permainan\n");
+	printf("23. Keluar dari permainan\n");
 	printf("    Input command:\n");
 	PRINTF("    > exit\n");
 }
@@ -418,6 +422,10 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 			{
 				printf("Anda tidak bisa membayar denda penjara\n");
 			}
+		break;
+
+		case KEPO_PLAYER:
+			PrintInfoPlayer(parameter);
 		break;
 
 		case HELP: gamesystem_show_help();

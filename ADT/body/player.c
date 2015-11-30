@@ -191,6 +191,31 @@ AddressOfPlayer SearchidPlayer (ListPlayer L, int id)
 	}
 }
 
+
+AddressOfPlayer SearchByName (ListPlayer L, Kata name)
+/*Mencari Alamat pemain dari ListPlayer. Pencarian dilakukan
+	dengan menggunakan id player*/
+{
+	if (IsLPlayerEmpty(L))
+	{
+		return Nil;
+	}
+	else
+	{
+		AddressOfPlayer P = First(L);
+		boolean Found = false;
+		do
+		{
+			if(IsKataSama(Info(P).nama, name)) Found = true;
+			else P = Next(P);
+		}
+		while(P != First(L) && !Found);
+
+		if(Found) return P;
+		else return Nil;
+	}
+}
+
 boolean IsPenjara (InfoPlayer X)
 /*Mengecek apakah pemain ada di penjara atau tidak*/
 {
@@ -392,3 +417,37 @@ boolean IsTripleMonopoly(InfoPlayer X)
 	return (countCompleteBlock(X) >= 3);
 }
 
+void PrintInfoPlayer(Kata K)
+{
+	if (SearchByName(global.listOfPlayer, K))
+	{
+		InfoPlayer X = Info(SearchByName(global.listOfPlayer, K));
+		printf("Nama: ");
+		PrintKata(X.nama);
+		printf("\n");
+
+		printf("Uang: %d\n", X.uang);
+		return;
+	}
+	AddressOfPlayer P = Top(global.stackOfDefeated);
+	while (P != Nil)
+	{
+		if (IsKataSama(Info(P).nama, K))
+		{
+			break;
+		}
+		P = Next(P);
+	}
+	if (P)
+	{
+		printf("Player ");
+		PrintKata(Info(P).nama);
+		printf(" sudah kalah\n");
+	}
+	else
+	{
+		printf("Tidak ada player ");
+		PrintKata(K);
+		printf("\n");
+	}
+}
