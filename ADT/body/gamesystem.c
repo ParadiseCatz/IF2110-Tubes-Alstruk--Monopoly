@@ -194,11 +194,15 @@ void gamesystem_show_help()
 	printf("    Input command:\n");
 	PRINTF("    > double move\n");
 	printf("\n");
-	printf("20. Menampilkan help ini\n");
+	printf("20. Membebaskan diri dari penjara dengan membayar denda\n");
+	printf("    Input command:\n");
+	PRINTF("    > bayar penjara\n");
+	printf("\n");
+	printf("21. Menampilkan help ini\n");
 	printf("    Input command:\n");
 	PRINTF("    > help\n");
 	printf("\n");
-	printf("21. Keluar dari permainan\n");
+	printf("22. Keluar dari permainan\n");
 	printf("    Input command:\n");
 	PRINTF("    > exit\n");
 }
@@ -268,6 +272,12 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 	switch (userAction)
 	{
 		case ROLL_DICE: 
+		{
+			if (IsPenjara(Info(global.currentPlayer)))
+			{
+				printf("Lagi dipenjara bos.\n");
+				break;
+			}
 			if (!global.rolldice)
 			{
 				global.diceRollResult = gamesystem_roll_dice(2);
@@ -282,15 +292,9 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 			}
 			else
 			{
-				if (!IsPenjara(Info(global.currentPlayer)))
-				{
 					printf("Udah pernah roll dice!\n");
-				}
-				else
-				{
-					printf("Lagi di penjara bos\n");
-				}
 			}
+		}
 		break;
 
 		case INFO: PrintPetak(parameter);
@@ -402,6 +406,18 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 			else
 			{
 				printf("Anda tidak bisa melakukan double move\n");
+			}
+		break;
+
+		case BAYAR_PENJARA:
+			if (IsPenjara(Info(global.currentPlayer)) && Info(global.currentPlayer).uang >= DENDA_PENJARA)
+			{
+				Info(global.currentPlayer).uang -= DENDA_PENJARA;
+				KeluarPenjara(&Info(global.currentPlayer));
+			}
+			else
+			{
+				printf("Anda tidak bisa membayar denda penjara\n");
 			}
 		break;
 

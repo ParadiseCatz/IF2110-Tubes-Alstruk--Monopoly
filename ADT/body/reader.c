@@ -172,6 +172,19 @@ void read_user_input(UserAction *userAction, Kata *parameter)
 		return;
 	}
 
+	if (IsKataSama(input, ConstructKata("bayar")))
+	{
+		BacaKata(&input);
+		if (IsKataSama(input, ConstructKata("penjara")))
+		{
+			*userAction = BAYAR_PENJARA;
+			return;
+		}
+		printf("! Input salah, silahkan ulangi lagi. !\n");
+		read_user_input(userAction, parameter);
+		return;
+	}
+
 	if (IsKataSama(input, ConstructKata("help")))
 	{
 		*userAction = HELP;

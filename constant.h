@@ -30,5 +30,9 @@
 #define GIFT 100000
 #endif
 
+#ifndef DENDA_PENJARA
+#define DENDA_PENJARA 100000
+#endif
+
 #endif
 
