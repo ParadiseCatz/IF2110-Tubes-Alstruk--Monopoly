@@ -243,7 +243,7 @@ void gamesystem_make_champion(InfoPlayer x)
 
 void gamesystem_next_player()
 {
-	if (!global.rolldice)
+	if (!global.rolldice && !IsPenjara(Info(global.currentPlayer)))
 	{
 		printf("Anda belum roll dice\n");
 		return;
