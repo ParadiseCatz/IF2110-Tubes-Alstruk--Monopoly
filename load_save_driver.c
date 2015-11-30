@@ -40,6 +40,13 @@ int main()
 
 	puts("Testing InitPlayerAwal Done!\n *** ============ oOOo ============ *** ");
 
+
+	int i;
+	for (i=0; i<8; i++)
+	{
+		InfoKartu X = global.arrayOfCards.TabCards[i];
+		PrintCard(X);
+	}
 	/* ======================== Testing untuk SaveGame ======================== */
 
 	Kata namaFile;

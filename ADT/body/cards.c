@@ -85,6 +85,12 @@ void DrawCards(){
 	int i;
 
 	i = rand() % 8;
+	printf("Anda sampai ke Petak Chance\n");
+	printf("Anda mengambil sebuah kartu dari tumpukan kartu\n");
+	printf("---\n");
+	printf("Anda mendapatkan kartu berikut ini :\n");
+	InfoKartu X = global.arrayOfCards.TabCards[i];
+	PrintCard(X);
 
 	if(i == 0) FreeTax();
 	else if (i == 1) FreePrison();
@@ -98,6 +104,7 @@ void DrawCards(){
 }
 
 void PrintCard (InfoKartu C){
+	printf(" =============== "); PrintKata(C.cardName); printf(" ===============\n");
 	printf("Card ID : %d\n", C.cardID);
 	printf("Nama Kartu: \n"); PrintKata(C.cardName); printf("\n");
 	printf("Deskripsi Kartu: \n"); PrintKata(C.cardDescription); printf("\n");

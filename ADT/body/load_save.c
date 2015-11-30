@@ -308,6 +308,7 @@ void LoadGlobalVariables(char *directory)
 		ADVKATA();
 
 		ADVKATA();
+		CreateEmptyS(&global.stackOfDefeated);
 		while(!EndKata)
 		{
 			InfoPlayer X;
@@ -417,6 +418,10 @@ void LoadGame(Kata namaSaveGame)
 	if(fileTest == NULL) puts("File tidak ditemukan");
 	else
 	{
+		if(FirstPetak(global.listOfPetak) == NULL)
+		{
+			InitUrutanBoard(); InitDataKartu();
+		}
 		LoadDataPlayers(dirDataPlayer.TabKata); puts("Player Loaded");
 		LoadDataPetak(dirDataPetak.TabKata); puts("Petak Loaded");
 		LoadGlobalVariables(dirGlobalVar.TabKata); puts("GlobalVariable Loaded");

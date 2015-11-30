@@ -54,14 +54,16 @@ void swapKata(Kata *a, Kata *b)
 void gamesystem_show_defeated()
 {
 	printf("List of Defeated Player:\n");
-	StackOfPlayer tmp;
-	tmp = global.stackOfDefeated;
+	
 	int i = 1;
-	while (Top(tmp) != Nil)
+	AddressOfPlayer P = Top(global.stackOfDefeated);
+	while (P != Nil)
 	{
 		printf("%d. ", i++);
-		PrintKata(Info(Top(tmp)).nama);
+		PrintKata(Info(P).nama);
 		printf("\n");
+
+		P = Next(P);
 	}
 }
 
