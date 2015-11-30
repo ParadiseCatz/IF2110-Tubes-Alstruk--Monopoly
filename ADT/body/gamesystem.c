@@ -205,7 +205,7 @@ void gamesystem_show_help()
 	printf("\n");
 	printf("21. Mencari tahu informasi tentang player\n");
 	printf("    Input command:\n");
-	PRINTF("    > kepo player <id player>\n");
+	PRINTF("    > kepo player <nama player>\n");
 	printf("\n");
 	printf("22. Menampilkan help ini\n");
 	printf("    Input command:\n");
