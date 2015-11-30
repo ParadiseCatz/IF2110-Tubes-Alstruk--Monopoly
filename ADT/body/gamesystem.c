@@ -212,6 +212,10 @@ boolean gamesystem_check_losing_condition()
 {
 	if (Info(global.currentPlayer).uang <= 0)
 	{
+		printf("Maaf Player ");
+		PrintKata(Info(global.currentPlayer).nama);
+		printf(" kalah\n");
+
 		AddressOfPlayer P = global.currentPlayer;
 		global.currentPlayer = Next(global.currentPlayer);
 
@@ -259,13 +263,7 @@ void gamesystem_next_player()
 		gamesystem_make_champion(Info(global.currentPlayer));
 	}
 
-	if (gamesystem_check_losing_condition())
-	{
-		printf("Maaf Player ");
-		PrintKata(Info(global.currentPlayer).nama);
-		printf(" kalah\n");
-	}
-	else
+	if (!gamesystem_check_losing_condition())
 		global.currentPlayer = Next(global.currentPlayer);
 	// Tinggal 1 Player
 	if (global.currentPlayer == Next(global.currentPlayer))
