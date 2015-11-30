@@ -105,9 +105,9 @@ void DrawCards(){
 
 void PrintCard (InfoKartu C){
 	printf(" =============== "); PrintKata(C.cardName); printf(" ===============\n");
-	printf("Card ID : %d\n", C.cardID);
-	printf("Nama Kartu: \n"); PrintKata(C.cardName); printf("\n");
-	printf("Deskripsi Kartu: \n"); PrintKata(C.cardDescription); printf("\n");
+	printf("Card ID\t\t: %d\n", C.cardID);
+	printf("Nama Kartu\t: "); PrintKata(C.cardName); printf("\n");
+	printf("Deskripsi Kartu\t: "); PrintKata(C.cardDescription); printf("\n");
 }
 
 void FreeTax(){
