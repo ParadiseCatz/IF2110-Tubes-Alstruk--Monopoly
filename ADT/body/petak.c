@@ -111,7 +111,7 @@ void PrintBoard(ListPetak L, ListPlayer P)
 	for(i=0;i<=3;i++)
 		T.T[i] = '\0';
 	i = 0; T.eff = 0;
-	while (Next(PPlay) != Nil)
+	while (Next(PPlay) != First(P))
 	{
 		PPos = Info(PPlay).posisi;
 		T.T[i] = Info(PPos).id_petak;
