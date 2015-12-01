@@ -298,6 +298,7 @@ void MajuNLangkah (InfoPlayer *X, ListPetak L, int N)
 	}
 
 	(*X).posisi = P;
+	printf("\nAnda melangkah dan sampai ke petak "); PrintKata(InfoPetak(P).nama_petak); puts("");
 	if(Info(P).id_petak == 3) GetBonus();
 	else if(Info(P).id_petak == 9) MasukPenjara(X, L);
 	else if(Info(P).id_petak == 13 || Info(P).id_petak == 21 || Info(P).id_petak == 29) DrawCards();
@@ -422,11 +423,7 @@ void PrintInfoPlayer(Kata K)
 	if (SearchByName(global.listOfPlayer, K))
 	{
 		InfoPlayer X = Info(SearchByName(global.listOfPlayer, K));
-		printf("Nama: ");
-		PrintKata(X.nama);
-		printf("\n");
-
-		printf("Uang: %d\n", X.uang);
+		PrintElmtPlayer(X);
 		return;
 	}
 	AddressOfPlayer P = Top(global.stackOfDefeated);
