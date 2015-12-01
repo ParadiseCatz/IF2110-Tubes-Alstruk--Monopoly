@@ -362,7 +362,11 @@ void gamesystem_do_action(UserAction userAction, Kata parameter)
 		case SAVE: SaveGame(parameter);
 		break;
 
-		case LOAD: LoadGame(parameter);
+		case LOAD:
+			if (LoadGame(parameter))
+			{
+				gamesystem_print_giliran_player();
+			}
 		break;
 
 		case FREE_ME: 

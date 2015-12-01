@@ -373,7 +373,7 @@ void LoadDataPlayers(char *directory)
 	}
 }
 
-void LoadGame(Kata namaSaveGame)
+boolean LoadGame(Kata namaSaveGame)
 {
 	Kata dirDataPlayer, dirDataPetak, dirGlobalVar;
 	CreateEmptyKata(&dirDataPlayer); CreateEmptyKata(&dirDataPetak); CreateEmptyKata(&dirGlobalVar);
@@ -415,7 +415,11 @@ void LoadGame(Kata namaSaveGame)
 
 	FILE *fileTest;
 	fileTest = fopen(dirDataPlayer.TabKata, "r");
-	if(fileTest == NULL) puts("File tidak ditemukan");
+	if(fileTest == NULL) 
+	{
+		puts("File tidak ditemukan");
+		return false;
+	}
 	else
 	{
 		if(FirstPetak(global.listOfPetak) == NULL)
@@ -425,6 +429,7 @@ void LoadGame(Kata namaSaveGame)
 		LoadDataPlayers(dirDataPlayer.TabKata); puts("Player Loaded");
 		LoadDataPetak(dirDataPetak.TabKata); puts("Petak Loaded");
 		LoadGlobalVariables(dirGlobalVar.TabKata); puts("GlobalVariable Loaded");
+		return true;
 	}
 	
 }
