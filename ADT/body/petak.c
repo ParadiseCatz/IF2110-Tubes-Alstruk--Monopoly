@@ -246,7 +246,7 @@ void PrintBoard(ListPetak L, ListPlayer P)
 		PAcc = Next(PAcc);
 	}
 	PrintOwner(PAcc);
-	printf("         |         |\n| ");
+	printf("         |\n| ");
 	PAcc = PPos;
 	while (Info(PPos).id_petak != 25)
 	{
