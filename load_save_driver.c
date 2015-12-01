@@ -58,51 +58,54 @@ int main()
 	/* ======================== Testing untuk LoadGame ======================== */
 
 	printf("Masukan kata kunci untuk load game : "); BacaKata(&namaFile);
-	LoadGame(namaFile);
-
-	P = FirstPetak(global.listOfPetak); 
-	do
+	if(LoadGame(namaFile))
 	{
-		InfoPetak X;
-		X = InfoPetak(P);
-		Kata namaPetak = X.nama_petak;
-		PrintPetak(namaPetak);
+		P = FirstPetak(global.listOfPetak); 
+		do
+		{
+			InfoPetak X;
+			X = InfoPetak(P);
+			Kata namaPetak = X.nama_petak;
+			PrintPetak(namaPetak);
 
-		P = NextPetak(P);
+			P = NextPetak(P);
 
-	}while(P!=FirstPetak(global.listOfPetak));
+		}while(P!=FirstPetak(global.listOfPetak));
 
-	Pl = First(global.listOfPlayer);
-	do
-	{
-		InfoPlayer X;
-		X = Info(Pl);
-		PrintElmtPlayer(X);
+		Pl = First(global.listOfPlayer);
+		do
+		{
+			InfoPlayer X;
+			X = Info(Pl);
+			PrintElmtPlayer(X);
 
-		Pl = Next(Pl);
+			Pl = Next(Pl);
 
-	} while(Pl != First(global.listOfPlayer));
+		} while(Pl != First(global.listOfPlayer));
 
-	puts("\n\nCURRENT PLAYER:");
-	PrintElmtPlayer(Info(global.currentPlayer));
+		puts("\n\nCURRENT PLAYER:");
+		PrintElmtPlayer(Info(global.currentPlayer));
 
-	puts("\n\nCURRENT WORLDCUP:");
-	if(global.currentWorldCup == NULL) puts("NULL");
-	else PrintPetak(Info(global.currentWorldCup).nama_petak);
+		puts("\n\nCURRENT WORLDCUP:");
+		if(global.currentWorldCup == NULL) puts("NULL");
+		else PrintPetak(Info(global.currentWorldCup).nama_petak);
 
-	printf("rollDiceResult : %d\n", global.diceRollResult);
-	if(global.rolldice) puts("ROLL DICE");
-	else puts("NO ROLL DICE");
+		printf("rollDiceResult : %d\n", global.diceRollResult);
+		if(global.rolldice) puts("ROLL DICE");
+		else puts("NO ROLL DICE");
 
-	puts("\n\nStackOfDefeated:");
-	while(Top(global.stackOfDefeated) != NULL)
-	{
-		InfoPlayer X;
-		Pop(&global.stackOfDefeated, &X);
-		PrintElmtPlayer(X);
+		puts("\n\nStackOfDefeated:");
+		while(Top(global.stackOfDefeated) != NULL)
+		{
+			InfoPlayer X;
+			Pop(&global.stackOfDefeated, &X);
+			PrintElmtPlayer(X);
+		}
 	}
+	else puts("Load Game Gagal");
 
 	puts("Testing LoadGame Done!\n *** ============ oOOo ============ *** ");
+	
 
 	return 0;
 }
